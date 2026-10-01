@@ -1,0 +1,92 @@
+<?php
+/**
+ * WooCommerce-Integration.
+ *
+ * Bewusst schlank: Shop, Produktseite, Warenkorb und Kasse laufen über WooCommerce-Blöcke und -Templates.
+ * Hier stehen nur Anpassungen, die sich nicht über theme.json oder Templates lösen lassen.
+ *
+ * @package HejLejo
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Header-Suche: Ist FiboSearch aktiv, ersetzt dessen Suchfeld den Core-Suchblock mit der Klasse
+ * "hejlejo-header-search". Ohne FiboSearch bleibt die normale WordPress-Produktsuche aktiv.
+ *
+ * @param string $block_content HTML des Blocks.
+ * @param array  $block         Geparster Block.
+ * @return string
+ */
+function hejlejo_header_search_fibosearch( $block_content, $block ) {
+	$class = isset( $block['attrs']['className'] ) ? $block['attrs']['className'] : '';
+
+	if ( false === strpos( $class, 'hejlejo-header-search' ) || ! shortcode_exists( 'fibosearch' ) ) {
+		return $block_content;
+	}
+
+	/**
+	 * Shortcode für die Header-Suche, z. B. um das FiboSearch-Layout zu ändern.
+	 *
+	 * @param string $shortcode Shortcode.
+	 */
+	$shortcode = apply_filters( 'hejlejo_header_search_shortcode', '[fibosearch layout="icon" mobile_overlay="1"]' );
+
+	return '<div class="hejlejo-header-search hejlejo-header-search--fibosearch">' . do_shortcode( $shortcode ) . '</div>';
+}
+add_filter( 'render_block_core/search', 'hejlejo_header_search_fibosearch', 10, 2 );
+
+/**
+ * Anzahl verwandter Produkte an das 4er-Raster anpassen.
+ *
+ * @param array $args Argumente.
+ * @return array
+ */
+function hejlejo_related_products_args( $args ) {
+	$args['posts_per_page'] = 4;
+	$args['columns']        = 4;
+	return $args;
+}
+add_filter( 'woocommerce_output_related_products_args', 'hejlejo_related_products_args' );
+
+/**
+ * Produkt-Tabs: "Zusätzliche Informationen" klarer benennen.
+ *
+ * Die Inhalte bleiben unverändert – es werden nur Beschriftungen angepasst.
+ *
+ * @param array $tabs Tabs.
+ * @return array
+ */
+function hejlejo_product_tabs( $tabs ) {
+	if ( isset( $tabs['additional_information'] ) ) {
+		$tabs['additional_information']['title'] = __( 'Details', 'hejlejo' );
+	}
+	return $tabs;
+}
+add_filter( 'woocommerce_product_tabs', 'hejlejo_product_tabs', 20 );
+
+/**
+ * Mini-Cart auf der Warenkorbseite weglassen.
+ *
+ * Dort ist der Drawer überflüssig, und der Block löst auf der Warenkorbseite
+ * eine fehlerhafte Store-API-Anfrage aus (404 auf ".../undefinedwc/store/v1/cart").
+ *
+ * @param string $block_content HTML des Blocks.
+ * @return string
+ */
+function hejlejo_hide_mini_cart_on_cart_page( $block_content ) {
+	return is_cart() ? '' : $block_content;
+}
+add_filter( 'render_block_woocommerce/mini-cart', 'hejlejo_hide_mini_cart_on_cart_page' );
+
+/**
+ * WooCommerce fügt Konto- und Mini-Cart-Block automatisch in Header ein ("Block Hooks").
+ * Der Hej-Lejo-Header enthält beide Blöcke bereits – ohne diesen Filter erschienen sie doppelt.
+ *
+ * @param string[] $hooked_block_types Automatisch eingefügte Blöcke.
+ * @return string[]
+ */
+function hejlejo_remove_hooked_woocommerce_blocks( $hooked_block_types ) {
+	return array_values( array_diff( $hooked_block_types, array( 'woocommerce/customer-account', 'woocommerce/mini-cart' ) ) );
+}
+add_filter( 'hooked_block_types', 'hejlejo_remove_hooked_woocommerce_blocks', 20 );

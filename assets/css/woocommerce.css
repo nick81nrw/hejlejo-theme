@@ -1,0 +1,1025 @@
+/**
+ * Hej Lejo – WooCommerce-Styles.
+ *
+ * Ergänzt die WooCommerce-Blöcke (Produktsammlung, Produktseite, Mini-Cart, Warenkorb, Kasse)
+ * um den ruhigen Hej-Lejo-Look. Funktionen und Markup bleiben WooCommerce-Standard,
+ * damit Germanized, Zahlungsanbieter und Swatches-Plugins unverändert funktionieren.
+ */
+
+/* -------------------------------------------------------------------------
+ * Buttons: WooCommerce an die Theme-Buttons angleichen
+ * ---------------------------------------------------------------------- */
+
+.woocommerce .button,
+.woocommerce button.button,
+.woocommerce a.button,
+.woocommerce input.button,
+.woocommerce .button.alt,
+.wc-block-components-button:not(.is-link),
+.wp-block-woocommerce-product-button .wp-block-button__link,
+.wc-block-components-product-button__button {
+	font-family: var(--wp--preset--font-family--sans);
+	font-weight: 500;
+	letter-spacing: 0.02em;
+	border-radius: var(--hejlejo-radius-s) !important;
+	border: 0;
+	min-height: 46px;
+	padding: 0.75rem 1.4rem;
+	background-color: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--surface);
+	text-decoration: none;
+	box-shadow: none;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.woocommerce .button:hover,
+.woocommerce button.button:hover,
+.woocommerce a.button:hover,
+.woocommerce .button.alt:hover,
+.wc-block-components-button:not(.is-link):hover,
+.wc-block-components-product-button__button:hover {
+	background-color: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--surface);
+}
+
+/* Sekundäre Buttons von WooCommerce (z. B. "Warenkorb anzeigen" im Mini-Cart) */
+.wc-block-components-button.outlined,
+.wc-block-mini-cart__footer-cart.wc-block-components-button,
+.woocommerce a.button.wc-forward:not(.checkout) {
+	background-color: var(--wp--preset--color--surface) !important;
+	color: var(--wp--preset--color--contrast) !important;
+	box-shadow: inset 0 0 0 1px var(--hejlejo-line) !important;
+}
+
+.wc-block-components-button.outlined:hover,
+.wc-block-mini-cart__footer-cart.wc-block-components-button:hover {
+	background-color: var(--wp--preset--color--cream) !important;
+}
+
+.woocommerce .button:disabled,
+.woocommerce .button.disabled {
+	opacity: 0.5;
+}
+
+/* Preise */
+.woocommerce-Price-amount,
+.wc-block-components-product-price {
+	font-variant-numeric: tabular-nums;
+}
+
+.wc-block-components-product-price del,
+.price del {
+	color: var(--wp--preset--color--muted);
+	font-weight: 400;
+	margin-right: 0.35em;
+}
+
+.wc-block-components-product-price ins,
+.price ins {
+	text-decoration: none;
+	color: var(--wp--preset--color--accent);
+}
+
+/* Sterne */
+.star-rating span::before,
+.wc-block-components-product-rating__stars span::before,
+.wc-block-components-product-rating-stars__stars span::before {
+	color: var(--wp--preset--color--mustard);
+}
+
+/* Germanized-Pflichtangaben dezent, aber gut lesbar */
+.hejlejo-legal-info {
+	color: var(--wp--preset--color--muted);
+	line-height: 1.4;
+}
+
+.hejlejo-legal-info .wp-block-woocommerce-gzd-product-is-empty {
+	display: none;
+}
+
+.hejlejo-legal-info a {
+	color: inherit;
+}
+
+/* -------------------------------------------------------------------------
+ * Badges & Vorteile (Theme-Blöcke)
+ * ---------------------------------------------------------------------- */
+
+.hejlejo-badges {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	margin: 0;
+}
+
+.hejlejo-badge {
+	display: inline-flex;
+	align-items: center;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	line-height: 1;
+	padding: 0.4rem 0.6rem;
+	border-radius: 999px;
+	background: var(--wp--preset--color--surface);
+	color: var(--wp--preset--color--contrast);
+}
+
+.hejlejo-badge--neu,
+.hejlejo-badge--new {
+	background: var(--wp--preset--color--sage-light);
+	color: var(--wp--preset--color--sage-dark);
+}
+
+.hejlejo-badge--bestseller {
+	background: var(--wp--preset--color--apricot-light);
+	color: #7a4a2a;
+}
+
+.hejlejo-badge--sale {
+	background: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--surface);
+}
+
+.hejlejo-badge--handmade {
+	background: var(--wp--preset--color--rose-light);
+	color: #7c3f36;
+}
+
+.hejlejo-badge--sofortdownload {
+	background: var(--wp--preset--color--cream);
+	color: var(--wp--preset--color--contrast);
+}
+
+.hejlejo-highlights__list {
+	list-style: none;
+	margin: 0;
+	padding: var(--wp--preset--spacing--30) 0 0;
+	display: grid;
+	gap: 0.6rem;
+	border-top: 1px solid var(--hejlejo-line-soft);
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.hejlejo-highlights__item {
+	display: flex;
+	gap: 0.65rem;
+	align-items: flex-start;
+	line-height: 1.45;
+}
+
+.hejlejo-highlights__item .hejlejo-icon {
+	flex-shrink: 0;
+	width: 22px;
+	height: 22px;
+	color: var(--wp--preset--color--accent);
+}
+
+.hejlejo-highlights__item strong {
+	font-weight: 600;
+}
+
+.hejlejo-highlights.is-preview .hejlejo-highlights__item::before {
+	content: "♡";
+	color: var(--wp--preset--color--accent);
+}
+
+.hejlejo-highlights__hint {
+	font-size: var(--wp--preset--font-size--x-small);
+	color: var(--wp--preset--color--muted);
+}
+
+/* -------------------------------------------------------------------------
+ * Produktkarten (Produktsammlung)
+ * ---------------------------------------------------------------------- */
+
+.hejlejo-products .wc-block-product-template {
+	display: grid !important;
+	grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+	gap: var(--wp--preset--spacing--40) var(--wp--preset--spacing--30) !important;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+@media (min-width: 782px) {
+	.hejlejo-products .wc-block-product-template.columns-4,
+	.hejlejo-products .wc-block-product-template.columns-5,
+	.hejlejo-products .wc-block-product-template.columns-6 {
+		grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+	}
+
+	.hejlejo-products .wc-block-product-template.columns-3 {
+		grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+	}
+}
+
+@media (min-width: 1080px) {
+	.hejlejo-products .wc-block-product-template.columns-4 {
+		grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+	}
+
+	.hejlejo-products .wc-block-product-template.columns-5,
+	.hejlejo-products .wc-block-product-template.columns-6 {
+		grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+	}
+}
+
+@media (min-width: 1280px) {
+	.hejlejo-products .wc-block-product-template.columns-5 {
+		grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+	}
+
+	.hejlejo-products .wc-block-product-template.columns-6 {
+		grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+	}
+}
+
+.hejlejo-products .wc-block-product {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: auto !important;
+	margin: 0 !important;
+	text-align: left;
+}
+
+.hejlejo-card__media {
+	position: relative;
+	margin: 0;
+	border-radius: var(--hejlejo-radius);
+	overflow: hidden;
+	background: var(--wp--preset--color--cream);
+}
+
+.hejlejo-card__media .wc-block-components-product-image {
+	margin: 0 !important;
+}
+
+.hejlejo-card__media img {
+	display: block;
+	width: 100%;
+	transition: transform 0.5s ease;
+}
+
+.hejlejo-products .wc-block-product:hover .hejlejo-card__media img {
+	transform: scale(1.03);
+}
+
+.hejlejo-card__badges {
+	position: absolute;
+	top: 0.6rem;
+	left: 0.6rem;
+	right: 0.6rem;
+	z-index: 2;
+	pointer-events: none;
+}
+
+.hejlejo-card__body {
+	margin-top: 0.75rem !important;
+}
+
+.hejlejo-card__body > * {
+	margin: 0 !important;
+}
+
+.hejlejo-card__cat {
+	font-size: 0.6875rem !important;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--accent);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%;
+}
+
+.hejlejo-card__cat a {
+	color: inherit;
+}
+
+.hejlejo-card__title {
+	font-family: var(--wp--preset--font-family--sans) !important;
+	font-weight: 500 !important;
+	line-height: 1.35 !important;
+	letter-spacing: 0 !important;
+}
+
+.hejlejo-card__title a {
+	color: var(--wp--preset--color--contrast);
+}
+
+/* Ganze Karte klickbar über den Titel-Link */
+.hejlejo-card__title a::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+}
+
+.hejlejo-card__title a:hover {
+	color: var(--wp--preset--color--accent);
+}
+
+.hejlejo-products .wc-block-product:focus-within {
+	outline: var(--hejlejo-focus);
+	outline-offset: 4px;
+	border-radius: var(--hejlejo-radius);
+}
+
+.hejlejo-products .wc-block-product :focus-visible {
+	outline: none;
+}
+
+.hejlejo-card__price {
+	margin-top: 0.15rem !important;
+}
+
+.hejlejo-card__price .wc-block-components-product-price {
+	text-align: left !important;
+	font-weight: 500;
+}
+
+.hejlejo-card__body .hejlejo-legal-info {
+	font-size: 0.6875rem;
+}
+
+/* Elemente, die über dem Karten-Link klickbar bleiben müssen */
+.hejlejo-card__cat a,
+.hejlejo-legal-info a,
+.hejlejo-card__button {
+	position: relative;
+	z-index: 2;
+}
+
+.hejlejo-card__button .wp-block-button__link {
+	min-height: 40px;
+	padding: 0.5rem 1rem;
+	background: var(--wp--preset--color--surface);
+	color: var(--wp--preset--color--contrast);
+	box-shadow: inset 0 0 0 1px var(--hejlejo-line-soft);
+}
+
+/* Shop-Archiv */
+.hejlejo-archive-head > * {
+	margin-block: 0;
+}
+
+.hejlejo-archive-head .wp-block-term-description {
+	color: var(--wp--preset--color--muted);
+}
+
+.hejlejo-archive-toolbar {
+	border-top: 1px solid var(--hejlejo-line-soft);
+	padding-top: var(--wp--preset--spacing--20);
+}
+
+.hejlejo-archive-toolbar > * {
+	margin: 0 !important;
+}
+
+.woocommerce-ordering select,
+.wc-block-catalog-sorting select {
+	min-height: 40px;
+	padding-block: 0.3rem;
+	border-radius: 999px;
+	padding-inline: 1rem 2rem;
+	background-color: var(--wp--preset--color--surface);
+}
+
+.woocommerce-result-count {
+	color: var(--wp--preset--color--muted);
+	margin: 0;
+}
+
+.woocommerce-breadcrumb,
+.wc-block-breadcrumbs {
+	color: var(--wp--preset--color--muted);
+	margin: 0;
+}
+
+.woocommerce-breadcrumb a,
+.wc-block-breadcrumbs a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.woocommerce-breadcrumb a:hover {
+	text-decoration: underline;
+}
+
+/* Produktsammlung: Sale-Badge von WooCommerce ausblenden – das Theme-Badge zeigt "Sale" */
+.hejlejo-products .wc-block-components-product-sale-badge {
+	display: none;
+}
+
+/* -------------------------------------------------------------------------
+ * Produktseite
+ * ---------------------------------------------------------------------- */
+
+.hejlejo-product__main {
+	margin-top: var(--wp--preset--spacing--30) !important;
+}
+
+@media (min-width: 782px) {
+	.hejlejo-product__summary {
+		position: sticky;
+		top: calc(var(--hejlejo-header-offset) + 96px);
+		align-self: flex-start;
+	}
+}
+
+.hejlejo-product__summary > * {
+	margin-block: 0;
+}
+
+.hejlejo-product__summary .wp-block-post-title {
+	line-height: 1.1;
+}
+
+.hejlejo-product__cat {
+	font-size: var(--wp--preset--font-size--x-small);
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--accent);
+}
+
+.hejlejo-product__cat a {
+	color: inherit;
+}
+
+.hejlejo-product__price .wc-block-components-product-price {
+	font-family: var(--wp--preset--font-family--sans);
+	font-weight: 500;
+}
+
+.hejlejo-product__summary .hejlejo-legal-info {
+	margin-top: -0.25rem !important;
+}
+
+.hejlejo-product__excerpt {
+	color: var(--wp--preset--color--muted);
+	margin-top: var(--wp--preset--spacing--10) !important;
+}
+
+.hejlejo-product__excerpt p {
+	margin: 0;
+}
+
+/* Galerie */
+.hejlejo-product__gallery .woocommerce-product-gallery {
+	position: relative;
+	margin: 0;
+	width: 100% !important;
+	float: none !important;
+}
+
+.hejlejo-product__gallery .woocommerce-product-gallery__wrapper,
+.hejlejo-product__gallery .flex-viewport {
+	border-radius: var(--hejlejo-radius);
+	overflow: hidden;
+	background: var(--wp--preset--color--cream);
+}
+
+.hejlejo-product__gallery .woocommerce-product-gallery__image img {
+	display: block;
+	width: 100%;
+}
+
+.hejlejo-product__gallery .flex-control-thumbs {
+	display: grid !important;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+	gap: 0.6rem;
+	margin: 0.75rem 0 0 !important;
+	padding: 0 !important;
+	list-style: none;
+}
+
+.hejlejo-product__gallery .flex-control-thumbs li {
+	width: auto !important;
+	float: none !important;
+	margin: 0 !important;
+}
+
+.hejlejo-product__gallery .flex-control-thumbs img {
+	border-radius: var(--hejlejo-radius-s);
+	opacity: 0.6;
+	cursor: pointer;
+	transition: opacity 0.2s ease;
+}
+
+.hejlejo-product__gallery .flex-control-thumbs img.flex-active,
+.hejlejo-product__gallery .flex-control-thumbs img:hover {
+	opacity: 1;
+}
+
+.hejlejo-product__gallery .woocommerce-product-gallery__trigger {
+	position: absolute;
+	top: 0.75rem;
+	right: 0.75rem;
+	z-index: 5;
+	width: 44px;
+	height: 44px;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.9);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 0;
+	text-decoration: none;
+}
+
+.hejlejo-product__gallery .woocommerce-product-gallery__trigger::before {
+	content: "";
+	width: 18px;
+	height: 18px;
+	border: 1.5px solid var(--wp--preset--color--contrast);
+	border-radius: 50%;
+	box-sizing: border-box;
+}
+
+.hejlejo-product__gallery .woocommerce-product-gallery__trigger img {
+	display: none !important;
+}
+
+/* Warenkorb-Formular */
+.hejlejo-product__summary form.cart {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	align-items: stretch;
+	margin: var(--wp--preset--spacing--20) 0 0;
+}
+
+.hejlejo-product__summary form.cart .quantity input.qty {
+	width: 4.5rem;
+	height: 52px;
+	min-height: 52px;
+	text-align: center;
+	padding: 0.5rem;
+}
+
+.hejlejo-product__summary .single_add_to_cart_button {
+	flex: 1 1 12rem;
+	min-height: 52px;
+	font-size: var(--wp--preset--font-size--medium) !important;
+}
+
+.hejlejo-product__summary form.variations_form {
+	display: block;
+}
+
+.hejlejo-product__summary table.variations {
+	width: 100%;
+	border: 0;
+	margin: 0 0 0.75rem;
+	border-collapse: collapse;
+}
+
+.hejlejo-product__summary table.variations th,
+.hejlejo-product__summary table.variations td {
+	display: block;
+	text-align: left;
+	padding: 0;
+	border: 0;
+	background: none;
+}
+
+.hejlejo-product__summary table.variations th label {
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 600;
+	display: block;
+	margin: 0.75rem 0 0.35rem;
+}
+
+.hejlejo-product__summary table.variations select {
+	width: 100%;
+}
+
+.hejlejo-product__summary .reset_variations {
+	display: inline-block;
+	margin-top: 0.4rem;
+	font-size: var(--wp--preset--font-size--x-small);
+	color: var(--wp--preset--color--muted);
+}
+
+.hejlejo-product__summary .woocommerce-variation-add-to-cart {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+}
+
+.hejlejo-product__summary .woocommerce-variation-price {
+	margin-bottom: 0.5rem;
+	font-weight: 500;
+}
+
+.hejlejo-product__summary .stock {
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--sage-dark);
+}
+
+.hejlejo-product__summary .stock.out-of-stock {
+	color: var(--wp--preset--color--accent);
+}
+
+.hejlejo-product__meta {
+	color: var(--wp--preset--color--muted);
+	font-size: var(--wp--preset--font-size--x-small);
+}
+
+.hejlejo-product__meta .wc-block-components-product-sku {
+	margin: 0;
+}
+
+/* Tabs (Beschreibung, Details, Bewertungen und Tabs von Plugins wie Germanized) */
+.hejlejo-product__details .woocommerce-tabs {
+	margin: 0 0 var(--wp--preset--spacing--50);
+}
+
+.hejlejo-product__details .woocommerce-tabs ul.tabs {
+	display: flex;
+	gap: 0.25rem var(--wp--preset--spacing--30);
+	list-style: none;
+	margin: 0 0 var(--wp--preset--spacing--40) !important;
+	padding: 0 !important;
+	border-bottom: 1px solid var(--hejlejo-line-soft);
+	overflow-x: auto;
+	scrollbar-width: none;
+	-webkit-overflow-scrolling: touch;
+}
+
+.hejlejo-product__details .woocommerce-tabs ul.tabs::before,
+.hejlejo-product__details .woocommerce-tabs ul.tabs::after,
+.hejlejo-product__details .woocommerce-tabs ul.tabs li::before,
+.hejlejo-product__details .woocommerce-tabs ul.tabs li::after {
+	display: none !important;
+}
+
+.hejlejo-product__details .woocommerce-tabs ul.tabs li {
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	background: none !important;
+	border-radius: 0 !important;
+	flex-shrink: 0;
+}
+
+.hejlejo-product__details .woocommerce-tabs ul.tabs li a {
+	display: inline-block;
+	padding: 0.75rem 0 !important;
+	font-weight: 500;
+	color: var(--wp--preset--color--muted) !important;
+	text-decoration: none;
+	border-bottom: 2px solid transparent;
+	margin-bottom: -1px;
+}
+
+.hejlejo-product__details .woocommerce-tabs ul.tabs li.active a,
+.hejlejo-product__details .woocommerce-tabs ul.tabs li a:hover {
+	color: var(--wp--preset--color--contrast) !important;
+	border-bottom-color: var(--wp--preset--color--accent);
+}
+
+.hejlejo-product__details .woocommerce-Tabs-panel {
+	margin: 0 !important;
+}
+
+.hejlejo-product__details .woocommerce-Tabs-panel > h2:first-child {
+	font-size: var(--wp--preset--font-size--x-large);
+}
+
+.hejlejo-product__details table.shop_attributes {
+	border: 0;
+	width: 100%;
+}
+
+.hejlejo-product__details table.shop_attributes th,
+.hejlejo-product__details table.shop_attributes td {
+	border: 0;
+	border-bottom: 1px solid var(--hejlejo-line-soft);
+	padding: 0.65rem 0;
+	text-align: left;
+	background: none !important;
+	font-style: normal;
+}
+
+.hejlejo-product__details table.shop_attributes th {
+	width: 35%;
+	font-weight: 600;
+}
+
+.hejlejo-product__details table.shop_attributes td p {
+	margin: 0;
+}
+
+.hejlejo-product-info {
+	margin-top: var(--wp--preset--spacing--40) !important;
+}
+
+/* Bewertungen */
+#reviews .commentlist {
+	list-style: none;
+	padding: 0;
+}
+
+#reviews .comment_container {
+	display: flex;
+	gap: 1rem;
+}
+
+#reviews img.avatar {
+	border-radius: 50%;
+	width: 48px;
+	height: 48px;
+}
+
+/* -------------------------------------------------------------------------
+ * Mini-Cart (Warenkorb-Drawer)
+ * ---------------------------------------------------------------------- */
+
+.wc-block-mini-cart__badge {
+	background: var(--wp--preset--color--accent) !important;
+	color: var(--wp--preset--color--surface) !important;
+	border: 0 !important;
+	font-weight: 600;
+}
+
+.wc-block-mini-cart__drawer .wc-block-mini-cart__title,
+.wc-block-mini-cart__drawer h2 {
+	font-family: var(--wp--preset--font-family--serif);
+	font-weight: 500;
+}
+
+.wc-block-mini-cart__drawer .components-modal__content,
+.wc-block-mini-cart__drawer .wc-block-components-drawer__content {
+	background: var(--wp--preset--color--base);
+}
+
+.wc-block-mini-cart__drawer .wc-block-mini-cart__footer {
+	background: var(--wp--preset--color--surface);
+	box-shadow: 0 -1px 0 var(--hejlejo-line-soft);
+}
+
+.wc-block-components-product-name {
+	color: var(--wp--preset--color--contrast);
+	font-weight: 500;
+	text-decoration: none;
+}
+
+/* -------------------------------------------------------------------------
+ * Warenkorb & Kasse (Blocks und klassisch)
+ * ---------------------------------------------------------------------- */
+
+.hejlejo-cart .wp-block-post-title,
+.hejlejo-checkout .wp-block-post-title {
+	margin-bottom: var(--wp--preset--spacing--40);
+}
+
+.wc-block-components-text-input input,
+.wc-block-components-text-input textarea,
+.wc-blocks-components-select .wc-blocks-components-select__select,
+.wc-block-components-combobox .wc-block-components-combobox-control input,
+.wc-block-components-textarea {
+	border-radius: var(--hejlejo-radius-s) !important;
+	border-color: var(--hejlejo-line) !important;
+	background-color: var(--wp--preset--color--surface) !important;
+}
+
+.wc-block-components-text-input.is-active input:focus,
+.wc-block-components-text-input input:focus {
+	box-shadow: 0 0 0 1px var(--wp--preset--color--accent) !important;
+	border-color: var(--wp--preset--color--accent) !important;
+}
+
+.wc-block-components-sidebar-layout .wc-block-components-sidebar,
+.wp-block-woocommerce-checkout-order-summary-block,
+.wc-block-cart__totals-title {
+	border-radius: var(--hejlejo-radius);
+}
+
+.wp-block-woocommerce-checkout-order-summary-block {
+	background: var(--wp--preset--color--surface);
+	border-color: var(--hejlejo-line-soft) !important;
+}
+
+.wc-block-components-checkout-step__title,
+.wc-block-cart__totals-title,
+.wc-block-components-title {
+	font-family: var(--wp--preset--font-family--serif) !important;
+	font-weight: 500 !important;
+	font-size: var(--wp--preset--font-size--large) !important;
+	text-transform: none !important;
+	letter-spacing: 0 !important;
+}
+
+.wc-block-components-radio-control__option,
+.wc-block-components-radio-control-accordion-option {
+	border-radius: var(--hejlejo-radius-s);
+}
+
+.wc-block-components-totals-wrapper {
+	border-color: var(--hejlejo-line-soft) !important;
+}
+
+.wc-block-components-checkout-place-order-button,
+.wc-block-cart__submit-button {
+	min-height: 54px;
+	font-size: var(--wp--preset--font-size--medium) !important;
+}
+
+/* Klassische Kasse/Warenkorb (Shortcode-Seiten) */
+.woocommerce table.shop_table {
+	border: 1px solid var(--hejlejo-line-soft);
+	border-radius: var(--hejlejo-radius);
+	border-collapse: separate;
+	background: var(--wp--preset--color--surface);
+}
+
+.woocommerce table.shop_table th,
+.woocommerce table.shop_table td {
+	border-color: var(--hejlejo-line-soft);
+	padding: 0.85rem 1rem;
+}
+
+.woocommerce form .form-row label {
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 500;
+}
+
+.woocommerce form .form-row .input-text,
+.woocommerce form .form-row select {
+	width: 100%;
+}
+
+#payment,
+.woocommerce-checkout #payment {
+	background: var(--wp--preset--color--cream);
+	border-radius: var(--hejlejo-radius);
+}
+
+/* Hinweise */
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error,
+.wc-block-components-notice-banner {
+	border-radius: var(--hejlejo-radius-s) !important;
+	border: 0 !important;
+	border-left: 3px solid var(--wp--preset--color--sage) !important;
+	background: var(--wp--preset--color--surface) !important;
+	box-shadow: var(--hejlejo-shadow);
+	color: var(--wp--preset--color--contrast) !important;
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.woocommerce-error,
+.wc-block-components-notice-banner.is-error {
+	border-left-color: var(--wp--preset--color--accent) !important;
+}
+
+.woocommerce-message::before,
+.woocommerce-info::before {
+	color: var(--wp--preset--color--sage-dark);
+}
+
+.wc-block-components-notice-banner > svg {
+	background-color: var(--wp--preset--color--sage-dark) !important;
+}
+
+.wc-block-components-notice-banner.is-error > svg {
+	background-color: var(--wp--preset--color--accent) !important;
+}
+
+/* -------------------------------------------------------------------------
+ * Mein Konto (klassisch)
+ * ---------------------------------------------------------------------- */
+
+.woocommerce-account .woocommerce {
+	display: grid;
+	gap: var(--wp--preset--spacing--40);
+}
+
+@media (min-width: 782px) {
+	.woocommerce-account.logged-in .woocommerce {
+		grid-template-columns: 240px minmax(0, 1fr);
+		align-items: start;
+	}
+}
+
+.woocommerce-account .woocommerce::before,
+.woocommerce-account .woocommerce::after {
+	display: none !important;
+}
+
+.woocommerce-MyAccount-navigation,
+.woocommerce-MyAccount-content {
+	float: none !important;
+	width: auto !important;
+}
+
+.woocommerce-MyAccount-navigation ul {
+	list-style: none;
+	margin: 0;
+	padding: 0.5rem;
+	background: var(--wp--preset--color--surface);
+	border-radius: var(--hejlejo-radius);
+	box-shadow: var(--hejlejo-shadow);
+}
+
+.woocommerce-MyAccount-navigation a {
+	display: block;
+	padding: 0.65rem 0.9rem;
+	border-radius: var(--hejlejo-radius-s);
+	text-decoration: none;
+	color: var(--wp--preset--color--contrast);
+}
+
+.woocommerce-MyAccount-navigation .is-active a,
+.woocommerce-MyAccount-navigation a:hover {
+	background: var(--wp--preset--color--cream);
+}
+
+@media (max-width: 781px) {
+	.woocommerce-MyAccount-navigation ul {
+		display: flex;
+		overflow-x: auto;
+		gap: 0.25rem;
+		scrollbar-width: none;
+	}
+
+	.woocommerce-MyAccount-navigation li {
+		flex-shrink: 0;
+	}
+}
+
+.woocommerce-account .u-columns,
+.woocommerce-account #customer_login {
+	display: grid;
+	gap: var(--wp--preset--spacing--40);
+}
+
+@media (min-width: 782px) {
+	.woocommerce-account #customer_login {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+.woocommerce-account #customer_login .u-column1,
+.woocommerce-account #customer_login .u-column2 {
+	width: auto !important;
+	float: none !important;
+	background: var(--wp--preset--color--surface);
+	padding: var(--wp--preset--spacing--40);
+	border-radius: var(--hejlejo-radius);
+	box-shadow: var(--hejlejo-shadow);
+}
+
+.woocommerce form.login,
+.woocommerce form.register {
+	border: 0 !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+/* FiboSearch an Theme-Farben anpassen */
+.dgwt-wcas-search-wrapp .dgwt-wcas-sf-wrapp input[type="search"].dgwt-wcas-search-input {
+	border-radius: 999px;
+	border-color: var(--hejlejo-line);
+	font-family: var(--wp--preset--font-family--sans);
+}
+
+.dgwt-wcas-ico-magnifier-handler,
+.hejlejo-header-search--fibosearch .dgwt-wcas-ico-magnifier {
+	fill: var(--wp--preset--color--contrast);
+}
+
+/* Germanized: Hinweis zur gesetzlichen Gewährleistung (wird nach dem Footer ausgegeben) */
+.wc-gzd-legal-guarantee-footer {
+	margin: 0 !important;
+	padding: 0 var(--wp--preset--spacing--30) var(--wp--preset--spacing--50);
+	background: var(--wp--preset--color--cream);
+}
+
+.wc-gzd-legal-guarantee-footer img {
+	border-radius: var(--hejlejo-radius-s);
+	box-shadow: var(--hejlejo-shadow);
+}
+
+/* WooCommerce begrenzt die Galerie standardmäßig auf 512px – hier volle Spaltenbreite */
+.hejlejo-product__gallery .wp-block-woocommerce-product-image-gallery {
+	max-width: none;
+	width: 100%;
+}
+
+.hejlejo-product__summary table.variations select,
+.woocommerce-ordering select {
+	height: auto;
+	line-height: 1.4;
+	padding-block: 0.6rem;
+}
+
+.hejlejo-product__summary .single_variation_wrap .woocommerce-variation:empty,
+.hejlejo-product__summary .single_variation_wrap .woocommerce-variation[style*="display: none"] {
+	display: none !important;
+}

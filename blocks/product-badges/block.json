@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "hejlejo/product-badges",
+	"title": "Produkt-Badges",
+	"category": "woocommerce",
+	"icon": "tag",
+	"description": "Kleine Badges wie „Neu“, „Bestseller“, „Sale“ oder „Sofort-Download“ – aus Schlagwörtern und Produktdaten.",
+	"keywords": [ "badge", "label", "neu", "bestseller", "hej lejo" ],
+	"textdomain": "hejlejo",
+	"usesContext": [ "postId", "postType" ],
+	"attributes": {
+		"showSale": { "type": "boolean", "default": true },
+		"showDownload": { "type": "boolean", "default": true },
+		"newDays": { "type": "number", "default": 0 }
+	},
+	"supports": {
+		"html": false,
+		"spacing": { "margin": true }
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php"
+}

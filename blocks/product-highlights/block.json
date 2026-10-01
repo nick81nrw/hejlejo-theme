@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "hejlejo/product-highlights",
+	"title": "Produkt-Vorteile",
+	"category": "woocommerce",
+	"icon": "yes-alt",
+	"description": "Zeigt wichtige Vorteile eines Produkts (z. B. Sofort-Download, Dateiformat, Lizenz) – automatisch aus den vorhandenen Produktdaten.",
+	"keywords": [ "vorteile", "download", "lizenz", "hej lejo" ],
+	"textdomain": "hejlejo",
+	"usesContext": [ "postId", "postType" ],
+	"attributes": {
+		"promise": {
+			"type": "string",
+			"default": "Eigenes Design – mit Liebe gestaltet"
+		}
+	},
+	"supports": {
+		"html": false,
+		"multiple": false,
+		"spacing": { "margin": true }
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php"
+}
