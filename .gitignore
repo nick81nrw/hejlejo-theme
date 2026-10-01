@@ -1,0 +1,17 @@
+# Betriebssystem / Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Abhängigkeiten / Builds (derzeit nicht verwendet)
+node_modules/
+vendor/
+*.zip
+
+# Niemals Zugangsdaten committen
+.env
+.env.*
+wp-config.php
+*.log

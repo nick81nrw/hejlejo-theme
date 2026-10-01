@@ -1,0 +1,26 @@
+/**
+ * Hej Lejo – Anpassungen nur für den Editor.
+ */
+
+/* Im Editor kein Sticky-Header, damit Blöcke gut erreichbar bleiben. */
+.editor-styles-wrapper .site-header {
+	position: relative;
+	top: auto;
+}
+
+/* Theme-Blöcke: Vorschau kenntlich machen */
+.editor-styles-wrapper .is-preview {
+	outline: 1px dashed var(--wp--preset--color--beige);
+	outline-offset: 4px;
+}
+
+.editor-styles-wrapper .hejlejo-badges.is-preview {
+	padding: 0.25rem;
+}
+
+/* Gestreckte Links sollen im Editor das Anklicken einzelner Blöcke nicht verhindern. */
+.editor-styles-wrapper .hejlejo-tile__title a::after,
+.editor-styles-wrapper .hejlejo-occasion__label a::after,
+.editor-styles-wrapper .hejlejo-card__title a::after {
+	display: none;
+}
