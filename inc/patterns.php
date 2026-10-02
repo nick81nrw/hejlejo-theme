@@ -145,7 +145,7 @@ function hejlejo_product_card_markup( $heading_level = '3', $with_button = false
 	$level  = absint( $heading_level );
 	$markup = '<!-- wp:group {"className":"hejlejo-card__media","layout":{"type":"default"}} -->
 <div class="wp-block-group hejlejo-card__media">
-<!-- wp:woocommerce/product-image {"showSaleBadge":false,"imageSizing":"thumbnail","isDescendentOfQueryLoop":true,"aspectRatio":"4/5"} /-->
+<!-- wp:woocommerce/product-image {"showSaleBadge":false,"imageSizing":"thumbnail","isDescendentOfQueryLoop":true,"aspectRatio":"1"} /-->
 <!-- wp:hejlejo/product-badges {"className":"hejlejo-card__badges"} /-->
 </div>
 <!-- /wp:group -->

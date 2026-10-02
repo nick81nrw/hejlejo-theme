@@ -33,6 +33,9 @@ function hejlejo_register_block_styles() {
 			'arch'   => __( 'Bogen', 'hejlejo' ),
 			'circle' => __( 'Kreis', 'hejlejo' ),
 		),
+		'core/site-logo'  => array(
+			'dark' => __( 'Dunkel einfärben (für helle Logos)', 'hejlejo' ),
+		),
 		'core/paragraph'  => array(
 			'eyebrow' => __( 'Dachzeile', 'hejlejo' ),
 		),

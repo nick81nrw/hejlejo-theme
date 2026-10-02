@@ -299,6 +299,17 @@
 	color: inherit;
 }
 
+/* Nur die erste Kategorie als Dachzeile zeigen – mehrere Kategorien würden die Karte unruhig machen. */
+.hejlejo-card__cat .wp-block-post-terms__separator,
+.hejlejo-card__cat .wp-block-post-terms__separator ~ a {
+	display: none;
+}
+
+/* Quadratische Produktbilder (Produktfotos sind meist 1:1) */
+.hejlejo-card__media .wc-block-components-product-image img {
+	aspect-ratio: 1 / 1 !important;
+}
+
 .hejlejo-card__title {
 	font-family: var(--wp--preset--font-family--sans) !important;
 	font-weight: 500 !important;
@@ -343,6 +354,25 @@
 
 .hejlejo-card__body .hejlejo-legal-info {
 	font-size: 0.6875rem;
+}
+
+/*
+ * In Shop-Archiven fügt Germanized seine Pflichtangaben selbst in die Karte ein.
+ * Dann die Theme-Blöcke ausblenden, damit nichts doppelt erscheint.
+ */
+.wc-block-product:has(.wc-gzd-additional-info-loop) .hejlejo-legal-info {
+	display: none;
+}
+
+.hejlejo-products .wc-gzd-additional-info-loop {
+	margin: 0.15rem 0 0 !important;
+	font-size: 0.6875rem !important;
+	line-height: 1.4;
+	color: var(--wp--preset--color--muted);
+}
+
+.hejlejo-products .wc-gzd-additional-info-loop a {
+	color: inherit;
 }
 
 /* Elemente, die über dem Karten-Link klickbar bleiben müssen */

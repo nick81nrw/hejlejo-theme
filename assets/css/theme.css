@@ -207,6 +207,12 @@ a {
 	width: auto;
 }
 
+/* Stil "Dunkel einfärben" für helle/weiße Logos auf hellem Hintergrund */
+.wp-block-site-logo.is-style-dark img {
+	filter: brightness(0);
+	opacity: 0.82;
+}
+
 /* Gibt es ein Logo-Bild, wird der Text-Schriftzug ausgeblendet. */
 .hejlejo-header__brand:has(.wp-block-site-logo img) .hejlejo-wordmark {
 	display: none;
@@ -452,7 +458,11 @@ a {
 	z-index: 2;
 	width: 100% !important;
 	max-width: var(--wp--style--global--wide-size, 1320px);
-	margin-inline: auto;
+	margin-inline: auto !important;
+}
+
+.wp-block-cover.is-style-hero .wp-block-cover__inner-container > .hejlejo-hero__trust {
+	margin-left: 0 !important;
 }
 
 .wp-block-cover.is-style-hero::before {

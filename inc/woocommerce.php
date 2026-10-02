@@ -90,3 +90,31 @@ function hejlejo_remove_hooked_woocommerce_blocks( $hooked_block_types ) {
 	return array_values( array_diff( $hooked_block_types, array( 'woocommerce/customer-account', 'woocommerce/mini-cart' ) ) );
 }
 add_filter( 'hooked_block_types', 'hejlejo_remove_hooked_woocommerce_blocks', 20 );
+
+/**
+ * Standard-Produktkategorie ("Unkategorisiert") im Frontend nicht als Kategorie anzeigen.
+ *
+ * Betrifft nur die Ausgabe (z. B. Dachzeile der Produktkarten); die Zuordnung der Produkte bleibt unverändert.
+ *
+ * @param WP_Term[]|false|WP_Error $terms    Begriffe.
+ * @param int                      $post_id  Beitrags-ID.
+ * @param string                   $taxonomy Taxonomie.
+ * @return WP_Term[]|false|WP_Error
+ */
+function hejlejo_hide_default_product_cat( $terms, $post_id, $taxonomy ) {
+	if ( 'product_cat' !== $taxonomy || is_admin() || ! is_array( $terms ) || count( $terms ) < 2 ) {
+		return $terms;
+	}
+
+	$default = (int) get_option( 'default_product_cat', 0 );
+
+	return array_values(
+		array_filter(
+			$terms,
+			function ( $term ) use ( $default ) {
+				return (int) $term->term_id !== $default;
+			}
+		)
+	);
+}
+add_filter( 'get_the_terms', 'hejlejo_hide_default_product_cat', 10, 3 );
