@@ -766,7 +766,7 @@
 
 .wc-block-mini-cart__drawer .wc-block-mini-cart__title,
 .wc-block-mini-cart__drawer h2 {
-	font-family: var(--wp--preset--font-family--serif);
+	font-family: var(--wp--preset--font-family--sans);
 	font-weight: 500;
 }
 
@@ -825,7 +825,7 @@
 .wc-block-components-checkout-step__title,
 .wc-block-cart__totals-title,
 .wc-block-components-title {
-	font-family: var(--wp--preset--font-family--serif) !important;
+	font-family: var(--wp--preset--font-family--sans) !important;
 	font-weight: 500 !important;
 	font-size: var(--wp--preset--font-size--large) !important;
 	text-transform: none !important;
@@ -1052,63 +1052,8 @@
 }
 
 /* -------------------------------------------------------------------------
- * Shop: Filter-Sidebar (WooCommerce-Block "Produktfilter")
+ * Shop: Seitenleiste
  * ---------------------------------------------------------------------- */
-
-.hejlejo-filters {
-	--wc-product-filters-text-color: var(--wp--preset--color--contrast) !important;
-	--wc-product-filters-background-color: var(--wp--preset--color--base) !important;
-	font-size: var(--wp--preset--font-size--small);
-}
-
-.hejlejo-filters .hejlejo-filters__title {
-	font-family: var(--wp--preset--font-family--sans);
-	font-size: var(--wp--preset--font-size--x-small);
-	font-weight: 700;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
-}
-
-.hejlejo-filters h3 {
-	font-family: var(--wp--preset--font-family--sans);
-	font-size: var(--wp--preset--font-size--small);
-	font-weight: 700;
-	letter-spacing: 0;
-	padding-top: var(--wp--preset--spacing--20);
-	border-top: 1px solid var(--hejlejo-line-soft);
-}
-
-.hejlejo-filters .wc-block-product-filter-checkbox-list__label {
-	min-height: 32px;
-}
-
-.hejlejo-filters .wc-block-product-filter-checkbox-list__input:checked {
-	background-color: var(--wp--preset--color--green);
-	border-color: var(--wp--preset--color--green);
-}
-
-.hejlejo-filters .wc-block-product-filter-removable-chips__chip {
-	background: var(--wp--preset--color--sage-light);
-	border: 0;
-	border-radius: 999px;
-}
-
-.hejlejo-filters .wc-block-product-filter-clear-button .wp-block-button__link {
-	background: transparent;
-	color: var(--wp--preset--color--contrast);
-	box-shadow: inset 0 0 0 1px var(--hejlejo-line);
-	min-height: 36px;
-	font-size: var(--wp--preset--font-size--x-small);
-}
-
-.hejlejo-filters .wc-block-product-filters__open-overlay {
-	min-height: 44px;
-	padding: 0.5rem 1rem;
-	border: 1px solid var(--hejlejo-line);
-	border-radius: 999px;
-	background: var(--wp--preset--color--surface);
-	font-weight: 600;
-}
 
 @media (min-width: 782px) {
 	.hejlejo-shop-layout__filters {
@@ -1124,5 +1069,142 @@
 @media (max-width: 781px) {
 	.hejlejo-shop-layout__filters {
 		flex-basis: auto !important;
+	}
+}
+
+/* -------------------------------------------------------------------------
+ * Kategorie-Navigation (Shop-Seitenleiste)
+ * ---------------------------------------------------------------------- */
+
+.hejlejo-catnav {
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--20);
+}
+
+.hejlejo-catnav__title {
+	margin: 0;
+	font-size: var(--wp--preset--font-size--x-small);
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--muted);
+}
+
+.hejlejo-catnav__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.hejlejo-catnav__link {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	min-height: 52px;
+	padding: 0.45rem 0.9rem 0.45rem 0.45rem;
+	background: var(--wp--preset--color--surface);
+	border-radius: var(--hejlejo-radius);
+	box-shadow: 0 0 0 1px var(--hejlejo-line-soft);
+	color: var(--wp--preset--color--contrast);
+	text-decoration: none;
+	font-weight: 600;
+	line-height: 1.25;
+	transition: box-shadow 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.hejlejo-catnav__link:not(:has(.hejlejo-catnav__image)) {
+	padding-left: 1rem;
+}
+
+.hejlejo-catnav__link:hover {
+	box-shadow: 0 0 0 1px var(--wp--preset--color--green), var(--hejlejo-shadow);
+	transform: translateX(2px);
+	color: var(--wp--preset--color--contrast);
+}
+
+.hejlejo-catnav__link.is-active {
+	background: var(--wp--preset--color--green);
+	box-shadow: none;
+	color: var(--wp--preset--color--surface);
+}
+
+.hejlejo-catnav__image {
+	flex-shrink: 0;
+	width: 42px;
+	height: 42px;
+	object-fit: cover;
+	border-radius: var(--hejlejo-radius-s);
+}
+
+.hejlejo-catnav__name {
+	flex: 1 1 auto;
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.hejlejo-catnav__count {
+	flex-shrink: 0;
+	min-width: 1.9rem;
+	padding: 0.15rem 0.5rem;
+	border-radius: 999px;
+	background: var(--wp--preset--color--sage-light);
+	color: var(--wp--preset--color--sage-dark);
+	font-size: 0.75rem;
+	font-weight: 700;
+	text-align: center;
+}
+
+.hejlejo-catnav__link.is-active .hejlejo-catnav__count {
+	background: rgba(255, 255, 255, 0.22);
+	color: var(--wp--preset--color--surface);
+}
+
+.hejlejo-catnav__back {
+	align-self: flex-start;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	min-height: 44px;
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 600;
+	color: var(--wp--preset--color--contrast);
+	text-decoration: underline;
+	text-decoration-color: var(--wp--preset--color--rose);
+	text-underline-offset: 0.3em;
+}
+
+.hejlejo-catnav__back::before {
+	content: "←";
+	text-decoration: none;
+}
+
+/* Handy & Tablet: Kategorien als Chips über den Produkten */
+@media (max-width: 781px) {
+	.hejlejo-catnav__list {
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	.hejlejo-catnav__link {
+		min-height: 44px;
+		padding: 0.3rem 0.85rem 0.3rem 0.3rem;
+		border-radius: 999px;
+	}
+
+	.hejlejo-catnav__link:not(:has(.hejlejo-catnav__image)) {
+		padding-left: 0.85rem;
+	}
+
+	.hejlejo-catnav__image {
+		width: 34px;
+		height: 34px;
+		border-radius: 50%;
+	}
+
+	.hejlejo-catnav__link:hover {
+		transform: none;
 	}
 }

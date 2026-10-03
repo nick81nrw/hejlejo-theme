@@ -344,7 +344,7 @@ a {
 }
 
 .hejlejo-header__nav .is-menu-open .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content {
-	font-family: var(--wp--preset--font-family--serif);
+	font-family: var(--wp--preset--font-family--sans);
 	font-size: var(--wp--preset--font-size--x-large);
 	font-weight: 500;
 	padding-block: 0.8rem;
@@ -1039,7 +1039,7 @@ ul.is-style-heart li::before {
 
 /* Instagram-Raster */
 .hejlejo-social__intro {
-	flex: 0 1 17rem;
+	flex: 0 1 21rem;
 }
 
 .hejlejo-social__intro > * {
@@ -1066,9 +1066,24 @@ ul.is-style-heart li::before {
 }
 
 @media (max-width: 599px) {
-	.hejlejo-social__grid {
-		grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+	.hejlejo-social__grid:not(.hejlejo-social__feed) {
+		grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
 	}
+}
+
+/* Echter Instagram-Feed (Smash Balloon) im Theme-Stil */
+.hejlejo-social__feed {
+	display: block;
+}
+
+.hejlejo-social__feed #sb_instagram {
+	padding: 0 !important;
+}
+
+.hejlejo-social__feed #sb_instagram .sbi_photo_wrap,
+.hejlejo-social__feed #sb_instagram .sbi_photo img {
+	border-radius: var(--hejlejo-radius-s);
+	overflow: hidden;
 }
 
 /* Service-Leiste */

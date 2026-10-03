@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "hejlejo/category-nav",
+	"title": "Kategorie-Navigation",
+	"category": "woocommerce",
+	"icon": "category",
+	"description": "Zeigt die Unterkategorien der aktuellen Produktkategorie als klickbare Auswahl. Im Shop erscheinen die Hauptkategorien, auf einer Unterkategorie ihre Geschwister.",
+	"keywords": [ "kategorien", "unterkategorien", "filter", "navigation", "hej lejo" ],
+	"textdomain": "hejlejo",
+	"attributes": {
+		"showImages": { "type": "boolean", "default": true },
+		"showCounts": { "type": "boolean", "default": true }
+	},
+	"supports": {
+		"html": false,
+		"spacing": { "margin": true }
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php"
+}

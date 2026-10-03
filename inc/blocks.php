@@ -20,6 +20,7 @@ function hejlejo_register_blocks() {
 
 	register_block_type( HEJLEJO_DIR . '/blocks/product-highlights' );
 	register_block_type( HEJLEJO_DIR . '/blocks/product-badges' );
+	register_block_type( HEJLEJO_DIR . '/blocks/category-nav' );
 }
 add_action( 'init', 'hejlejo_register_blocks' );
 

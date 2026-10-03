@@ -5,22 +5,22 @@
  * Categories: hejlejo-sections, hejlejo-shop
  * Keywords: kategorien, kacheln, einstieg, produktwelten
  * Viewport Width: 1400
- * Description: Vier zentrierte Einstiegskarten "Was möchtest du gestalten?" mit Illustration und "Alles ansehen". Die ganze Karte ist klickbar; Links sind normale Gutenberg-Links und frei änderbar.
+ * Description: Vier zentrierte Einstiegskarten "Beliebte Kategorien" mit Illustration und "Alles ansehen". Die ganze Karte ist klickbar; Links sind normale Gutenberg-Links und frei änderbar.
  *
  * @package HejLejo
  */
 
 $hejlejo_tiles = array(
-	array( 'candles', 'Kerzen gestalten', hejlejo_shop_link( array( 'kerzentattoo', 'wasserschiebefolie', 'kerzentattoos' ), 'Kerze' ) ),
-	array( 'gifts', 'Kleine Geschenke', hejlejo_shop_link( array( 'papeterie', 'baggies', 'geschenke' ), 'Geschenk' ) ),
-	array( 'diy', 'DIY &amp; Kreativ', hejlejo_shop_link( array( 'plotter-und-laserdateien', 'plotterdateien', 'diy' ), 'Datei' ) ),
-	array( 'seasonal', 'Saisonale Lieblinge', hejlejo_shop_link( array( 'anlass', 'herbst-2', 'herbst' ), 'Herbst' ) ),
+	array( 'candles', 'Kerzen gestalten', hejlejo_shop_link( array( 'kerzentattoo', 'kerzen-diy-dateien', 'wasserschiebefolie' ), 'Kerze' ) ),
+	array( 'gifts', 'Druckvorlagen', hejlejo_shop_link( array( 'vorlagen', 'druckvorlagen' ), 'Druckvorlage' ) ),
+	array( 'diy', 'DIY &amp; Kreativ', hejlejo_shop_link( array( 'plotter-und-laserdateien', 'kerzen-diy-dateien', 'plotterdateien' ), 'Datei' ) ),
+	array( 'seasonal', 'Saisonale Lieblinge', hejlejo_shop_link( array( 'anlass', 'herbst' ), 'Herbst' ) ),
 );
 ?>
 <!-- wp:group {"align":"full","className":"hejlejo-section hejlejo-categories","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|50"},"blockGap":"var:preset|spacing|50"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull hejlejo-section hejlejo-categories" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--50)">
 	<!-- wp:heading {"textAlign":"center","className":"hejlejo-categories__title"} -->
-	<h2 class="wp-block-heading has-text-align-center hejlejo-categories__title">Was möchtest du gestalten?</h2>
+	<h2 class="wp-block-heading has-text-align-center hejlejo-categories__title">Beliebte Kategorien</h2>
 	<!-- /wp:heading -->
 
 	<!-- wp:group {"align":"wide","className":"hejlejo-tiles","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"grid","columnCount":4,"minimumColumnWidth":null}} -->

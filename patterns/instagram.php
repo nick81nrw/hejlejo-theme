@@ -5,7 +5,7 @@
  * Categories: hejlejo-sections
  * Keywords: instagram, social, bilder, galerie, raster
  * Viewport Width: 1400
- * Description: "Hej Lejo in echt ♡" – neutraler Bildraster für Instagram-Bilder. Bilder einfach austauschen oder den Block eines Instagram-Plugins einsetzen.
+ * Description: "Hej Lejo in echt ♡" – zeigt die letzten 4 Instagram-Beiträge, sobald das Plugin "Smash Balloon Instagram Feed" verbunden ist; sonst 4 frei wählbare Bilder.
  *
  * @package HejLejo
  */
@@ -25,9 +25,9 @@
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:group -->
-		<!-- wp:group {"className":"hejlejo-social__grid","style":{"spacing":{"blockGap":"0.5rem"}},"layout":{"type":"grid","minimumColumnWidth":"7.5rem"}} -->
+		<!-- wp:group {"className":"hejlejo-social__grid","style":{"spacing":{"blockGap":"0.5rem"}},"layout":{"type":"grid","columnCount":4,"minimumColumnWidth":null}} -->
 		<div class="wp-block-group hejlejo-social__grid">
-			<?php for ( $hejlejo_i = 1; $hejlejo_i <= 6; $hejlejo_i++ ) : ?>
+			<?php for ( $hejlejo_i = 1; $hejlejo_i <= 4; $hejlejo_i++ ) : ?>
 			<!-- wp:image {"aspectRatio":"1","scale":"cover","sizeSlug":"medium","linkDestination":"custom"} -->
 			<figure class="wp-block-image size-medium"><a href="https://www.instagram.com/hej.lejo/"><img src="<?php echo hejlejo_image( 'placeholders/social-' . $hejlejo_i . '.svg' ); ?>" alt="Hej Lejo auf Instagram – Bild <?php echo (int) $hejlejo_i; ?>" style="aspect-ratio:1;object-fit:cover"/></a></figure>
 			<!-- /wp:image -->

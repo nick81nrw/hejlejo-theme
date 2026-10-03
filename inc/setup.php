@@ -76,12 +76,11 @@ function hejlejo_enqueue_assets() {
 add_action( 'wp_enqueue_scripts', 'hejlejo_enqueue_assets', 20 );
 
 /**
- * Die beiden meistgenutzten Schriftdateien vorladen (Core Web Vitals / LCP).
+ * Die Hauptschrift vorladen (Core Web Vitals / LCP).
  */
 function hejlejo_preload_fonts() {
 	$fonts = array(
 		'assets/fonts/quicksand-latin-wght-normal.woff2',
-		'assets/fonts/cormorant-garamond-latin-wght-normal.woff2',
 	);
 
 	foreach ( $fonts as $font ) {

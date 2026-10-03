@@ -5,23 +5,20 @@
  * Categories: hejlejo-sections, featured
  * Keywords: hero, banner, startseite, schlicht, titelbild
  * Viewport Width: 1400
- * Description: Ruhiger Einstieg: farbige Fläche (Farbe im Editor unter "Hintergrund" wählbar) mit Dachzeile, Überschrift und Button, daneben (mobil darunter) ein Foto, das unten aus der Fläche herausragt.
+ * Description: Ruhiger Einstieg: grüne Fläche (Farbe im Editor unter "Hintergrund" wählbar) mit Überschrift und Button, daneben (mobil darunter) ein Foto, das unten aus der Fläche herausragt.
  *
  * @package HejLejo
  */
 
 ?>
-<!-- wp:group {"align":"full","className":"hejlejo-hero-simple","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"0"}}},"backgroundColor":"base","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull hejlejo-hero-simple has-base-background-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:0">
+<!-- wp:group {"align":"full","className":"hejlejo-hero-simple","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"0"}}},"backgroundColor":"green","textColor":"surface","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull hejlejo-hero-simple has-surface-color has-green-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:0">
 	<!-- wp:columns {"verticalAlignment":"center","align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|50","left":"var:preset|spacing|60"}}}} -->
 	<div class="wp-block-columns alignwide are-vertically-aligned-center">
 		<!-- wp:column {"verticalAlignment":"center","width":"44%","className":"hejlejo-hero-simple__text","style":{"spacing":{"blockGap":"var:preset|spacing|30"}}} -->
 		<div class="wp-block-column is-vertically-aligned-center hejlejo-hero-simple__text" style="flex-basis:44%">
-			<!-- wp:paragraph {"className":"hejlejo-hero-simple__eyebrow","fontSize":"medium"} -->
-			<p class="hejlejo-hero-simple__eyebrow has-medium-font-size">Mit Liebe gestaltet</p>
-			<!-- /wp:paragraph -->
-			<!-- wp:heading {"level":1,"fontSize":"huge"} -->
-			<h1 class="wp-block-heading has-huge-font-size">Kleine Dinge. Große Freude.</h1>
+			<!-- wp:heading {"level":1,"textColor":"surface","fontSize":"huge"} -->
+			<h1 class="wp-block-heading has-surface-color has-text-color has-huge-font-size">Kleine Dinge. Große Freude.</h1>
 			<!-- /wp:heading -->
 			<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}}}} -->
 			<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--20)">

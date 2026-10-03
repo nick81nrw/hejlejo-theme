@@ -69,7 +69,7 @@ Alles Folgende sind manuelle Schritte in der WordPress-Oberfläche – das Theme
   Senfgelb, dazu Greige `#E4E0D6` und Salbeigrün `#818D77` der bisherigen Seite), zwei Schriften, fließende Schriftgrößen, Abstands-Skala, Button-Stil. Freie Farben, freie
   Schriftgrößen, Verläufe, Font Library und Openverse sind bewusst deaktiviert – das Design lässt sich nur mit den
   Theme-Presets gestalten und ist so schwer „kaputt zu editieren“.
-- **Schriften lokal:** *Cormorant Garamond* (Überschriften) und *Quicksand* (Text & UI, wie auf der bisherigen Seite) als variable WOFF2 in
+- **Schriften lokal:** *Quicksand* (Text, UI und Überschriften – wie auf der bisherigen Seite), optional *Cormorant Garamond* als variable WOFF2 in
   `assets/fonts/` (SIL Open Font License). Keine Google-Fonts-Anfragen zur Laufzeit → **OMGF wird überflüssig**.
 - **Kein Frontend-JavaScript des Themes.** Navigation, Mini-Cart, Galerie und Suche kommen aus WordPress/WooCommerce.
   Keine jQuery-Abhängigkeit durch das Theme. Das WordPress-Emoji-Skript wird entfernt (spart eine externe Anfrage).
@@ -132,14 +132,14 @@ sowie für WooCommerce `archive-product`, `taxonomy-product_cat`, `taxonomy-prod
 | Hej Lejo / Business CTA | „Du hast selbst ein kleines Lädchen?“ |
 | Hej Lejo / Freebie & Newsletter | „Eine kleine Freude für dich ♡“ |
 | Hej Lejo / Business + Freebie | beide Karten nebeneinander |
-| Hej Lejo / Instagram-Raster | „Hej Lejo in echt ♡“ – 6 Bilder |
+| Hej Lejo / Instagram-Raster | „Hej Lejo in echt ♡“ – die letzten 4 Instagram-Beiträge (mit Plugin *Smash Balloon Instagram Feed*), sonst 4 frei wählbare Bilder |
 | Hej Lejo / Service-Leiste | Sicher einkaufen, Sofort-Download, … (auch im Footer) |
 | Hej Lejo / Schranklädchen Hero, … Infos | „Hier hat alles angefangen.“, Öffnungszeiten, Standort, Bezahlung |
 | Hej Lejo / Bildergalerie, Social-Hinweis | Galerie, Instagram-Link |
 | Hej Lejo / Über-uns Hero, Unsere Geschichte | Portrait, Weg vom Schranklädchen zum Online-Shop |
 | Hej Lejo / FAQ, Neueste Beiträge, Produkt: Gut zu wissen | Akkordeon, Blog-Teaser, Produkt-Infos |
 | Hej Lejo / Hero (schlicht) | Greige-Fläche mit Dachzeile, Überschrift, Button; Foto ragt unten heraus (wie dille-kamille.de) |
-| Hej Lejo / Seite: Startseite, Startseite (schlicht), Startseite (Variante B – Greige & Grün), Schranklädchen, Über uns, Für dein Lädchen | komplette Seiten (erscheinen beim Anlegen einer neuen Seite) |
+| Hej Lejo / Seite: Startseite (Standard: grüner Hero, beliebte Kategorien, Neuheiten, Lädchen-Hinweis, Instagram), Startseite (ausführlich, erste Version), Startseite (Variante B – Greige & Grün), Schranklädchen, Über uns, Für dein Lädchen | komplette Seiten (erscheinen beim Anlegen einer neuen Seite) |
 
 Links in Kacheln und Menü zeigen zuerst auf eine **vorhandene** Produktkategorie mit passendem Slug
 (z. B. `kerzentattoos`, `herbst`), sonst auf die Produktsuche (z. B. `?s=Geburtstag&post_type=product`).
@@ -148,8 +148,10 @@ Alle Links können im Editor frei geändert werden. Es werden keine Kategorien o
 ## WooCommerce-Details
 
 - **Produktkarten:** quadratisches Bild, Titel, Preis, Germanized-Pflichtangaben (ohne Kategorien). Shop-Übersicht 3-spaltig, mobil 2-spaltig.
-- **Produktfilter** (Shop, Kategorien, Schlagwörter, Suche): WooCommerce-Block „Produktfilter“ mit *Kategorie*, *Produktart*
-  (= Schlagwörter) und *Preis*. Desktop als mitlaufende Seitenleiste, mobil hinter dem Button „Produkte filtern“.
+- **Kategorie-Navigation** (Block „Kategorie-Navigation“ in Shop, Kategorien, Schlagwörtern, Suche): Im Shop die
+  Hauptkategorien, auf einer Hauptkategorie deren Unterkategorien, auf einer Unterkategorie die Geschwister (aktive grün
+  markiert) plus „Alle …“ zurück. Mit Kategoriebild (WooCommerce-Kategoriebild) und Produktanzahl. Desktop als
+  mitlaufende Seitenleiste, mobil als Chips über den Produkten.
   Anpassbar im Website-Editor in den Shop-Templates (z. B. *Templates → Produktkatalog*).
 - **Badges** (Block „Produkt-Badges“): Schlagwörter mit den Slugs `neu`, `bestseller`, `handmade`, `sofortdownload`
   werden zum Badge, dazu automatisch „Sale“ und „Sofort-Download“ (herunterladbare Produkte). Optional „Neu“ für
@@ -180,6 +182,9 @@ Alle Links können im Editor frei geändert werden. Es werden keine Kategorien o
   ist dafür vorgesehen.
 
 ## Plugins
+
+**Optional für Instagram:** *Smash Balloon Instagram Feed* (kostenlos). Nach dem Verbinden des Instagram-Kontos zeigt das
+Instagram-Raster automatisch die letzten 4 Beiträge (Filter `hejlejo_instagram_shortcode`).
 
 **Weiterhin kompatibel / empfohlen:** WooCommerce, Germanized, Shiptastic, DHL/UPS, WooPayments,
 WooCommerce PayPal Payments, FiboSearch, Rank Math SEO, Real Cookie Banner, FluentSMTP, LiteSpeed Cache, Statify,

@@ -200,7 +200,7 @@
 			"writingMode": false,
 			"fontFamilies": [
 				{
-					"name": "Quicksand (Text & UI)",
+					"name": "Quicksand (Standard)",
 					"slug": "sans",
 					"fontFamily": "Quicksand, \"Helvetica Neue\", Arial, sans-serif",
 					"fontFace": [
@@ -216,7 +216,7 @@
 					]
 				},
 				{
-					"name": "Cormorant Garamond (Überschriften)",
+					"name": "Cormorant Garamond (optional, Akzente)",
 					"slug": "serif",
 					"fontFamily": "\"Cormorant Garamond\", Georgia, \"Times New Roman\", serif",
 					"fontFace": [
@@ -318,7 +318,7 @@
 	},
 	"styles": {
 		"color": {
-			"background": "var:preset|color|greige",
+			"background": "var:preset|color|base",
 			"text": "var:preset|color|contrast"
 		},
 		"spacing": {
@@ -360,7 +360,7 @@
 					"text": "var:preset|color|contrast"
 				},
 				"typography": {
-					"fontFamily": "var:preset|font-family|serif",
+					"fontFamily": "var:preset|font-family|sans",
 					"fontWeight": "500",
 					"lineHeight": "1.15",
 					"letterSpacing": "-0.005em"
@@ -520,7 +520,7 @@
 			},
 			"core/quote": {
 				"typography": {
-					"fontFamily": "var:preset|font-family|serif",
+					"fontFamily": "var:preset|font-family|sans",
 					"fontSize": "var:preset|font-size|x-large",
 					"fontStyle": "italic",
 					"lineHeight": "1.35"

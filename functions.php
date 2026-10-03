@@ -19,6 +19,7 @@ require_once HEJLEJO_DIR . '/inc/block-styles.php';
 require_once HEJLEJO_DIR . '/inc/patterns.php';
 require_once HEJLEJO_DIR . '/inc/editor.php';
 require_once HEJLEJO_DIR . '/inc/blocks.php';
+require_once HEJLEJO_DIR . '/inc/integrations.php';
 
 if ( class_exists( 'WooCommerce' ) ) {
 	require_once HEJLEJO_DIR . '/inc/woocommerce.php';
