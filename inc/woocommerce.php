@@ -30,7 +30,7 @@ function hejlejo_header_search_fibosearch( $block_content, $block ) {
 	 *
 	 * @param string $shortcode Shortcode.
 	 */
-	$shortcode = apply_filters( 'hejlejo_header_search_shortcode', '[fibosearch layout="icon" mobile_overlay="1"]' );
+	$shortcode = apply_filters( 'hejlejo_header_search_shortcode', '[fibosearch layout="icon-flexible" layout_breakpoint="782" mobile_overlay="1"]' );
 
 	return '<div class="hejlejo-header-search hejlejo-header-search--fibosearch">' . do_shortcode( $shortcode ) . '</div>';
 }

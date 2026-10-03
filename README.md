@@ -138,7 +138,8 @@ sowie für WooCommerce `archive-product`, `taxonomy-product_cat`, `taxonomy-prod
 | Hej Lejo / Bildergalerie, Social-Hinweis | Galerie, Instagram-Link |
 | Hej Lejo / Über-uns Hero, Unsere Geschichte | Portrait, Weg vom Schranklädchen zum Online-Shop |
 | Hej Lejo / FAQ, Neueste Beiträge, Produkt: Gut zu wissen | Akkordeon, Blog-Teaser, Produkt-Infos |
-| Hej Lejo / Seite: Startseite, Startseite (Variante B – Greige & Grün), Schranklädchen, Über uns, Für dein Lädchen | komplette Seiten (erscheinen beim Anlegen einer neuen Seite) |
+| Hej Lejo / Hero (schlicht) | Greige-Fläche mit Dachzeile, Überschrift, Button; Foto ragt unten heraus (wie dille-kamille.de) |
+| Hej Lejo / Seite: Startseite, Startseite (schlicht), Startseite (Variante B – Greige & Grün), Schranklädchen, Über uns, Für dein Lädchen | komplette Seiten (erscheinen beim Anlegen einer neuen Seite) |
 
 Links in Kacheln und Menü zeigen zuerst auf eine **vorhandene** Produktkategorie mit passendem Slug
 (z. B. `kerzentattoos`, `herbst`), sonst auf die Produktsuche (z. B. `?s=Geburtstag&post_type=product`).
@@ -168,7 +169,8 @@ Alle Links können im Editor frei geändert werden. Es werden keine Kategorien o
 - **Kasse:** eigener, reduzierter Header (Logo + „Sicher bezahlen“), sonst unverändertes WooCommerce-Markup.
   Der Checkout-Block wird empfohlen (Germanized, WooPayments und PayPal unterstützen ihn); eine Shortcode-Kasse
   funktioniert ebenfalls.
-- **Suche:** Ist **FiboSearch** aktiv, ersetzt es automatisch die Lupe im Header (`[fibosearch layout="icon"]`,
+- **Suche:** Ist **FiboSearch** aktiv, zeigt der Header auf großen Bildschirmen ein Suchfeld und mobil eine Lupe mit
+  Vollbild-Suche (`[fibosearch layout="icon-flexible"]`,
   anpassbar per Filter `hejlejo_header_search_shortcode`). Ohne FiboSearch: aufklappende WordPress-Produktsuche.
 - **Wunschliste:** nur vorbereitet. WooCommerce bringt ab Version 11 einen (noch experimentellen) Wunschlisten-Block
   mit; alternativ kann der Block/Shortcode eines Wunschlisten-Plugins in den Header-Bereich

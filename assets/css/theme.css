@@ -474,8 +474,8 @@ a {
 		flex: 0 0 auto;
 	}
 
-	.hejlejo-header__actions {
-		margin-left: auto;
+	.hejlejo-header__inner > .hejlejo-header__actions {
+		margin-left: auto !important;
 	}
 }
 
@@ -1327,4 +1327,118 @@ ul.is-style-heart li::before {
 
 .has-greige-background-color .is-style-eyebrow {
 	color: #8c4639;
+}
+
+/* -------------------------------------------------------------------------
+ * Hero (schlicht): Greige-Fläche, Foto ragt unten heraus
+ * ---------------------------------------------------------------------- */
+
+.hejlejo-hero-simple {
+	--hejlejo-hero-overhang: clamp(4rem, 8vw, 7rem);
+	background: linear-gradient(
+		to bottom,
+		var(--wp--preset--color--greige) 0,
+		var(--wp--preset--color--greige) calc(100% - var(--hejlejo-hero-overhang)),
+		transparent calc(100% - var(--hejlejo-hero-overhang))
+	);
+}
+
+.hejlejo-hero-simple__text {
+	padding-bottom: var(--hejlejo-hero-overhang);
+}
+
+.hejlejo-hero-simple__text > * {
+	margin-block: 0;
+}
+
+.hejlejo-hero-simple__text h1 {
+	line-height: 1.02;
+}
+
+.hejlejo-hero-simple__eyebrow {
+	font-weight: 700;
+}
+
+.hejlejo-hero-simple__image {
+	margin: 0;
+}
+
+.hejlejo-hero-simple__image img {
+	display: block;
+	width: 100%;
+	border-radius: var(--hejlejo-radius);
+}
+
+@media (max-width: 781px) {
+	.hejlejo-hero-simple__text {
+		padding-bottom: 0;
+	}
+
+	.hejlejo-hero-simple .wp-block-button__link {
+		min-width: 200px;
+	}
+}
+
+/* Header-Suche als Feld (FiboSearch "icon-flexible": Desktop Feld, mobil Lupe) */
+.hejlejo-header-search--fibosearch {
+	min-width: 44px;
+}
+
+@media (min-width: 783px) {
+	.hejlejo-header-search--fibosearch {
+		width: clamp(180px, 18vw, 260px);
+	}
+
+	.hejlejo-header-search--fibosearch .dgwt-wcas-search-wrapp {
+		min-width: 0;
+		max-width: 100%;
+	}
+
+	.hejlejo-header-search--fibosearch .dgwt-wcas-search-wrapp .dgwt-wcas-sf-wrapp {
+		background: transparent !important;
+		padding: 0 !important;
+		border: 0 !important;
+		box-shadow: none !important;
+	}
+
+	.hejlejo-header-search--fibosearch .dgwt-wcas-sf-wrapp input[type="search"].dgwt-wcas-search-input {
+		height: 40px;
+		min-height: 40px;
+		padding-left: 2.6rem !important;
+		font-size: var(--wp--preset--font-size--small);
+		background: var(--wp--preset--color--surface);
+		border: 1px solid var(--hejlejo-line-soft);
+		border-radius: 999px;
+	}
+
+	.hejlejo-header-search--fibosearch .dgwt-wcas-sf-wrapp .dgwt-wcas-search-submit {
+		position: absolute !important;
+		left: 4px !important;
+		right: auto !important;
+		top: 0 !important;
+		width: 36px !important;
+		height: 40px !important;
+		min-height: 0 !important;
+		padding: 0 !important;
+		display: flex !important;
+		align-items: center;
+		justify-content: center;
+		background: transparent !important;
+		border: 0 !important;
+		box-shadow: none !important;
+	}
+
+	.hejlejo-header-search--fibosearch .dgwt-wcas-sf-wrapp .dgwt-wcas-search-submit::before {
+		display: none !important;
+	}
+
+	.hejlejo-header-search--fibosearch .dgwt-wcas-sf-wrapp .dgwt-wcas-ico-magnifier {
+		position: static !important;
+		transform: none !important;
+		width: 16px;
+		height: 16px;
+		margin: 0 !important;
+		opacity: 0.75;
+		fill: var(--wp--preset--color--contrast);
+	}
 }
