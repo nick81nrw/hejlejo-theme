@@ -80,7 +80,7 @@ add_action( 'wp_enqueue_scripts', 'hejlejo_enqueue_assets', 20 );
  */
 function hejlejo_preload_fonts() {
 	$fonts = array(
-		'assets/fonts/jost-latin-wght-normal.woff2',
+		'assets/fonts/quicksand-latin-wght-normal.woff2',
 		'assets/fonts/cormorant-garamond-latin-wght-normal.woff2',
 	);
 

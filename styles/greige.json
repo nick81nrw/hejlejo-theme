@@ -1,0 +1,101 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.7/theme.json",
+	"version": 3,
+	"title": "Greige (wie bisher)",
+	"settings": {
+		"color": {
+			"palette": [
+				{
+					"slug": "base",
+					"name": "Off-White",
+					"color": "#E4E0D6"
+				},
+				{
+					"slug": "surface",
+					"name": "Weiß",
+					"color": "#FFFFFF"
+				},
+				{
+					"slug": "cream",
+					"name": "Creme",
+					"color": "#EEEAE3"
+				},
+				{
+					"slug": "beige",
+					"name": "Beige",
+					"color": "#D3CCBE"
+				},
+				{
+					"slug": "greige",
+					"name": "Greige (alte Seite)",
+					"color": "#E4E0D6"
+				},
+				{
+					"slug": "contrast",
+					"name": "Warmes Dunkelgrau",
+					"color": "#3A3330"
+				},
+				{
+					"slug": "muted",
+					"name": "Warmes Grau",
+					"color": "#6B5F58"
+				},
+				{
+					"slug": "accent",
+					"name": "Terrakotta-Rosé",
+					"color": "#8C4639"
+				},
+				{
+					"slug": "rose",
+					"name": "Dusty Rose",
+					"color": "#D9A9A0"
+				},
+				{
+					"slug": "rose-light",
+					"name": "Rosé hell",
+					"color": "#F5E4DF"
+				},
+				{
+					"slug": "sage",
+					"name": "Salbei",
+					"color": "#A8B5A0"
+				},
+				{
+					"slug": "sage-light",
+					"name": "Salbei hell",
+					"color": "#E4E9DF"
+				},
+				{
+					"slug": "sage-dark",
+					"name": "Salbei dunkel",
+					"color": "#5C6B55"
+				},
+				{
+					"slug": "green",
+					"name": "Hej-Lejo-Grün (Buttons)",
+					"color": "#69755F"
+				},
+				{
+					"slug": "green-old",
+					"name": "Salbeigrün (alte Seite)",
+					"color": "#818D77"
+				},
+				{
+					"slug": "apricot",
+					"name": "Apricot",
+					"color": "#F2CBA9"
+				},
+				{
+					"slug": "apricot-light",
+					"name": "Apricot hell",
+					"color": "#FAEBDD"
+				},
+				{
+					"slug": "mustard",
+					"name": "Senfgelb",
+					"color": "#D4A23F"
+				}
+			]
+		}
+	}
+}

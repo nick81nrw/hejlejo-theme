@@ -151,7 +151,6 @@ function hejlejo_product_card_markup( $heading_level = '3', $with_button = false
 <!-- /wp:group -->
 <!-- wp:group {"className":"hejlejo-card__body","style":{"spacing":{"blockGap":"0.2rem"}},"layout":{"type":"flex","orientation":"vertical"}} -->
 <div class="wp-block-group hejlejo-card__body">
-<!-- wp:post-terms {"term":"product_cat","className":"hejlejo-card__cat"} /-->
 <!-- wp:post-title {"level":' . $level . ',"isLink":true,"className":"hejlejo-card__title","fontSize":"small","__woocommerceNamespace":"woocommerce/product-collection/product-title"} /-->
 <!-- wp:woocommerce/product-price {"isDescendentOfQueryLoop":true,"className":"hejlejo-card__price","fontSize":"small"} /-->';
 

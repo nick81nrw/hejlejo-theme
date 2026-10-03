@@ -15,8 +15,8 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 echo hejlejo_product_collection_markup( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	array(
 		'inherit'    => true,
-		'per_page'   => 16,
-		'columns'    => 4,
+		'per_page'   => 15,
+		'columns'    => 3,
 		'order_by'   => 'title',
 		'order'      => 'asc',
 		'pagination' => true,

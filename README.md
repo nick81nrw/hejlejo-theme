@@ -15,7 +15,7 @@ vorhandenen WooCommerce-Daten. Die Überarbeitung der Produktstruktur folgt in P
 | | Mindestens | Getestet mit |
 |---|---|---|
 | WordPress | 6.7 | 7.1.2 |
-| WooCommerce | 9.5 | 11.1.2 |
+| WooCommerce | 9.5 | 10.6.2 (Staging) und 11.1.2 |
 | PHP | 8.0 | 8.3 |
 | Germanized für WooCommerce | 3.14 (Block-Unterstützung) | 4.1.4 |
 
@@ -64,14 +64,18 @@ Alles Folgende sind manuelle Schritte in der WordPress-Oberfläche – das Theme
 ## Theme-Konzept
 
 - **Designsystem in `theme.json`:** Farbpalette (Off-White, warmes Dunkelgrau, Salbei, Dusty Rose, Apricot, Beige,
-  Senfgelb), zwei Schriften, fließende Schriftgrößen, Abstands-Skala, Button-Stil. Freie Farben, freie
+  Senfgelb, dazu Greige `#E4E0D6` und Salbeigrün `#818D77` der bisherigen Seite), zwei Schriften, fließende Schriftgrößen, Abstands-Skala, Button-Stil. Freie Farben, freie
   Schriftgrößen, Verläufe, Font Library und Openverse sind bewusst deaktiviert – das Design lässt sich nur mit den
   Theme-Presets gestalten und ist so schwer „kaputt zu editieren“.
-- **Schriften lokal:** *Cormorant Garamond* (Überschriften) und *Jost* (Text & UI) als variable WOFF2 in
+- **Schriften lokal:** *Cormorant Garamond* (Überschriften) und *Quicksand* (Text & UI, wie auf der bisherigen Seite) als variable WOFF2 in
   `assets/fonts/` (SIL Open Font License). Keine Google-Fonts-Anfragen zur Laufzeit → **OMGF wird überflüssig**.
 - **Kein Frontend-JavaScript des Themes.** Navigation, Mini-Cart, Galerie und Suche kommen aus WordPress/WooCommerce.
   Keine jQuery-Abhängigkeit durch das Theme. Das WordPress-Emoji-Skript wird entfernt (spart eine externe Anfrage).
-- **Block-Stile statt Optionen:** z. B. Button „Sekundär (hell)“ / „Textlink mit Pfeil“, Gruppe „Karte“ / „Fläche“,
+- **Buttons in Hej-Lejo-Grün** `#69755F` – das Grün der bisherigen Seite (`#818D77`), minimal abgedunkelt, damit weiße
+  Schrift gut lesbar bleibt (WCAG-Kontrast 4,9 : 1). In grünen Flächen werden Buttons automatisch hell (Greige).
+- **Stilvariante „Greige (wie bisher)“:** *Design → Editor → Stile* – setzt den Hintergrund der ganzen Seite auf das
+  Greige der bisherigen Seite.
+- **Block-Stile statt Optionen:** z. B. Button „Sekundär (weiß)“ / „Hell (für grüne Flächen)“ / „Textlink mit Pfeil“, Website-Logo „Dunkel einfärben“, Gruppe „Karte“ / „Fläche“,
   Bild „Kreis“ / „Bogen“, Absatz „Dachzeile“, Liste „Häkchen“ / „Herzchen“, Details „Akkordeon“, Cover „Hero“.
 - **Plugin-Kompatibilität vor Design-Spielereien:** Produktseite nutzt die klassisch kompatiblen Blöcke
   *Produktbildergalerie* und *Warenkorb-Formular* (Variation Swatches, Germanized, Zahlungs-Buttons funktionieren
@@ -115,7 +119,11 @@ sowie für WooCommerce `archive-product`, `taxonomy-product_cat`, `taxonomy-prod
 | Pattern | Inhalt |
 |---|---|
 | Hej Lejo / Hero | Markenbild, Headline, 2 Buttons, Vorteile; mobil Bild oben |
-| Hej Lejo / Kategorien | „Was möchtest du gestalten?“ – 4 Kacheln |
+| Hej Lejo / Kategorien | „Was möchtest du gestalten?“ – 4 zentrierte, komplett klickbare Karten mit Illustration |
+| Hej Lejo / Hero (für überlappende Karten), Kategorien (überlappend) | Hero + Karten, die den Hero überlappen (wie dille-kamille.de) |
+| Hej Lejo / Anlässe (grün) | Anlass-Icons auf grüner Fläche |
+| Hej Lejo / Schranklädchen-Business (groß) | „Du hast selbst ein Schranklädchen?“ – großer grüner Bereich |
+| Hej Lejo / Vorteile (Zeile) | vier Vorteile mittig in einer Zeile |
 | Hej Lejo / Anlässe | „Für welchen Moment suchst du etwas?“ – 9 Icons |
 | Hej Lejo / Neuheiten | „Gerade neu eingezogen ♡“ – 6 neueste Produkte |
 | Hej Lejo / Bestseller | 4 meistverkaufte Produkte |
@@ -130,7 +138,7 @@ sowie für WooCommerce `archive-product`, `taxonomy-product_cat`, `taxonomy-prod
 | Hej Lejo / Bildergalerie, Social-Hinweis | Galerie, Instagram-Link |
 | Hej Lejo / Über-uns Hero, Unsere Geschichte | Portrait, Weg vom Schranklädchen zum Online-Shop |
 | Hej Lejo / FAQ, Neueste Beiträge, Produkt: Gut zu wissen | Akkordeon, Blog-Teaser, Produkt-Infos |
-| Hej Lejo / Seite: Startseite, Schranklädchen, Über uns, Für dein Lädchen | komplette Seiten (erscheinen beim Anlegen einer neuen Seite) |
+| Hej Lejo / Seite: Startseite, Startseite (Variante B – Greige & Grün), Schranklädchen, Über uns, Für dein Lädchen | komplette Seiten (erscheinen beim Anlegen einer neuen Seite) |
 
 Links in Kacheln und Menü zeigen zuerst auf eine **vorhandene** Produktkategorie mit passendem Slug
 (z. B. `kerzentattoos`, `herbst`), sonst auf die Produktsuche (z. B. `?s=Geburtstag&post_type=product`).
@@ -138,14 +146,17 @@ Alle Links können im Editor frei geändert werden. Es werden keine Kategorien o
 
 ## WooCommerce-Details
 
-- **Produktkarten:** großes Bild (4:5), Kategorie als Dachzeile, Titel, Preis, Germanized-Pflichtangaben. Mobil 2-spaltig.
+- **Produktkarten:** quadratisches Bild, Titel, Preis, Germanized-Pflichtangaben (ohne Kategorien). Shop-Übersicht 3-spaltig, mobil 2-spaltig.
+- **Produktfilter** (Shop, Kategorien, Schlagwörter, Suche): WooCommerce-Block „Produktfilter“ mit *Kategorie*, *Produktart*
+  (= Schlagwörter) und *Preis*. Desktop als mitlaufende Seitenleiste, mobil hinter dem Button „Produkte filtern“.
+  Anpassbar im Website-Editor in den Shop-Templates (z. B. *Templates → Produktkatalog*).
 - **Badges** (Block „Produkt-Badges“): Schlagwörter mit den Slugs `neu`, `bestseller`, `handmade`, `sofortdownload`
   werden zum Badge, dazu automatisch „Sale“ und „Sofort-Download“ (herunterladbare Produkte). Optional „Neu“ für
   Produkte der letzten X Tage. Weitere Slugs per Filter `hejlejo_badge_tag_slugs`.
 - **Produkt-Vorteile** (Block auf der Produktseite): „Sofort-Download“ bei herunterladbaren Produkten bzw.
   „Digitales Produkt“/„Versand“ sowie sichtbare Produkteigenschaften, deren Name *Format, Datei, Lizenz, Nutzung,
   Material* oder *Handmade* enthält (Filter `hejlejo_product_highlight_attribute_keywords` und `hejlejo_product_highlights`).
-- **Produktseite:** links Galerie, rechts (Desktop mitscrollend) Badges, Kategorie, Titel, Bewertung, Preis,
+- **Produktseite:** links Galerie, rechts (Desktop mitscrollend) Badges, Titel, Bewertung, Preis,
   Germanized-Angaben, Kurzbeschreibung, Varianten/Warenkorb, Vorteile, Artikelnummer. Darunter die
   WooCommerce-Tabs (inkl. Tabs von Plugins, z. B. Produktsicherheit), das Akkordeon „Gut zu wissen“ und ähnliche Produkte.
 - **Germanized:** Germanized gibt bei Block-Themes die Preisangaben nicht automatisch aus, sondern stellt eigene

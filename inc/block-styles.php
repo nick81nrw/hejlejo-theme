@@ -16,7 +16,8 @@ defined( 'ABSPATH' ) || exit;
 function hejlejo_register_block_styles() {
 	$styles = array(
 		'core/button'     => array(
-			'secondary' => __( 'Sekundär (hell)', 'hejlejo' ),
+			'secondary' => __( 'Sekundär (weiß)', 'hejlejo' ),
+			'light'     => __( 'Hell (für grüne Flächen)', 'hejlejo' ),
 			'text-link' => __( 'Textlink mit Pfeil', 'hejlejo' ),
 		),
 		'core/cover'      => array(

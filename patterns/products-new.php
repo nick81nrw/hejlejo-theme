@@ -30,6 +30,6 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 		<!-- /wp:buttons -->
 	</div>
 	<!-- /wp:group -->
-	<?php echo hejlejo_product_collection_markup( array( 'collection' => 'new-arrivals' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<?php echo hejlejo_product_collection_markup( array( 'collection' => 'new-arrivals', 'per_page' => 4, 'columns' => 4 ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 </div>
 <!-- /wp:group -->

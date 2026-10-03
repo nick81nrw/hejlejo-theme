@@ -19,13 +19,13 @@
 .wp-block-woocommerce-product-button .wp-block-button__link,
 .wc-block-components-product-button__button {
 	font-family: var(--wp--preset--font-family--sans);
-	font-weight: 500;
+	font-weight: 600;
 	letter-spacing: 0.02em;
 	border-radius: var(--hejlejo-radius-s) !important;
 	border: 0;
 	min-height: 46px;
 	padding: 0.75rem 1.4rem;
-	background-color: var(--wp--preset--color--accent);
+	background-color: var(--wp--preset--color--green);
 	color: var(--wp--preset--color--surface);
 	text-decoration: none;
 	box-shadow: none;
@@ -284,25 +284,10 @@
 	margin: 0 !important;
 }
 
-.hejlejo-card__cat {
-	font-size: 0.6875rem !important;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
-	color: var(--wp--preset--color--accent);
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	max-width: 100%;
-}
-
-.hejlejo-card__cat a {
-	color: inherit;
-}
-
-/* Nur die erste Kategorie als Dachzeile zeigen – mehrere Kategorien würden die Karte unruhig machen. */
-.hejlejo-card__cat .wp-block-post-terms__separator,
-.hejlejo-card__cat .wp-block-post-terms__separator ~ a {
-	display: none;
+/* Kategorien werden in Karten und auf der Produktseite nicht angezeigt (auch nicht in älteren, gespeicherten Seiteninhalten). */
+.hejlejo-card__cat,
+.hejlejo-product__cat {
+	display: none !important;
 }
 
 /* Quadratische Produktbilder (Produktfotos sind meist 1:1) */
@@ -376,7 +361,6 @@
 }
 
 /* Elemente, die über dem Karten-Link klickbar bleiben müssen */
-.hejlejo-card__cat a,
 .hejlejo-legal-info a,
 .hejlejo-card__button {
 	position: relative;
@@ -466,17 +450,6 @@
 
 .hejlejo-product__summary .wp-block-post-title {
 	line-height: 1.1;
-}
-
-.hejlejo-product__cat {
-	font-size: var(--wp--preset--font-size--x-small);
-	letter-spacing: 0.1em;
-	text-transform: uppercase;
-	color: var(--wp--preset--color--accent);
-}
-
-.hejlejo-product__cat a {
-	color: inherit;
 }
 
 .hejlejo-product__price .wc-block-components-product-price {
@@ -746,6 +719,21 @@
 
 .hejlejo-product-info {
 	margin-top: var(--wp--preset--spacing--40) !important;
+	padding: var(--wp--preset--spacing--40) var(--wp--preset--spacing--40) var(--wp--preset--spacing--30);
+	background: var(--wp--preset--color--sage-light);
+	border-radius: var(--hejlejo-radius-l);
+}
+
+.hejlejo-product-info .wp-block-details.is-style-accordion {
+	border-bottom-color: rgba(105, 117, 95, 0.25);
+}
+
+.hejlejo-product-info .wp-block-details.is-style-accordion:last-child {
+	border-bottom: 0;
+}
+
+.hejlejo-product-info .wp-block-details.is-style-accordion summary::after {
+	color: var(--wp--preset--color--green);
 }
 
 /* Bewertungen */
@@ -770,7 +758,7 @@
  * ---------------------------------------------------------------------- */
 
 .wc-block-mini-cart__badge {
-	background: var(--wp--preset--color--accent) !important;
+	background: var(--wp--preset--color--green) !important;
 	color: var(--wp--preset--color--surface) !important;
 	border: 0 !important;
 	font-weight: 600;
@@ -987,6 +975,15 @@
 .woocommerce-account #customer_login {
 	display: grid;
 	gap: var(--wp--preset--spacing--40);
+	align-items: start;
+}
+
+/* WooCommerce-Clearfix (::before/::after) würde sonst eine Rasterzelle belegen und die Boxen versetzen. */
+.woocommerce-account .u-columns::before,
+.woocommerce-account .u-columns::after,
+.woocommerce-account #customer_login::before,
+.woocommerce-account #customer_login::after {
+	display: none !important;
 }
 
 @media (min-width: 782px) {
@@ -1052,4 +1049,80 @@
 .hejlejo-product__summary .single_variation_wrap .woocommerce-variation:empty,
 .hejlejo-product__summary .single_variation_wrap .woocommerce-variation[style*="display: none"] {
 	display: none !important;
+}
+
+/* -------------------------------------------------------------------------
+ * Shop: Filter-Sidebar (WooCommerce-Block "Produktfilter")
+ * ---------------------------------------------------------------------- */
+
+.hejlejo-filters {
+	--wc-product-filters-text-color: var(--wp--preset--color--contrast) !important;
+	--wc-product-filters-background-color: var(--wp--preset--color--base) !important;
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.hejlejo-filters .hejlejo-filters__title {
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: var(--wp--preset--font-size--x-small);
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+
+.hejlejo-filters h3 {
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 700;
+	letter-spacing: 0;
+	padding-top: var(--wp--preset--spacing--20);
+	border-top: 1px solid var(--hejlejo-line-soft);
+}
+
+.hejlejo-filters .wc-block-product-filter-checkbox-list__label {
+	min-height: 32px;
+}
+
+.hejlejo-filters .wc-block-product-filter-checkbox-list__input:checked {
+	background-color: var(--wp--preset--color--green);
+	border-color: var(--wp--preset--color--green);
+}
+
+.hejlejo-filters .wc-block-product-filter-removable-chips__chip {
+	background: var(--wp--preset--color--sage-light);
+	border: 0;
+	border-radius: 999px;
+}
+
+.hejlejo-filters .wc-block-product-filter-clear-button .wp-block-button__link {
+	background: transparent;
+	color: var(--wp--preset--color--contrast);
+	box-shadow: inset 0 0 0 1px var(--hejlejo-line);
+	min-height: 36px;
+	font-size: var(--wp--preset--font-size--x-small);
+}
+
+.hejlejo-filters .wc-block-product-filters__open-overlay {
+	min-height: 44px;
+	padding: 0.5rem 1rem;
+	border: 1px solid var(--hejlejo-line);
+	border-radius: 999px;
+	background: var(--wp--preset--color--surface);
+	font-weight: 600;
+}
+
+@media (min-width: 782px) {
+	.hejlejo-shop-layout__filters {
+		position: sticky;
+		top: calc(var(--hejlejo-header-offset) + 100px);
+		align-self: flex-start;
+		max-height: calc(100vh - 120px);
+		overflow-y: auto;
+		scrollbar-width: thin;
+	}
+}
+
+@media (max-width: 781px) {
+	.hejlejo-shop-layout__filters {
+		flex-basis: auto !important;
+	}
 }

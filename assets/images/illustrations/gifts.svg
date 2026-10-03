@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" width="200" height="160" fill="none" stroke="#3A3330" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img"><title>Geschenke</title>
+<rect x="44" y="72" width="66" height="66" rx="3"/><rect x="40" y="60" width="74" height="14" rx="2"/><path d="M77 60v78"/>
+<path d="M77 60c-6-14-24-18-24-8 0 5 10 8 24 8Zm0 0c6-14 24-18 24-8 0 5-10 8-24 8Z" stroke="#9E5546"/>
+<path d="M124 96h34l6 42h-46l6-42Z"/><path d="M132 96c0-12 18-12 18 0"/><path d="M134 116c4 6 12 6 16 0" stroke="#69755F"/>
+<path d="M30 140h140"/>
+</svg>

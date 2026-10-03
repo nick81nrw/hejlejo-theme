@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" width="200" height="160" fill="none" stroke="#3A3330" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img"><title>Saisonales</title>
+<path d="M70 140c-26 0-34-14-34-30s10-28 34-28 34 12 34 28-8 30-34 30Z"/><path d="M70 82c-8 6-12 18-12 28s4 22 12 30M70 82c8 6 12 18 12 28s-4 22-12 30"/><path d="M70 82c0-8 4-14 10-16" stroke="#69755F"/>
+<path d="M128 140V64"/><path d="M128 64l-18 22h36Z"/><path d="M128 84l-22 26h44Z"/><path d="M128 106l-26 30h52Z" /><path d="M128 50l3 6 6 1-5 4 1 6-5-3-5 3 1-6-5-4 6-1Z" stroke="#9E5546"/>
+<path d="M28 140h146"/>
+</svg>

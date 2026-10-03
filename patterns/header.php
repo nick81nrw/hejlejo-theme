@@ -22,7 +22,7 @@
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:navigation {"overlayMenu":"mobile","overlayBackgroundColor":"base","overlayTextColor":"contrast","className":"hejlejo-header__nav","ariaLabel":"Hauptmenü","layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"blockGap":"var:preset|spacing|40"}}} -->
+		<!-- wp:navigation {"overlayMenu":"mobile","openSubmenusOnClick":true,"overlayBackgroundColor":"base","overlayTextColor":"contrast","className":"hejlejo-header__nav","ariaLabel":"Hauptmenü","layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"blockGap":"var:preset|spacing|40"}}} -->
 			<!-- wp:navigation-link {"label":"Shop","url":"<?php echo hejlejo_shop_url(); ?>","kind":"custom","isTopLevelLink":true} /-->
 			<!-- wp:navigation-submenu {"label":"Ideen &amp; Anlässe","url":"<?php echo hejlejo_shop_url(); ?>","kind":"custom"} -->
 				<!-- wp:navigation-link {"label":"Geburtstag","url":"<?php echo hejlejo_shop_link( array( 'geburtstag' ), 'Geburtstag' ); ?>","kind":"custom"} /-->

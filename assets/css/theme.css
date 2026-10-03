@@ -122,6 +122,35 @@ a {
 	color: var(--wp--preset--color--contrast);
 }
 
+/* Heller Button (z. B. in grünen Bereichen) */
+.wp-block-button.is-style-light .wp-block-button__link {
+	background-color: var(--wp--preset--color--greige);
+	color: var(--wp--preset--color--contrast);
+}
+
+.wp-block-button.is-style-light .wp-block-button__link:hover,
+.wp-block-button.is-style-light .wp-block-button__link:focus-visible {
+	background-color: var(--wp--preset--color--surface);
+	color: var(--wp--preset--color--contrast);
+}
+
+/* In grünen Flächen werden normale Buttons automatisch hell */
+.has-green-background-color .wp-block-button:not(.is-style-text-link) .wp-block-button__link,
+.has-green-old-background-color .wp-block-button:not(.is-style-text-link) .wp-block-button__link {
+	background-color: var(--wp--preset--color--greige);
+	color: var(--wp--preset--color--contrast);
+}
+
+.has-green-background-color .wp-block-button:not(.is-style-text-link) .wp-block-button__link:hover,
+.has-green-old-background-color .wp-block-button:not(.is-style-text-link) .wp-block-button__link:hover {
+	background-color: var(--wp--preset--color--surface);
+}
+
+.has-green-background-color :focus-visible,
+.has-green-old-background-color :focus-visible {
+	outline-color: var(--wp--preset--color--surface) !important;
+}
+
 .wp-block-button.is-style-text-link .wp-block-button__link {
 	background: none;
 	color: var(--wp--preset--color--contrast);
@@ -203,8 +232,14 @@ a {
 }
 
 .hejlejo-header__brand .wp-block-site-logo img {
-	max-height: 48px;
+	max-height: 64px;
 	width: auto;
+}
+
+@media (max-width: 599px) {
+	.hejlejo-header__brand .wp-block-site-logo img {
+		max-height: 48px;
+	}
 }
 
 /* Stil "Dunkel einfärben" für helle/weiße Logos auf hellem Hintergrund */
@@ -456,6 +491,7 @@ a {
 .wp-block-cover.is-style-hero .wp-block-cover__inner-container {
 	position: relative;
 	z-index: 2;
+	box-sizing: border-box;
 	width: 100% !important;
 	max-width: var(--wp--style--global--wide-size, 1320px);
 	margin-inline: auto !important;
@@ -713,39 +749,55 @@ ul.is-style-heart li::before {
  * Abschnitte der Startseite
  * ---------------------------------------------------------------------- */
 
-/* Kategorie-Kacheln: ganze Karte ist klickbar ("stretched link") */
+/* Kategorie-Karten: zentriert, ganze Karte klickbar ("stretched link" über den Titel-Link) */
+.hejlejo-categories__title {
+	margin-bottom: 0;
+}
+
 .hejlejo-tile {
 	position: relative;
 	height: 100%;
+	text-align: center;
 	transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
+.hejlejo-tile > * {
+	margin-block: 0;
+}
+
 .hejlejo-tile__image {
-	margin: 0;
-	overflow: hidden;
+	margin: 0 auto;
 }
 
 .hejlejo-tile__image img {
-	width: 100%;
-	border-radius: 0;
 	display: block;
-	transition: transform 0.5s ease;
+	width: auto;
+	height: clamp(96px, 9vw, 140px);
+	border-radius: 0;
+	transition: transform 0.4s ease;
 }
 
-.hejlejo-tile__body {
-	position: relative;
-	flex: 1 1 auto;
-	padding-right: 3rem !important;
-}
-
-.hejlejo-tile__body > * {
-	margin: 0;
+/* Fotos statt Illustrationen: ganze Kartenbreite */
+.hejlejo-tile__image img:not([src$=".svg"]) {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+	border-radius: var(--hejlejo-radius-s);
 }
 
 .hejlejo-tile__title {
-	font-family: var(--wp--preset--font-family--sans);
-	font-weight: 500;
-	letter-spacing: 0;
+	line-height: 1.15;
+}
+
+.hejlejo-tile__title::after {
+	content: "";
+	display: block;
+	width: 3.5rem;
+	height: 1px;
+	margin: 0.75rem auto 0;
+	background: currentColor;
+	transition: width 0.25s ease;
 }
 
 .hejlejo-tile__title a {
@@ -760,24 +812,31 @@ ul.is-style-heart li::before {
 	z-index: 1;
 }
 
-.hejlejo-tile__body::after {
-	content: "→";
-	position: absolute;
-	right: var(--wp--preset--spacing--30);
-	bottom: var(--wp--preset--spacing--30);
-	color: var(--wp--preset--color--contrast);
+.hejlejo-tile__more {
+	font-weight: 600;
+	letter-spacing: 0.02em;
+}
+
+.hejlejo-tile__more::after {
+	content: " →";
+	display: inline-block;
 	transition: transform 0.2s ease;
 }
 
 .hejlejo-tile:hover {
-	box-shadow: 0 14px 34px -18px rgba(58, 51, 48, 0.35);
+	box-shadow: 0 18px 40px -20px rgba(58, 51, 48, 0.4);
+	transform: translateY(-3px);
 }
 
 .hejlejo-tile:hover .hejlejo-tile__image img {
-	transform: scale(1.03);
+	transform: scale(1.04);
 }
 
-.hejlejo-tile:hover .hejlejo-tile__body::after {
+.hejlejo-tile:hover .hejlejo-tile__title::after {
+	width: 5.5rem;
+}
+
+.hejlejo-tile:hover .hejlejo-tile__more::after {
 	transform: translateX(4px);
 }
 
@@ -790,22 +849,33 @@ ul.is-style-heart li::before {
 	outline: none;
 }
 
+@media (max-width: 1023px) {
+	.wp-block-group.hejlejo-tiles {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
 @media (max-width: 599px) {
-	.hejlejo-tiles {
-		grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-	}
-
-	.hejlejo-tile__body {
-		padding: 0.8rem 2rem 0.9rem 0.8rem !important;
-	}
-
-	.hejlejo-tile__body::after {
-		right: 0.8rem;
-		bottom: 0.9rem;
+	.hejlejo-tile {
+		padding: 1.25rem 0.75rem !important;
 	}
 
 	.hejlejo-tile__title {
-		font-size: var(--wp--preset--font-size--small) !important;
+		font-size: var(--wp--preset--font-size--large) !important;
+	}
+
+	.hejlejo-tile__more {
+		font-size: var(--wp--preset--font-size--x-small) !important;
+	}
+}
+
+/* Variante: Karten überlappen den Hero (wie bei Dille & Kamille) */
+@media (min-width: 782px) {
+	.hejlejo-categories.is-overlap {
+		position: relative;
+		z-index: 3;
+		padding-top: 0 !important;
+		margin-top: -9rem !important;
 	}
 }
 
@@ -1201,4 +1271,60 @@ ul.is-style-heart li::before {
 .wp-block-comments {
 	max-width: var(--wp--style--global--content-size);
 	margin-inline: auto;
+}
+
+/* -------------------------------------------------------------------------
+ * Grüne Flächen & Startseite Variante B
+ * ---------------------------------------------------------------------- */
+
+.hejlejo-section--green a:not(.wp-block-button__link) {
+	color: inherit;
+}
+
+.hejlejo-section.hejlejo-section--green .is-style-eyebrow {
+	color: var(--wp--preset--color--surface);
+}
+
+.hejlejo-section--green .hejlejo-occasion__label a {
+	color: var(--wp--preset--color--surface);
+	font-weight: 600;
+}
+
+.hejlejo-section--green .wp-block-image.is-style-circle img {
+	box-shadow: none;
+}
+
+.hejlejo-section--green ul.is-style-check li::before {
+	background-color: var(--wp--preset--color--greige);
+}
+
+.hejlejo-business__image img {
+	border-radius: var(--hejlejo-radius-l);
+}
+
+.hejlejo-business__list {
+	font-size: var(--wp--preset--font-size--medium);
+	font-weight: 600;
+}
+
+.hejlejo-trust-line p {
+	margin: 0;
+	font-weight: 600;
+}
+
+/* Hero in Variante B: Inhalt etwas höher, unten Platz für die Karten */
+@media (min-width: 782px) {
+	.wp-block-cover.hejlejo-hero--b {
+		min-height: 680px !important;
+		padding-bottom: 11rem !important;
+	}
+}
+
+/* Auf Greige werden helle Flächen etwas wärmer abgesetzt */
+.hejlejo-home-b .hejlejo-steps.has-cream-background-color {
+	background-color: var(--wp--preset--color--surface) !important;
+}
+
+.has-greige-background-color .is-style-eyebrow {
+	color: #8c4639;
 }
