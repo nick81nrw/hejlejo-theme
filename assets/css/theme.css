@@ -211,7 +211,7 @@ a {
 	position: sticky;
 	top: var(--hejlejo-header-offset);
 	z-index: 100;
-	background: var(--wp--preset--color--base);
+	background: var(--wp--preset--color--surface);
 	box-shadow: 0 1px 0 var(--hejlejo-line-soft);
 }
 
@@ -1116,13 +1116,35 @@ ul.is-style-heart li::before {
 }
 
 .hejlejo-footer__nav .wp-block-navigation-item__content {
-	color: var(--wp--preset--color--muted);
+	color: inherit;
 	padding-block: 0.15rem;
 }
 
 .hejlejo-footer__nav .wp-block-navigation-item__content:hover {
-	color: var(--wp--preset--color--accent);
+	color: inherit;
 	text-decoration: underline;
+}
+
+/* Footer auf grüner Fläche: alles in Weiß */
+.hejlejo-footer.has-green-background-color,
+.hejlejo-footer.has-green-background-color a,
+.hejlejo-footer.has-green-background-color .wp-block-site-title a,
+.hejlejo-footer.has-green-background-color .hejlejo-footer__heading {
+	color: var(--wp--preset--color--surface);
+}
+
+.hejlejo-footer.has-green-background-color .hejlejo-wordmark a::after {
+	background-color: var(--wp--preset--color--surface);
+}
+
+.hejlejo-footer.has-green-background-color .wp-block-separator {
+	color: rgba(255, 255, 255, 0.35);
+	border-color: rgba(255, 255, 255, 0.35);
+	background-color: rgba(255, 255, 255, 0.35);
+}
+
+.hejlejo-footer.has-green-background-color :focus-visible {
+	outline-color: var(--wp--preset--color--surface);
 }
 
 .hejlejo-footer .wp-block-social-links {
@@ -1335,13 +1357,29 @@ ul.is-style-heart li::before {
 
 .hejlejo-hero-simple {
 	--hejlejo-hero-overhang: clamp(4rem, 8vw, 7rem);
+	--hejlejo-hero-bg: var(--wp--preset--color--base);
 	background: linear-gradient(
 		to bottom,
-		var(--wp--preset--color--greige) 0,
-		var(--wp--preset--color--greige) calc(100% - var(--hejlejo-hero-overhang)),
+		var(--hejlejo-hero-bg) 0,
+		var(--hejlejo-hero-bg) calc(100% - var(--hejlejo-hero-overhang)),
 		transparent calc(100% - var(--hejlejo-hero-overhang))
-	);
+	) !important;
 }
+
+/* Die im Editor gewählte Hintergrundfarbe färbt nur die Fläche, nicht den Bereich unter dem Foto. */
+.hejlejo-hero-simple.has-background {
+	background-color: transparent !important;
+}
+
+.hejlejo-hero-simple.has-surface-background-color { --hejlejo-hero-bg: var(--wp--preset--color--surface); }
+.hejlejo-hero-simple.has-cream-background-color { --hejlejo-hero-bg: var(--wp--preset--color--cream); }
+.hejlejo-hero-simple.has-beige-background-color { --hejlejo-hero-bg: var(--wp--preset--color--beige); }
+.hejlejo-hero-simple.has-greige-background-color { --hejlejo-hero-bg: var(--wp--preset--color--greige); }
+.hejlejo-hero-simple.has-green-background-color { --hejlejo-hero-bg: var(--wp--preset--color--green); }
+.hejlejo-hero-simple.has-green-old-background-color { --hejlejo-hero-bg: var(--wp--preset--color--green-old); }
+.hejlejo-hero-simple.has-sage-light-background-color { --hejlejo-hero-bg: var(--wp--preset--color--sage-light); }
+.hejlejo-hero-simple.has-rose-light-background-color { --hejlejo-hero-bg: var(--wp--preset--color--rose-light); }
+.hejlejo-hero-simple.has-apricot-light-background-color { --hejlejo-hero-bg: var(--wp--preset--color--apricot-light); }
 
 .hejlejo-hero-simple__text {
 	padding-bottom: var(--hejlejo-hero-overhang);
@@ -1441,4 +1479,14 @@ ul.is-style-heart li::before {
 		opacity: 0.75;
 		fill: var(--wp--preset--color--contrast);
 	}
+}
+
+/* Germanized-Hinweis (Kleinunternehmer) unterhalb des Footers */
+body > .footer-info.vat-info {
+	margin: 0;
+	padding: var(--wp--preset--spacing--20) var(--wp--preset--spacing--30);
+	background: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--muted);
+	font-size: var(--wp--preset--font-size--x-small);
+	text-align: center;
 }

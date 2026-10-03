@@ -5,14 +5,14 @@
  * Categories: header
  * Block Types: core/template-part/header
  * Inserter: no
- * Description: Schlanker Header mit Logo, Hauptnavigation, Suche, Konto und Warenkorb.
+ * Description: Schlanker Header mit Logo, Hauptnavigation (WordPress-Menü "Main"), Suche, Konto und Warenkorb.
  *
  * @package HejLejo
  */
 
 ?>
-<!-- wp:group {"className":"hejlejo-header","style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}},"backgroundColor":"base","layout":{"type":"constrained","contentSize":"1320px"}} -->
-<div class="wp-block-group hejlejo-header has-base-background-color has-background" style="padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20)">
+<!-- wp:group {"className":"hejlejo-header","style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}},"backgroundColor":"surface","layout":{"type":"constrained","contentSize":"1320px"}} -->
+<div class="wp-block-group hejlejo-header has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20)">
 	<!-- wp:group {"className":"hejlejo-header__inner","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
 	<div class="wp-block-group hejlejo-header__inner">
 		<!-- wp:group {"className":"hejlejo-header__brand","style":{"spacing":{"blockGap":"0.75rem"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
@@ -22,7 +22,14 @@
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:navigation {"overlayMenu":"mobile","openSubmenusOnClick":true,"overlayBackgroundColor":"base","overlayTextColor":"contrast","className":"hejlejo-header__nav","ariaLabel":"Hauptmenü","layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"blockGap":"var:preset|spacing|40"}}} -->
+		<?php $hejlejo_menu = hejlejo_primary_menu(); ?>
+		<?php if ( $hejlejo_menu && isset( $hejlejo_menu['ref'] ) ) : ?>
+		<!-- wp:navigation {"ref":<?php echo (int) $hejlejo_menu['ref']; ?>,"overlayMenu":"mobile","openSubmenusOnClick":true,"overlayBackgroundColor":"surface","overlayTextColor":"contrast","className":"hejlejo-header__nav","ariaLabel":"Hauptmenü","layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"blockGap":"var:preset|spacing|40"}}} /-->
+		<?php else : ?>
+		<!-- wp:navigation {"overlayMenu":"mobile","openSubmenusOnClick":true,"overlayBackgroundColor":"surface","overlayTextColor":"contrast","className":"hejlejo-header__nav","ariaLabel":"Hauptmenü","layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"blockGap":"var:preset|spacing|40"}}} -->
+		<?php if ( $hejlejo_menu ) : ?>
+			<?php echo $hejlejo_menu['inner']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Block-Markup aus WordPress-Menü. ?>
+		<?php else : ?>
 			<!-- wp:navigation-link {"label":"Shop","url":"<?php echo hejlejo_shop_url(); ?>","kind":"custom","isTopLevelLink":true} /-->
 			<!-- wp:navigation-submenu {"label":"Ideen &amp; Anlässe","url":"<?php echo hejlejo_shop_url(); ?>","kind":"custom"} -->
 				<!-- wp:navigation-link {"label":"Geburtstag","url":"<?php echo hejlejo_shop_link( array( 'geburtstag' ), 'Geburtstag' ); ?>","kind":"custom"} /-->
@@ -38,7 +45,9 @@
 			<!-- wp:navigation-link {"label":"Neuheiten","url":"<?php echo esc_url( add_query_arg( 'orderby', 'date', hejlejo_shop_url() ) ); ?>","kind":"custom","isTopLevelLink":true} /-->
 			<!-- wp:navigation-link {"label":"Schranklädchen","url":"<?php echo hejlejo_page_url( 'schranklaedchen' ); ?>","kind":"custom","isTopLevelLink":true} /-->
 			<!-- wp:navigation-link {"label":"Über uns","url":"<?php echo hejlejo_page_url( 'ueber-uns' ); ?>","kind":"custom","isTopLevelLink":true} /-->
+		<?php endif; ?>
 		<!-- /wp:navigation -->
+		<?php endif; ?>
 
 		<!-- wp:group {"className":"hejlejo-header__actions","style":{"spacing":{"blockGap":"0.25rem"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"right"}} -->
 		<div class="wp-block-group hejlejo-header__actions">

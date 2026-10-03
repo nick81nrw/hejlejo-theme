@@ -54,11 +54,13 @@ Alles Folgende sind manuelle Schritte in der WordPress-Oberfläche – das Theme
 4. **Rechtstexte:** Impressum, Datenschutz, AGB, Widerruf, Versand- und Zahlungsarten werden über die
    Germanized-/WooCommerce-Seitenzuordnung verlinkt. Für reine Textseiten gibt es das Template
    **„Textseite (schmal, z. B. Rechtliches)“**.
-5. **Logo:** Unter *Design → Editor → Muster/Template-Teile → Header* einen Logo-Block befüllen. Solange kein Logo
+5. **Hauptmenü:** Der Header zeigt das WordPress-Menü **„Main“** – entweder das klassische Menü unter *Design → Menüs*
+   oder ein gleichnamiges Block-Menü im Website-Editor. Gibt es keins, erscheinen Standardlinks.
+6. **Logo:** Unter *Design → Editor → Muster/Template-Teile → Header* einen Logo-Block befüllen. Solange kein Logo
    gesetzt ist, erscheint der Schriftzug „HEJ LEJO ♡“.
-6. **Platzhalterbilder austauschen:** Alle Bilder in den Patterns sind leichte SVG-Illustrationen aus
+7. **Platzhalterbilder austauschen:** Alle Bilder in den Patterns sind leichte SVG-Illustrationen aus
    `assets/images/placeholders/`. Im Editor einfach das Bild anklicken → *Ersetzen*.
-7. **Texte prüfen:** Adresse und Öffnungszeiten im Schranklädchen-Pattern, Lizenz- und Versandhinweise im
+8. **Texte prüfen:** Adresse und Öffnungszeiten im Schranklädchen-Pattern, Lizenz- und Versandhinweise im
    Akkordeon „Gut zu wissen“ auf den Produktseiten (*Editor → Templates → Einzelprodukt*) sind Beispieltexte.
 
 ## Theme-Konzept
@@ -73,8 +75,6 @@ Alles Folgende sind manuelle Schritte in der WordPress-Oberfläche – das Theme
   Keine jQuery-Abhängigkeit durch das Theme. Das WordPress-Emoji-Skript wird entfernt (spart eine externe Anfrage).
 - **Buttons in Hej-Lejo-Grün** `#69755F` – das Grün der bisherigen Seite (`#818D77`), minimal abgedunkelt, damit weiße
   Schrift gut lesbar bleibt (WCAG-Kontrast 4,9 : 1). In grünen Flächen werden Buttons automatisch hell (Greige).
-- **Stilvariante „Greige (wie bisher)“:** *Design → Editor → Stile* – setzt den Hintergrund der ganzen Seite auf das
-  Greige der bisherigen Seite.
 - **Block-Stile statt Optionen:** z. B. Button „Sekundär (weiß)“ / „Hell (für grüne Flächen)“ / „Textlink mit Pfeil“, Website-Logo „Dunkel einfärben“, Gruppe „Karte“ / „Fläche“,
   Bild „Kreis“ / „Bogen“, Absatz „Dachzeile“, Liste „Häkchen“ / „Herzchen“, Details „Akkordeon“, Cover „Hero“.
 - **Plugin-Kompatibilität vor Design-Spielereien:** Produktseite nutzt die klassisch kompatiblen Blöcke

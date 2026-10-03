@@ -11,8 +11,8 @@
  */
 
 ?>
-<!-- wp:group {"className":"hejlejo-header hejlejo-header--checkout","style":{"spacing":{"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30"}}},"backgroundColor":"base","layout":{"type":"constrained","contentSize":"1120px"}} -->
-<div class="wp-block-group hejlejo-header hejlejo-header--checkout has-base-background-color has-background" style="padding-top:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30)">
+<!-- wp:group {"className":"hejlejo-header hejlejo-header--checkout","style":{"spacing":{"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30"}}},"backgroundColor":"surface","layout":{"type":"constrained","contentSize":"1120px"}} -->
+<div class="wp-block-group hejlejo-header hejlejo-header--checkout has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30)">
 	<!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
 	<div class="wp-block-group">
 		<!-- wp:group {"className":"hejlejo-header__brand","style":{"spacing":{"blockGap":"0.75rem"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->

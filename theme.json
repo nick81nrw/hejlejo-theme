@@ -59,7 +59,7 @@
 				{
 					"slug": "accent",
 					"name": "Terrakotta-Rosé",
-					"color": "#9E5546"
+					"color": "#8C4639"
 				},
 				{
 					"slug": "rose",
@@ -318,7 +318,7 @@
 	},
 	"styles": {
 		"color": {
-			"background": "var:preset|color|base",
+			"background": "var:preset|color|greige",
 			"text": "var:preset|color|contrast"
 		},
 		"spacing": {

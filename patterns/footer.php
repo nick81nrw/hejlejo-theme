@@ -13,17 +13,17 @@
 ?>
 <!-- wp:pattern {"slug":"hejlejo/trust-bar"} /-->
 
-<!-- wp:group {"align":"full","className":"hejlejo-footer","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|40"}}},"backgroundColor":"cream","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull hejlejo-footer has-cream-background-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--40)">
+<!-- wp:group {"align":"full","className":"hejlejo-footer","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|40"}}},"backgroundColor":"green","textColor":"surface","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull hejlejo-footer has-surface-color has-green-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--40)">
 	<!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|50","left":"var:preset|spacing|50"}}}} -->
 	<div class="wp-block-columns alignwide">
 		<!-- wp:column {"width":"34%"} -->
 		<div class="wp-block-column" style="flex-basis:34%">
 			<!-- wp:site-title {"level":0,"className":"hejlejo-wordmark"} /-->
-			<!-- wp:paragraph {"textColor":"muted","fontSize":"small"} -->
-			<p class="has-muted-color has-text-color has-small-font-size">Kreative Designs, DIY-Ideen und besondere Kleinigkeiten – liebevoll gestaltet und für dich vorbereitet.</p>
+			<!-- wp:paragraph {"fontSize":"small"} -->
+			<p class="has-small-font-size">Kreative Designs, DIY-Ideen und besondere Kleinigkeiten – liebevoll gestaltet und für dich vorbereitet.</p>
 			<!-- /wp:paragraph -->
-			<!-- wp:social-links {"iconColor":"contrast","iconColorValue":"#3A3330","className":"is-style-logos-only","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|20"}}}} -->
+			<!-- wp:social-links {"iconColor":"surface","iconColorValue":"#FFFFFF","className":"is-style-logos-only","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|20"}}}} -->
 			<ul class="wp-block-social-links has-icon-color is-style-logos-only">
 				<!-- wp:social-link {"url":"https://www.instagram.com/hej.lejo/","service":"instagram","label":"Hej Lejo auf Instagram"} /-->
 				<!-- wp:social-link {"url":"https://www.pinterest.de/","service":"pinterest","label":"Hej Lejo auf Pinterest"} /-->
@@ -83,16 +83,16 @@
 
 	<!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
 	<div class="wp-block-group alignwide">
-		<!-- wp:paragraph {"textColor":"muted","fontSize":"x-small"} -->
-		<p class="has-muted-color has-text-color has-x-small-font-size">© <?php echo esc_html( gmdate( 'Y' ) ); ?> Hej Lejo · Mit Liebe gestaltet in Deutschland ♡</p>
+		<!-- wp:paragraph {"fontSize":"x-small"} -->
+		<p class="has-x-small-font-size">© <?php echo esc_html( gmdate( 'Y' ) ); ?> Hej Lejo · Mit Liebe gestaltet in Deutschland ♡</p>
 		<!-- /wp:paragraph -->
 		<?php if ( function_exists( 'wc_gzd_is_small_business' ) && wc_gzd_is_small_business() ) : ?>
-		<!-- wp:paragraph {"textColor":"muted","fontSize":"x-small"} -->
-		<p class="has-muted-color has-text-color has-x-small-font-size">Gemäß § 19 UStG wird keine Umsatzsteuer berechnet. Preise zzgl. <a href="<?php echo hejlejo_legal_url( 'shipping_costs', 'versandarten' ); ?>">Versandkosten</a></p>
+		<!-- wp:paragraph {"fontSize":"x-small"} -->
+		<p class="has-x-small-font-size">Gemäß § 19 UStG wird keine Umsatzsteuer berechnet. Preise zzgl. <a href="<?php echo hejlejo_legal_url( 'shipping_costs', 'versandarten' ); ?>">Versandkosten</a></p>
 		<!-- /wp:paragraph -->
 		<?php else : ?>
-		<!-- wp:paragraph {"textColor":"muted","fontSize":"x-small"} -->
-		<p class="has-muted-color has-text-color has-x-small-font-size">Alle Preise inkl. gesetzl. MwSt., zzgl. <a href="<?php echo hejlejo_legal_url( 'shipping_costs', 'versandarten' ); ?>">Versandkosten</a></p>
+		<!-- wp:paragraph {"fontSize":"x-small"} -->
+		<p class="has-x-small-font-size">Alle Preise inkl. gesetzl. MwSt., zzgl. <a href="<?php echo hejlejo_legal_url( 'shipping_costs', 'versandarten' ); ?>">Versandkosten</a></p>
 		<!-- /wp:paragraph -->
 		<?php endif; ?>
 	</div>

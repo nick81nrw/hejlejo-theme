@@ -11,8 +11,8 @@
  */
 
 ?>
-<!-- wp:group {"align":"wide","className":"is-style-panel hejlejo-cta hejlejo-cta--business","style":{"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"},"blockGap":"0"}},"backgroundColor":"apricot-light","layout":{"type":"grid","columnCount":2,"minimumColumnWidth":null}} -->
-<div class="wp-block-group alignwide is-style-panel hejlejo-cta hejlejo-cta--business has-apricot-light-background-color has-background" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0">
+<!-- wp:group {"align":"wide","className":"is-style-panel hejlejo-cta hejlejo-cta--business","style":{"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"},"blockGap":"0"}},"backgroundColor":"base","layout":{"type":"grid","columnCount":2,"minimumColumnWidth":null}} -->
+<div class="wp-block-group alignwide is-style-panel hejlejo-cta hejlejo-cta--business has-base-background-color has-background" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0">
 	<!-- wp:group {"className":"hejlejo-cta__body","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40"},"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"left","verticalAlignment":"center"}} -->
 	<div class="wp-block-group hejlejo-cta__body" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
 		<!-- wp:heading {"fontSize":"x-large"} -->

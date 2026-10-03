@@ -1024,8 +1024,8 @@
 /* Germanized: Hinweis zur gesetzlichen Gewährleistung (wird nach dem Footer ausgegeben) */
 .wc-gzd-legal-guarantee-footer {
 	margin: 0 !important;
-	padding: 0 var(--wp--preset--spacing--30) var(--wp--preset--spacing--50);
-	background: var(--wp--preset--color--cream);
+	padding: var(--wp--preset--spacing--30) var(--wp--preset--spacing--30) var(--wp--preset--spacing--50);
+	background: var(--wp--preset--color--base);
 }
 
 .wc-gzd-legal-guarantee-footer img {

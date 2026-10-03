@@ -270,3 +270,60 @@ function hejlejo_product_collection_markup( $args = array() ) {
 
 	return $markup;
 }
+
+/**
+ * Hauptmenü für den Header ermitteln.
+ *
+ * Reihenfolge:
+ * 1. Block-Menü (Navigation) mit dem Titel "Main" – z. B. nach "Klassisches Menü importieren" im Website-Editor.
+ * 2. Klassisches Menü "Main" (Design → Menüs) bzw. das Menü an der ersten belegten Menüposition.
+ * 3. Keins gefunden: null – dann nutzt der Header seine Standardlinks.
+ *
+ * Name des Menüs per Filter "hejlejo_primary_menu_name" änderbar.
+ *
+ * @return array|null ['ref' => int] oder ['inner' => string Block-Markup].
+ */
+function hejlejo_primary_menu() {
+	/**
+	 * Name des Hauptmenüs.
+	 *
+	 * @param string $name Menüname.
+	 */
+	$name = apply_filters( 'hejlejo_primary_menu_name', 'Main' );
+
+	$navigations = get_posts(
+		array(
+			'post_type'      => 'wp_navigation',
+			'post_status'    => 'publish',
+			'posts_per_page' => 20,
+			'orderby'        => 'date',
+			'order'          => 'DESC',
+		)
+	);
+
+	foreach ( $navigations as $navigation ) {
+		if ( 0 === strcasecmp( trim( $navigation->post_title ), $name ) ) {
+			return array( 'ref' => (int) $navigation->ID );
+		}
+	}
+
+	$menu = wp_get_nav_menu_object( $name );
+
+	if ( ! $menu ) {
+		foreach ( (array) get_nav_menu_locations() as $menu_id ) {
+			if ( $menu_id ) {
+				$menu = wp_get_nav_menu_object( $menu_id );
+				break;
+			}
+		}
+	}
+
+	if ( $menu && class_exists( 'WP_Classic_To_Block_Menu_Converter' ) ) {
+		$inner = WP_Classic_To_Block_Menu_Converter::convert( $menu );
+		if ( is_string( $inner ) && '' !== trim( $inner ) ) {
+			return array( 'inner' => $inner );
+		}
+	}
+
+	return null;
+}

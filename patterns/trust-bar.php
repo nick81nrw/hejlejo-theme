@@ -17,8 +17,8 @@ $hejlejo_items = array(
 	array( 'chat', 'Fragen?', 'Wir helfen dir gerne!' ),
 );
 ?>
-<!-- wp:group {"align":"full","className":"hejlejo-trust-bar","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}}},"backgroundColor":"base","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull hejlejo-trust-bar has-base-background-color has-background" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50)">
+<!-- wp:group {"align":"full","className":"hejlejo-trust-bar","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}}},"backgroundColor":"surface","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull hejlejo-trust-bar has-surface-background-color has-background" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50)">
 	<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"grid","minimumColumnWidth":"14rem"}} -->
 	<div class="wp-block-group alignwide">
 		<?php foreach ( $hejlejo_items as $hejlejo_item ) : ?>

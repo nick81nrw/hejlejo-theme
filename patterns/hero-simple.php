@@ -5,14 +5,14 @@
  * Categories: hejlejo-sections, featured
  * Keywords: hero, banner, startseite, schlicht, titelbild
  * Viewport Width: 1400
- * Description: Ruhiger Einstieg: Greige-Fläche mit Dachzeile, Überschrift und Button, daneben (mobil darunter) ein Foto, das unten aus der Fläche herausragt.
+ * Description: Ruhiger Einstieg: farbige Fläche (Farbe im Editor unter "Hintergrund" wählbar) mit Dachzeile, Überschrift und Button, daneben (mobil darunter) ein Foto, das unten aus der Fläche herausragt.
  *
  * @package HejLejo
  */
 
 ?>
-<!-- wp:group {"align":"full","className":"hejlejo-hero-simple","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"0"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull hejlejo-hero-simple" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:0">
+<!-- wp:group {"align":"full","className":"hejlejo-hero-simple","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"0"}}},"backgroundColor":"base","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull hejlejo-hero-simple has-base-background-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:0">
 	<!-- wp:columns {"verticalAlignment":"center","align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|50","left":"var:preset|spacing|60"}}}} -->
 	<div class="wp-block-columns alignwide are-vertically-aligned-center">
 		<!-- wp:column {"verticalAlignment":"center","width":"44%","className":"hejlejo-hero-simple__text","style":{"spacing":{"blockGap":"var:preset|spacing|30"}}} -->
