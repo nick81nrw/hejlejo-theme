@@ -774,27 +774,38 @@ ul.is-style-heart li::before {
 
 .hejlejo-tile__image {
 	margin: 0 auto;
+	width: 100%;
+	max-width: 100%;
 }
 
-.hejlejo-tile__image img {
+/*
+ * Bilder in den Kacheln sitzen immer in einer festen Icon-Fläche – egal wie groß die hochgeladene Datei ist
+ * und ob im Editor eine Größe eingestellt wurde. Für scharfe Darstellung (Retina) Bilder mit
+ * mindestens 400–600 px hochladen; sie werden hier verkleinert.
+ */
+.hejlejo-tile__image img,
+.hejlejo-tile__image img:not([src$=".svg"]) {
 	display: block;
-	width: auto;
-	height: clamp(96px, 9vw, 140px);
+	width: auto !important;
+	max-width: 100% !important;
+	height: clamp(110px, 11vw, 168px) !important;
+	aspect-ratio: auto !important;
+	margin-inline: auto;
+	object-fit: contain;
 	border-radius: 0;
 	transition: transform 0.4s ease;
 }
 
-/* Fotos statt Illustrationen: ganze Kartenbreite */
-.hejlejo-tile__image img:not([src$=".svg"]) {
-	width: 100%;
-	height: auto;
-	aspect-ratio: 4 / 3;
-	object-fit: cover;
-	border-radius: var(--hejlejo-radius-s);
-}
-
 .hejlejo-tile__title {
 	line-height: 1.15;
+}
+
+/* Platz für zwei Zeilen: Trennstrich und "Alles ansehen" stehen in allen Karten auf einer Höhe */
+.hejlejo-tile__title {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	min-height: calc(2 * 1.15em + 0.75rem + 1px);
 }
 
 .hejlejo-tile__title::after {
