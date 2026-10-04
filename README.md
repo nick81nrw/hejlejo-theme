@@ -68,11 +68,19 @@ Alles Folgende sind manuelle Schritte in der WordPress-Oberfläche – das Theme
    URL = Link (`#` = ohne Link). Ein leeres Menü blendet die Leiste aus. Ohne dieses Menü wird der Inhalt des
    Template-Teils *Design → Editor → Muster → Template-Teile → Hinweisleiste* angezeigt. Mobil ist nur der erste
    Hinweis sichtbar.
-7. **Logo:** Unter *Design → Editor → Muster/Template-Teile → Header* einen Logo-Block befüllen. Solange kein Logo
+7. **Footer-Links:** Die drei Linkspalten im Footer lassen sich über Menüs steuern: **„Footer Shop“**,
+   **„Footer Service“** und **„Footer Rechtliches“** (klassisch unter *Design → Menüs* oder als Block-Menü im
+   Website-Editor, keinem Ort zuweisen nötig). Fehlt ein Menü, zeigt die Spalte die Standardlinks des Themes.
+   Untermenüpunkte erscheinen im Footer als normale Links. Die Spaltenüberschriften ändert man im Website-Editor
+   (*Template-Teile → Footer*).
+   Der **Steuerhinweis** unten im Footer kommt aus Germanized (*WooCommerce → Einstellungen → Germanized*, z. B. der
+   Kleinunternehmer-Hinweis nach § 19 UStG) plus Link „Versandkosten“; Germanizeds eigene Zusatzzeile unter dem
+   Footer entfällt dadurch.
+8. **Logo:** Unter *Design → Editor → Muster/Template-Teile → Header* einen Logo-Block befüllen. Solange kein Logo
    gesetzt ist, erscheint der Schriftzug „HEJ LEJO ♡“.
-8. **Platzhalterbilder austauschen:** Alle Bilder in den Patterns sind leichte SVG-Illustrationen aus
+9. **Platzhalterbilder austauschen:** Alle Bilder in den Patterns sind leichte SVG-Illustrationen aus
    `assets/images/placeholders/`. Im Editor einfach das Bild anklicken → *Ersetzen*.
-9. **Texte prüfen:** Adresse und Öffnungszeiten im Schranklädchen-Pattern, Lizenz- und Versandhinweise im
+10. **Texte prüfen:** Adresse und Öffnungszeiten im Schranklädchen-Pattern, Lizenz- und Versandhinweise im
    Akkordeon „Gut zu wissen“ auf den Produktseiten (*Editor → Templates → Einzelprodukt*) sind Beispieltexte.
 
 ## Theme-Konzept
@@ -103,10 +111,10 @@ hejlejo/
 ├── inc/
 │   ├── setup.php           Theme-Supports, Styles, Font-Preload, Emoji aus
 │   ├── block-styles.php    Block-Stilvarianten
-│   ├── patterns.php        Pattern-Kategorien + Helfer (Links, Produktkarte)
+│   ├── patterns.php        Pattern-Kategorien + Helfer (Links, Produktkarte, Menüs Header/Footer)
 │   ├── editor.php          Editor-Einschränkungen
 │   ├── blocks.php          Registrierung der Theme-Blöcke
-│   ├── integrations.php    Instagram-Feed (Smash Balloon), Hinweisleiste aus Menü
+│   ├── integrations.php    Instagram-Feed (Smash Balloon), Hinweisleiste aus Menü, Germanized-Footerhinweis
 │   └── woocommerce.php     FiboSearch, Tabs, Block-Hooks, Mini-Cart
 ├── blocks/
 │   ├── product-highlights/ Block „Produkt-Vorteile“

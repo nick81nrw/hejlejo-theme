@@ -121,3 +121,55 @@ function hejlejo_hide_empty_announcement( $block_content, $block ) {
 	return $block_content;
 }
 add_filter( 'render_block_core/template-part', 'hejlejo_hide_empty_announcement', 10, 2 );
+
+/**
+ * Germanized: Steuerhinweis (und ggf. Hinweis zu Streichpreisen) im Footer des Themes ausgeben.
+ *
+ * Der Absatz mit der Klasse "hejlejo-footer__tax" zeigt den Text aus Germanized
+ * (WooCommerce → Einstellungen → Germanized; bei Kleinunternehmern der §-19-Hinweis) plus Link zu den
+ * Versandkosten. Germanized gibt den Hinweis sonst zusätzlich als eigene Zeile unter dem Footer aus –
+ * diese Ausgabe wird dann entfernt. Ohne Germanized bleibt der Text aus dem Editor stehen.
+ *
+ * @param string $block_content HTML des Blocks.
+ * @param array  $block         Geparster Block.
+ * @return string
+ */
+function hejlejo_footer_tax_notice( $block_content, $block ) {
+	$class = isset( $block['attrs']['className'] ) ? $block['attrs']['className'] : '';
+
+	if ( false === strpos( $class, 'hejlejo-footer__tax' ) || ! function_exists( 'wc_gzd_is_small_business' ) || ! shortcode_exists( 'gzd_vat_info' ) ) {
+		return $block_content;
+	}
+
+	$notices = array( trim( wp_strip_all_tags( do_shortcode( '[gzd_vat_info]' ) ) ) );
+
+	if ( 'yes' === get_option( 'woocommerce_gzd_display_footer_sale_price_notice' ) && shortcode_exists( 'gzd_sale_info' ) ) {
+		$notices[] = trim( wp_strip_all_tags( do_shortcode( '[gzd_sale_info]' ) ) );
+	}
+
+	$notices = array_filter( $notices );
+	if ( ! $notices ) {
+		return $block_content;
+	}
+
+	// Germanized-eigene Ausgabe am Seitenende entfernen, sonst stünde der Hinweis doppelt da.
+	foreach ( array( 'woocommerce_gzd_template_footer_vat_info', 'woocommerce_gzd_template_footer_sale_info' ) as $callback ) {
+		$priority = has_action( 'wp_footer', $callback );
+		if ( false !== $priority ) {
+			remove_action( 'wp_footer', $callback, $priority );
+		}
+	}
+
+	$text = implode( ' ', array_map( 'esc_html', $notices ) );
+
+	if ( function_exists( 'hejlejo_legal_url' ) ) {
+		$text .= ' ' . sprintf(
+			/* translators: %s: Link "Versandkosten" */
+			esc_html__( 'Preise zzgl. %s', 'hejlejo' ),
+			'<a href="' . hejlejo_legal_url( 'shipping_costs', 'versandarten' ) . '">' . esc_html__( 'Versandkosten', 'hejlejo' ) . '</a>'
+		);
+	}
+
+	return preg_replace( '#(<p\b[^>]*>).*</p>#s', '$1' . str_replace( array( '\\', '$' ), array( '\\\\', '\\$' ), $text ) . '</p>', $block_content, 1 );
+}
+add_filter( 'render_block_core/paragraph', 'hejlejo_footer_tax_notice', 10, 2 );

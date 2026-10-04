@@ -272,25 +272,18 @@ function hejlejo_product_collection_markup( $args = array() ) {
 }
 
 /**
- * Hauptmenü für den Header ermitteln.
+ * WordPress-Menü nach Namen finden.
  *
  * Reihenfolge:
- * 1. Block-Menü (Navigation) mit dem Titel "Main" – z. B. nach "Klassisches Menü importieren" im Website-Editor.
- * 2. Klassisches Menü "Main" (Design → Menüs) bzw. das Menü an der ersten belegten Menüposition.
- * 3. Keins gefunden: null – dann nutzt der Header seine Standardlinks.
+ * 1. Block-Menü (Navigation) mit diesem Titel – z. B. nach "Klassisches Menü importieren" im Website-Editor.
+ * 2. Klassisches Menü mit diesem Namen (Design → Menüs).
+ * 3. Optional: das Menü an der ersten belegten Menüposition.
  *
- * Name des Menüs per Filter "hejlejo_primary_menu_name" änderbar.
- *
- * @return array|null ['ref' => int] oder ['inner' => string Block-Markup].
+ * @param string $name                Menüname.
+ * @param bool   $fallback_location   Erstes zugewiesenes Menü nehmen, wenn keins mit dem Namen existiert.
+ * @return array|null ['ref' => int] oder ['inner' => string Block-Markup], null wenn keins gefunden.
  */
-function hejlejo_primary_menu() {
-	/**
-	 * Name des Hauptmenüs.
-	 *
-	 * @param string $name Menüname.
-	 */
-	$name = apply_filters( 'hejlejo_primary_menu_name', 'Main' );
-
+function hejlejo_find_menu( $name, $fallback_location = false ) {
 	$navigations = get_posts(
 		array(
 			'post_type'      => 'wp_navigation',
@@ -309,7 +302,7 @@ function hejlejo_primary_menu() {
 
 	$menu = wp_get_nav_menu_object( $name );
 
-	if ( ! $menu ) {
+	if ( ! $menu && $fallback_location ) {
 		foreach ( (array) get_nav_menu_locations() as $menu_id ) {
 			if ( $menu_id ) {
 				$menu = wp_get_nav_menu_object( $menu_id );
@@ -327,3 +320,101 @@ function hejlejo_primary_menu() {
 
 	return null;
 }
+
+/**
+ * Hauptmenü für den Header ermitteln: Menü "Main" (Block- oder klassisches Menü), sonst das Menü an der
+ * ersten belegten Menüposition, sonst null – dann nutzt der Header seine Standardlinks.
+ *
+ * Name des Menüs per Filter "hejlejo_primary_menu_name" änderbar.
+ *
+ * @return array|null ['ref' => int] oder ['inner' => string Block-Markup].
+ */
+function hejlejo_primary_menu() {
+	/**
+	 * Name des Hauptmenüs.
+	 *
+	 * @param string $name Menüname.
+	 */
+	return hejlejo_find_menu( apply_filters( 'hejlejo_primary_menu_name', 'Main' ), true );
+}
+
+/**
+ * Footer-Spalten über WordPress-Menüs steuern.
+ *
+ * Jede Linkspalte im Footer ist ein Navigationsblock mit der Klasse "hejlejo-footer__nav" und einer
+ * Beschriftung (Shop, Service, Rechtliches). Gibt es ein Menü "Footer Shop", "Footer Service" bzw.
+ * "Footer Rechtliches" (Design → Menüs oder Block-Menü im Website-Editor), zeigt die Spalte dessen Einträge.
+ * Ohne passendes Menü bleiben die Standardlinks des Themes.
+ *
+ * Läuft beim Rendern, wirkt also auch, wenn der Footer im Website-Editor bereits gespeichert wurde.
+ *
+ * @param array $parsed_block Geparster Block.
+ * @return array
+ */
+function hejlejo_footer_menus( $parsed_block ) {
+	if ( 'core/navigation' !== $parsed_block['blockName'] ) {
+		return $parsed_block;
+	}
+
+	$attrs = $parsed_block['attrs'];
+	$class = isset( $attrs['className'] ) ? $attrs['className'] : '';
+
+	if ( false === strpos( $class, 'hejlejo-footer__nav' ) || empty( $attrs['ariaLabel'] ) || ! empty( $attrs['ref'] ) ) {
+		return $parsed_block;
+	}
+
+	/**
+	 * Name des Menüs für eine Footer-Spalte.
+	 *
+	 * @param string $name  Menüname, Standard "Footer {Spaltenname}".
+	 * @param string $label Beschriftung der Spalte (Shop, Service, Rechtliches).
+	 */
+	$name = apply_filters( 'hejlejo_footer_menu_name', 'Footer ' . $attrs['ariaLabel'], $attrs['ariaLabel'] );
+	$menu = hejlejo_find_menu( $name );
+
+	if ( ! $menu ) {
+		return $parsed_block;
+	}
+
+	// Block-Menü: Inhalt direkt übernehmen (ein nachträglich gesetztes "ref" greift beim Rendern nicht zuverlässig).
+	if ( isset( $menu['ref'] ) ) {
+		$navigation    = get_post( $menu['ref'] );
+		$menu['inner'] = $navigation ? $navigation->post_content : '';
+	}
+
+	$inner = array_values(
+		array_filter(
+			parse_blocks( $menu['inner'] ),
+			static function ( $block ) {
+				return ! empty( $block['blockName'] );
+			}
+		)
+	);
+
+	if ( ! $inner ) {
+		return $parsed_block;
+	}
+
+	// Untermenüs im Footer als einfache Links darstellen.
+	$flat = array();
+	foreach ( $inner as $block ) {
+		if ( 'core/navigation-submenu' === $block['blockName'] ) {
+			$children              = $block['innerBlocks'];
+			$block['blockName']    = 'core/navigation-link';
+			$block['innerBlocks']  = array();
+			$block['innerContent'] = array();
+			$flat[]                = $block;
+			foreach ( $children as $child ) {
+				$flat[] = $child;
+			}
+			continue;
+		}
+		$flat[] = $block;
+	}
+
+	$parsed_block['innerBlocks']  = $flat;
+	$parsed_block['innerContent'] = array_fill( 0, count( $flat ), null );
+
+	return $parsed_block;
+}
+add_filter( 'render_block_data', 'hejlejo_footer_menus' );

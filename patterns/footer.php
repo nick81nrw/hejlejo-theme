@@ -86,15 +86,9 @@
 		<!-- wp:paragraph {"fontSize":"x-small"} -->
 		<p class="has-x-small-font-size">© <?php echo esc_html( gmdate( 'Y' ) ); ?> Hej Lejo · Mit Liebe gestaltet in Deutschland ♡</p>
 		<!-- /wp:paragraph -->
-		<?php if ( function_exists( 'wc_gzd_is_small_business' ) && wc_gzd_is_small_business() ) : ?>
-		<!-- wp:paragraph {"fontSize":"x-small"} -->
-		<p class="has-x-small-font-size">Gemäß § 19 UStG wird keine Umsatzsteuer berechnet. Preise zzgl. <a href="<?php echo hejlejo_legal_url( 'shipping_costs', 'versandarten' ); ?>">Versandkosten</a></p>
+		<!-- wp:paragraph {"className":"hejlejo-footer__tax","fontSize":"x-small"} -->
+		<p class="hejlejo-footer__tax has-x-small-font-size">Alle Preise inkl. gesetzl. MwSt., zzgl. <a href="<?php echo hejlejo_legal_url( 'shipping_costs', 'versandarten' ); ?>">Versandkosten</a></p>
 		<!-- /wp:paragraph -->
-		<?php else : ?>
-		<!-- wp:paragraph {"fontSize":"x-small"} -->
-		<p class="has-x-small-font-size">Alle Preise inkl. gesetzl. MwSt., zzgl. <a href="<?php echo hejlejo_legal_url( 'shipping_costs', 'versandarten' ); ?>">Versandkosten</a></p>
-		<!-- /wp:paragraph -->
-		<?php endif; ?>
 	</div>
 	<!-- /wp:group -->
 </div>
