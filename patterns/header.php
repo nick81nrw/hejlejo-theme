@@ -24,9 +24,9 @@
 
 		<?php $hejlejo_menu = hejlejo_primary_menu(); ?>
 		<?php if ( $hejlejo_menu && isset( $hejlejo_menu['ref'] ) ) : ?>
-		<!-- wp:navigation {"ref":<?php echo (int) $hejlejo_menu['ref']; ?>,"overlayMenu":"mobile","openSubmenusOnClick":true,"overlayBackgroundColor":"surface","overlayTextColor":"contrast","className":"hejlejo-header__nav","ariaLabel":"Hauptmenü","layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"blockGap":"var:preset|spacing|40"}}} /-->
+		<!-- wp:navigation {"ref":<?php echo (int) $hejlejo_menu['ref']; ?>,"overlayMenu":"mobile","overlayBackgroundColor":"surface","overlayTextColor":"contrast","className":"hejlejo-header__nav","ariaLabel":"Hauptmenü","layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"blockGap":"var:preset|spacing|40"}}} /-->
 		<?php else : ?>
-		<!-- wp:navigation {"overlayMenu":"mobile","openSubmenusOnClick":true,"overlayBackgroundColor":"surface","overlayTextColor":"contrast","className":"hejlejo-header__nav","ariaLabel":"Hauptmenü","layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"blockGap":"var:preset|spacing|40"}}} -->
+		<!-- wp:navigation {"overlayMenu":"mobile","overlayBackgroundColor":"surface","overlayTextColor":"contrast","className":"hejlejo-header__nav","ariaLabel":"Hauptmenü","layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"blockGap":"var:preset|spacing|40"}}} -->
 		<?php if ( $hejlejo_menu ) : ?>
 			<?php echo $hejlejo_menu['inner']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Block-Markup aus WordPress-Menü. ?>
 		<?php else : ?>

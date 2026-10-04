@@ -1060,9 +1060,6 @@
 		position: sticky;
 		top: calc(var(--hejlejo-header-offset) + 100px);
 		align-self: flex-start;
-		max-height: calc(100vh - 120px);
-		overflow-y: auto;
-		scrollbar-width: thin;
 	}
 }
 
@@ -1113,7 +1110,7 @@
 	text-decoration: none;
 	font-weight: 600;
 	line-height: 1.25;
-	transition: box-shadow 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+	transition: box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .hejlejo-catnav__link:not(:has(.hejlejo-catnav__image)) {
@@ -1121,8 +1118,7 @@
 }
 
 .hejlejo-catnav__link:hover {
-	box-shadow: 0 0 0 1px var(--wp--preset--color--green), var(--hejlejo-shadow);
-	transform: translateX(2px);
+	box-shadow: 0 0 0 1px var(--wp--preset--color--green);
 	color: var(--wp--preset--color--contrast);
 }
 
@@ -1206,5 +1202,38 @@
 
 	.hejlejo-catnav__link:hover {
 		transform: none;
+	}
+}
+
+/* -------------------------------------------------------------------------
+ * Produktkarten: gut lesbare Schriftgrößen, ohne Kleinunternehmer-Hinweis
+ * (der Hinweis steht einmal im Footer und auf der Produktseite)
+ * ---------------------------------------------------------------------- */
+
+.hejlejo-card__title {
+	font-size: var(--wp--preset--font-size--medium) !important;
+	font-weight: 600 !important;
+}
+
+.hejlejo-card__price .wc-block-components-product-price,
+.hejlejo-card__price {
+	font-size: var(--wp--preset--font-size--medium) !important;
+	font-weight: 700;
+}
+
+.hejlejo-card__body .hejlejo-legal-info,
+.hejlejo-products .wc-gzd-additional-info-loop {
+	font-size: var(--wp--preset--font-size--x-small) !important;
+}
+
+.hejlejo-card__body .wp-block-woocommerce-gzd-product-tax-info,
+.hejlejo-products .wc-gzd-additional-info-loop.small-business-info,
+.hejlejo-products .wc-gzd-additional-info-loop.tax-info {
+	display: none !important;
+}
+
+@media (max-width: 599px) {
+	.hejlejo-card__title {
+		font-size: var(--wp--preset--font-size--small) !important;
 	}
 }

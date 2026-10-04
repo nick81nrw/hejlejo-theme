@@ -56,11 +56,23 @@ Alles Folgende sind manuelle Schritte in der WordPress-Oberfläche – das Theme
    **„Textseite (schmal, z. B. Rechtliches)“**.
 5. **Hauptmenü:** Der Header zeigt das WordPress-Menü **„Main“** – entweder das klassische Menü unter *Design → Menüs*
    oder ein gleichnamiges Block-Menü im Website-Editor. Gibt es keins, erscheinen Standardlinks.
-6. **Logo:** Unter *Design → Editor → Muster/Template-Teile → Header* einen Logo-Block befüllen. Solange kein Logo
+   - **Großes Menü (Mega-Menü):** Hat ein Hauptpunkt (z. B. „Shop“) Unterpunkte mit eigenen Unterpunkten, wird er
+     am Desktop automatisch als zweispaltiges Panel angezeigt: links die Kategorien, rechts die Unterkategorien
+     der gerade überfahrenen/angetippten Kategorie. Jeder Eintrag ist ein normaler Link. Auf Touch-Geräten öffnet
+     der erste Tipp das Panel bzw. die Unterkategorien, der zweite Tipp folgt dem Link. Menüs mit nur zwei Ebenen
+     (z. B. „Anlässe“, „Infos“) bleiben einfache Dropdowns. Mobil wird daraus ein Akkordeon (Link = Seite öffnen,
+     runder Pfeil = auf-/zuklappen).
+   - Gepflegt wird alles weiterhin ausschließlich im Menü „Main“ – das Theme legt keine eigenen Menüpunkte an.
+6. **Hinweisleiste (oberste Leiste):** Ein Menü namens **„Hinweisleiste“** unter *Design → Menüs* anlegen
+   (muss keinem Ort zugewiesen werden). Jeder Eintrag wird ein Hinweis: Navigationsbeschriftung = Text,
+   URL = Link (`#` = ohne Link). Ein leeres Menü blendet die Leiste aus. Ohne dieses Menü wird der Inhalt des
+   Template-Teils *Design → Editor → Muster → Template-Teile → Hinweisleiste* angezeigt. Mobil ist nur der erste
+   Hinweis sichtbar.
+7. **Logo:** Unter *Design → Editor → Muster/Template-Teile → Header* einen Logo-Block befüllen. Solange kein Logo
    gesetzt ist, erscheint der Schriftzug „HEJ LEJO ♡“.
-7. **Platzhalterbilder austauschen:** Alle Bilder in den Patterns sind leichte SVG-Illustrationen aus
+8. **Platzhalterbilder austauschen:** Alle Bilder in den Patterns sind leichte SVG-Illustrationen aus
    `assets/images/placeholders/`. Im Editor einfach das Bild anklicken → *Ersetzen*.
-8. **Texte prüfen:** Adresse und Öffnungszeiten im Schranklädchen-Pattern, Lizenz- und Versandhinweise im
+9. **Texte prüfen:** Adresse und Öffnungszeiten im Schranklädchen-Pattern, Lizenz- und Versandhinweise im
    Akkordeon „Gut zu wissen“ auf den Produktseiten (*Editor → Templates → Einzelprodukt*) sind Beispieltexte.
 
 ## Theme-Konzept
@@ -93,17 +105,20 @@ hejlejo/
 │   ├── block-styles.php    Block-Stilvarianten
 │   ├── patterns.php        Pattern-Kategorien + Helfer (Links, Produktkarte)
 │   ├── editor.php          Editor-Einschränkungen
-│   ├── blocks.php          Registrierung der zwei Theme-Blöcke
+│   ├── blocks.php          Registrierung der Theme-Blöcke
+│   ├── integrations.php    Instagram-Feed (Smash Balloon), Hinweisleiste aus Menü
 │   └── woocommerce.php     FiboSearch, Tabs, Block-Hooks, Mini-Cart
 ├── blocks/
 │   ├── product-highlights/ Block „Produkt-Vorteile“
-│   └── product-badges/     Block „Produkt-Badges“
+│   ├── product-badges/     Block „Produkt-Badges“
+│   └── category-nav/       Block „Kategorie-Navigation“ (Shop-Seitenleiste)
 ├── templates/              Seiten-, Blog- und WooCommerce-Templates
 ├── parts/                  Header, Hinweisleiste, Footer, Kasse-Header, Beitragskarte
 ├── patterns/               alle Patterns (PHP, automatisch registriert)
 └── assets/
     ├── css/                theme.css, woocommerce.css, editor.css
     ├── js/editor.js        entfernt unpassende Core-Stilvarianten im Editor
+    ├── js/navigation.js    Mega-Menü (Hover/Touch) und mobiles Akkordeon
     ├── fonts/              WOFF2 + Lizenzen
     └── images/             Icons + Platzhalter-Illustrationen
 ```

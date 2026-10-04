@@ -53,8 +53,8 @@ add_filter( 'should_load_remote_block_patterns', '__return_false' );
 /**
  * Frontend-Styles laden.
  *
- * Bewusst nur zwei kleine Stylesheets und kein Frontend-JavaScript:
- * Navigation, Mini-Cart und Galerie bringen WordPress bzw. WooCommerce selbst mit.
+ * Bewusst nur zwei kleine Stylesheets und ein kleines Navigations-Skript (ohne jQuery).
+ * Mini-Cart und Galerie bringen WordPress bzw. WooCommerce selbst mit.
  */
 function hejlejo_enqueue_assets() {
 	wp_enqueue_style(
@@ -62,6 +62,18 @@ function hejlejo_enqueue_assets() {
 		HEJLEJO_URI . '/assets/css/theme.css',
 		array(),
 		HEJLEJO_VERSION
+	);
+
+	// Kleines Skript für Mega-Menü, Touch-Bedienung und mobiles Akkordeon (ohne Abhängigkeiten).
+	wp_enqueue_script(
+		'hejlejo-navigation',
+		HEJLEJO_URI . '/assets/js/navigation.js',
+		array(),
+		HEJLEJO_VERSION,
+		array(
+			'in_footer' => true,
+			'strategy'  => 'defer',
+		)
 	);
 
 	if ( class_exists( 'WooCommerce' ) ) {

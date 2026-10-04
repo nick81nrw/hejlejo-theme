@@ -187,6 +187,13 @@ a {
 	letter-spacing: 0.02em;
 }
 
+.hejlejo-announcement a {
+	color: inherit;
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
+	text-decoration-thickness: 1px;
+}
+
 .hejlejo-announcement p + p::before {
 	content: "·";
 	margin-right: var(--wp--preset--spacing--40);
@@ -1504,4 +1511,140 @@ body > .footer-info.vat-info {
 	color: var(--wp--preset--color--muted);
 	font-size: var(--wp--preset--font-size--x-small);
 	text-align: center;
+}
+
+/* -------------------------------------------------------------------------
+ * Großes Menü (Menüpunkte mit drei Ebenen, z. B. Shop → Kategorie → Unterkategorie)
+ * Links die Kategorien, rechts die Unterkategorien der gewählten Kategorie.
+ * ---------------------------------------------------------------------- */
+
+@media (min-width: 1024px) {
+	.hejlejo-header__nav .hejlejo-mega > .wp-block-navigation__submenu-container {
+		--hejlejo-mega-width: 660px;
+		width: var(--hejlejo-mega-width) !important;
+		min-width: var(--hejlejo-mega-width) !important;
+		min-height: calc(var(--hejlejo-mega-rows, 6) * 3rem + 2rem);
+		padding: 0.75rem !important;
+		display: block;
+	}
+
+	.hejlejo-header__nav .hejlejo-mega > .wp-block-navigation__submenu-container > .wp-block-navigation-item {
+		width: calc(50% - 0.75rem);
+		position: static;
+	}
+
+	.hejlejo-header__nav .hejlejo-mega > .wp-block-navigation__submenu-container > .wp-block-navigation-item > .wp-block-navigation-item__content {
+		display: flex !important;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		min-height: 2.75rem;
+		font-weight: 600;
+	}
+
+	.hejlejo-header__nav .hejlejo-mega > .wp-block-navigation__submenu-container > .has-child > .wp-block-navigation-item__content::after {
+		content: "›";
+		font-size: 1.2em;
+		line-height: 1;
+		color: var(--wp--preset--color--muted);
+	}
+
+	/* Pfeil-Buttons der zweiten Ebene ausblenden – die Spalte öffnet per Hover/Tipp */
+	.hejlejo-header__nav .hejlejo-mega > .wp-block-navigation__submenu-container > .has-child > .wp-block-navigation__submenu-icon {
+		display: none;
+	}
+
+	/* Rechte Spalte */
+	.hejlejo-header__nav .hejlejo-mega > .wp-block-navigation__submenu-container > .wp-block-navigation-item > .wp-block-navigation__submenu-container {
+		position: absolute !important;
+		left: 50% !important;
+		top: 0.75rem !important;
+		right: 0.75rem;
+		width: auto !important;
+		min-width: 0 !important;
+		height: auto !important;
+		padding: 0 0 0 0.75rem !important;
+		border-left: 1px solid var(--hejlejo-line-soft) !important;
+		border-radius: 0 !important;
+		box-shadow: none !important;
+		background: transparent !important;
+		visibility: hidden !important;
+		opacity: 0 !important;
+		overflow: visible !important;
+	}
+
+	.hejlejo-header__nav .hejlejo-mega > .wp-block-navigation__submenu-container > .is-active > .wp-block-navigation__submenu-container,
+	.hejlejo-header__nav .hejlejo-mega > .wp-block-navigation__submenu-container:not(:has(> .is-active)) > .has-child:first-child > .wp-block-navigation__submenu-container {
+		visibility: visible !important;
+		opacity: 1 !important;
+	}
+
+	.hejlejo-header__nav .hejlejo-mega > .wp-block-navigation__submenu-container > .is-active > .wp-block-navigation-item__content,
+	.hejlejo-header__nav .hejlejo-mega > .wp-block-navigation__submenu-container:not(:has(> .is-active)) > .has-child:first-child > .wp-block-navigation-item__content {
+		background: var(--wp--preset--color--cream);
+	}
+
+	.hejlejo-header__nav .hejlejo-mega > .wp-block-navigation__submenu-container > .wp-block-navigation-item > .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+		min-height: 2.5rem;
+		display: flex !important;
+		align-items: center;
+		font-weight: 500;
+	}
+}
+
+/* -------------------------------------------------------------------------
+ * Mobiles Menü: Akkordeon – Text = Link, Pfeil = auf-/zuklappen
+ * ---------------------------------------------------------------------- */
+
+.hejlejo-header__nav .is-menu-open .wp-block-navigation-item.has-child {
+	display: grid !important;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	column-gap: 0.5rem;
+}
+
+.hejlejo-header__nav .is-menu-open .wp-block-navigation-item.has-child > .wp-block-navigation__submenu-container {
+	grid-column: 1 / -1;
+	display: none !important;
+	padding: 0 0 0.75rem 1rem !important;
+}
+
+.hejlejo-header__nav .is-menu-open .wp-block-navigation-item.has-child.hejlejo-expanded > .wp-block-navigation__submenu-container {
+	display: flex !important;
+}
+
+.hejlejo-header__nav .is-menu-open .wp-block-navigation-submenu__toggle {
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	margin: 0;
+	padding: 0;
+	border-radius: 999px;
+	background: var(--wp--preset--color--cream);
+	color: var(--wp--preset--color--contrast);
+}
+
+.hejlejo-header__nav .is-menu-open .wp-block-navigation-submenu__toggle svg {
+	display: block;
+	width: 14px;
+	height: 14px;
+	margin: 0;
+	transform: none !important;
+	transition: transform 0.2s ease;
+}
+
+.hejlejo-header__nav .is-menu-open .hejlejo-expanded > .wp-block-navigation-submenu__toggle svg {
+	transform: rotate(180deg) !important;
+}
+
+/* Dritte Ebene im mobilen Menü etwas kleiner */
+.hejlejo-header__nav .is-menu-open .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--muted);
+}
+
+.hejlejo-header__nav .is-menu-open .wp-block-navigation__submenu-container .has-child > .wp-block-navigation-item__content {
+	font-weight: 600;
 }
