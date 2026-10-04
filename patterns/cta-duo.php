@@ -5,7 +5,7 @@
  * Categories: hejlejo-sections
  * Keywords: business, freebie, newsletter, cta
  * Viewport Width: 1400
- * Description: Business-Hinweis und Freebie-Anmeldung als zwei Karten nebeneinander (mobil untereinander).
+ * Description: Business-Hinweis (2/3) und Freebie-Anmeldung (1/3) nebeneinander, auf Tablet und Handy untereinander.
  *
  * @package HejLejo
  */

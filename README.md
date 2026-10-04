@@ -199,7 +199,8 @@ Alle Links können im Editor frei geändert werden. Es werden keine Kategorien o
 ## Plugins
 
 **Optional für Instagram:** *Smash Balloon Instagram Feed* (kostenlos). Nach dem Verbinden des Instagram-Kontos zeigt das
-Instagram-Raster automatisch die letzten 4 Beiträge (Filter `hejlejo_instagram_shortcode`).
+Instagram-Raster automatisch die letzten 4 Beiträge (Filter `hejlejo_instagram_shortcode`). Dazu im Plugin unter
+*Instagram Feed → Alle Feeds* einen Feed anlegen; solange keiner existiert, bleiben die Bilder aus dem Editor sichtbar.
 
 **Weiterhin kompatibel / empfohlen:** WooCommerce, Germanized, Shiptastic, DHL/UPS, WooPayments,
 WooCommerce PayPal Payments, FiboSearch, Rank Math SEO, Real Cookie Banner, FluentSMTP, LiteSpeed Cache, Statify,

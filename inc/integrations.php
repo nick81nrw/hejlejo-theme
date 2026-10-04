@@ -32,7 +32,8 @@ function hejlejo_instagram_feed( $block_content, $block ) {
 	$shortcode = apply_filters( 'hejlejo_instagram_shortcode', '[instagram-feed num=4 cols=4 colsmobile=2 showheader=false showbutton=false showfollow=false imagepadding=4]' );
 	$feed      = do_shortcode( $shortcode );
 
-	if ( '' === trim( wp_strip_all_tags( $feed, true ) ) && false === strpos( $feed, '<img' ) && false === strpos( $feed, 'sbi' ) ) {
+	// Noch kein Feed angelegt/verbunden: Smash Balloon liefert dann nur eine Fehlermeldung → Bilder aus dem Editor behalten.
+	if ( false === strpos( $feed, 'sb_instagram' ) || false !== strpos( $feed, 'sbi_mod_error' ) ) {
 		return $block_content;
 	}
 

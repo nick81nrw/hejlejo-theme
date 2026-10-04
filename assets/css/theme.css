@@ -1039,6 +1039,33 @@ ul.is-style-heart li::before {
 	}
 }
 
+/* Business + Freebie nebeneinander: Schranklädchen 2/3, Freebie 1/3 (ab Desktop) */
+@media (min-width: 1024px) {
+	.wp-block-group.hejlejo-cta-duo {
+		grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) !important;
+	}
+
+	/* Freebie in der schmalen Spalte: Bild als Streifen oben, Text darunter */
+	.hejlejo-cta-duo > .wp-block-group.hejlejo-cta--freebie {
+		grid-template-columns: 1fr;
+		grid-template-rows: auto 1fr;
+	}
+
+	.hejlejo-cta-duo > .hejlejo-cta--freebie .hejlejo-cta__image {
+		order: -1;
+		height: 170px;
+		min-height: 0;
+	}
+
+	.hejlejo-cta-duo > .hejlejo-cta--freebie .hejlejo-cta__body {
+		justify-content: center;
+	}
+
+	.hejlejo-cta-duo > .hejlejo-cta--freebie .wp-block-heading {
+		font-size: var(--wp--preset--font-size--large) !important;
+	}
+}
+
 .hejlejo-newsletter {
 	width: 100%;
 	margin-top: var(--wp--preset--spacing--10) !important;
