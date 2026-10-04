@@ -26,7 +26,6 @@
 			<!-- wp:social-links {"iconColor":"surface","iconColorValue":"#FFFFFF","className":"is-style-logos-only","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|20"}}}} -->
 			<ul class="wp-block-social-links has-icon-color is-style-logos-only">
 				<!-- wp:social-link {"url":"https://www.instagram.com/hej.lejo/","service":"instagram","label":"Hej Lejo auf Instagram"} /-->
-				<!-- wp:social-link {"url":"https://www.pinterest.de/","service":"pinterest","label":"Hej Lejo auf Pinterest"} /-->
 			</ul>
 			<!-- /wp:social-links -->
 		</div>

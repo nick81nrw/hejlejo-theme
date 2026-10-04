@@ -1688,3 +1688,36 @@ body > .footer-info.vat-info {
 .hejlejo-header__nav .is-menu-open .wp-block-navigation__submenu-container .has-child > .wp-block-navigation-item__content {
 	font-weight: 600;
 }
+
+/* -------------------------------------------------------------------------
+ * Robustheit für frei gebaute Seiten
+ * ---------------------------------------------------------------------- */
+
+/* Kartenraster mit fester Spaltenzahl (im Editor eingestellt) auf dem Handy untereinander,
+   sonst werden die Karten zu schmal und der Text abgeschnitten. Kategorie-Kacheln behalten 2 Spalten. */
+@media (max-width: 599px) {
+	.wp-block-group.is-layout-grid:has(> .is-style-card, > .is-style-panel):not(.hejlejo-tiles) {
+		grid-template-columns: minmax(0, 1fr) !important;
+	}
+}
+
+/* Cover/Hero mit heller Schrift und wenig Überlagerung: dezenter Verlauf hinter dem Text für Lesbarkeit.
+   Wer mehr möchte, stellt im Editor beim Cover-Block die Deckkraft der Überlagerung höher. */
+.wp-block-cover:not(.is-style-hero):is(.has-surface-color, .has-white-color, .has-base-color):has(> .wp-block-cover__background:is(.has-background-dim-0, .has-background-dim-10, .has-background-dim-20))::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	pointer-events: none;
+	background: linear-gradient(90deg, rgba(40, 32, 28, 0.5) 0%, rgba(40, 32, 28, 0.28) 45%, rgba(40, 32, 28, 0) 75%);
+}
+
+.wp-block-cover:is(.has-surface-color, .has-white-color, .has-base-color) .wp-block-cover__inner-container :is(h1, h2, h3, p) {
+	text-shadow: 0 1px 2px rgba(40, 32, 28, 0.25), 0 2px 16px rgba(40, 32, 28, 0.3);
+}
+
+@media (max-width: 781px) {
+	.wp-block-cover:not(.is-style-hero):is(.has-surface-color, .has-white-color, .has-base-color):has(> .wp-block-cover__background:is(.has-background-dim-0, .has-background-dim-10, .has-background-dim-20))::before {
+		background: linear-gradient(0deg, rgba(40, 32, 28, 0.35), rgba(40, 32, 28, 0.35));
+	}
+}

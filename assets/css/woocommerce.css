@@ -770,6 +770,39 @@
 	font-weight: 500;
 }
 
+/* Überschrift im Warenkorb-Drawer: kompakt, eine Zeile, Artikelanzahl klein daneben */
+.wc-block-mini-cart__drawer .wc-block-mini-cart__title {
+	display: flex !important;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: flex-start !important;
+	gap: 0.15rem 0.5rem;
+	margin-block: 1.25rem 0.75rem !important;
+	padding-right: 2.5rem;
+	font-size: var(--wp--preset--font-size--x-large) !important;
+	line-height: 1.2 !important;
+}
+
+.wc-block-mini-cart__drawer .wc-block-mini-cart__title > * {
+	flex: 0 0 auto !important;
+	width: auto !important;
+	margin: 0 !important;
+	white-space: nowrap;
+}
+
+.wc-block-mini-cart__drawer .wc-block-mini-cart__title-items-counter-block,
+.wc-block-mini-cart__drawer .wc-block-mini-cart__title > :last-child:not(:first-child) {
+	font-size: var(--wp--preset--font-size--small) !important;
+	font-weight: 500;
+	color: var(--wp--preset--color--muted);
+}
+
+@media (max-width: 599px) {
+	.wc-block-mini-cart__drawer .wc-block-mini-cart__title {
+		font-size: var(--wp--preset--font-size--large) !important;
+	}
+}
+
 .wc-block-mini-cart__drawer .components-modal__content,
 .wc-block-mini-cart__drawer .wc-block-components-drawer__content {
 	background: var(--wp--preset--color--base);
