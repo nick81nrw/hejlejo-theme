@@ -1237,3 +1237,23 @@
 		font-size: var(--wp--preset--font-size--small) !important;
 	}
 }
+
+/* -------------------------------------------------------------------------
+ * Zahlungs-Buttons (PayPal, WooPayments Express) unter dem Sticky-Header halten.
+ * Die PayPal-SDK setzt z-index: 100 auf ihre iframes – ohne eigenen Stapelkontext
+ * schieben sich die Buttons beim Scrollen über die Navigation.
+ * ---------------------------------------------------------------------- */
+
+.ppc-button-wrapper,
+[id^="ppc-button"],
+.ppcp-messages,
+[data-pp-message],
+.paypal-buttons,
+#wcpay-express-checkout-element,
+.wcpay-payment-request-wrapper,
+#wc-stripe-express-checkout-element,
+.wc-block-components-express-payment {
+	position: relative;
+	z-index: 0;
+	isolation: isolate;
+}

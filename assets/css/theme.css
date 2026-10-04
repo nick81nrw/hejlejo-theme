@@ -217,7 +217,7 @@ a {
 .site-header {
 	position: sticky;
 	top: var(--hejlejo-header-offset);
-	z-index: 100;
+	z-index: 1000;
 	background: var(--wp--preset--color--surface);
 	box-shadow: 0 1px 0 var(--hejlejo-line-soft);
 }
@@ -1573,8 +1573,10 @@ body > .footer-info.vat-info {
 		overflow: visible !important;
 	}
 
-	.hejlejo-header__nav .hejlejo-mega > .wp-block-navigation__submenu-container > .is-active > .wp-block-navigation__submenu-container,
-	.hejlejo-header__nav .hejlejo-mega > .wp-block-navigation__submenu-container:not(:has(> .is-active)) > .has-child:first-child > .wp-block-navigation__submenu-container {
+	/* Nur sichtbar, solange das Panel offen ist – sonst würde die (unsichtbare) rechte Spalte
+	   Hover-Ereignisse fangen und das Menü weit unterhalb des Menüpunkts öffnen. */
+	.hejlejo-header__nav .hejlejo-mega:is(:hover, :focus-within, :has(> .wp-block-navigation-submenu__toggle[aria-expanded="true"])) > .wp-block-navigation__submenu-container > .is-active > .wp-block-navigation__submenu-container,
+	.hejlejo-header__nav .hejlejo-mega:is(:hover, :focus-within, :has(> .wp-block-navigation-submenu__toggle[aria-expanded="true"])) > .wp-block-navigation__submenu-container:not(:has(> .is-active)) > .has-child:first-child > .wp-block-navigation__submenu-container {
 		visibility: visible !important;
 		opacity: 1 !important;
 	}
