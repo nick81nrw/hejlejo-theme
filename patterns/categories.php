@@ -11,10 +11,10 @@
  */
 
 $hejlejo_tiles = array(
-	array( 'candles', 'Kerzen gestalten', hejlejo_shop_link( array( 'kerzentattoo', 'kerzen-diy-dateien', 'wasserschiebefolie' ), 'Kerze' ) ),
-	array( 'gifts', 'Druckvorlagen', hejlejo_shop_link( array( 'vorlagen', 'druckvorlagen' ), 'Druckvorlage' ) ),
-	array( 'diy', 'DIY &amp; Kreativ', hejlejo_shop_link( array( 'plotter-und-laserdateien', 'kerzen-diy-dateien', 'plotterdateien' ), 'Datei' ) ),
-	array( 'seasonal', 'Saisonale Lieblinge', hejlejo_shop_link( array( 'anlass', 'herbst' ), 'Herbst' ) ),
+	array( 'tile-candles.png', 'Kerzen gestalten', hejlejo_shop_link( array( 'kerzentattoo', 'kerzen-diy-dateien', 'wasserschiebefolie' ), 'Kerze' ) ),
+	array( 'tile-templates.png', 'Druckvorlagen', hejlejo_shop_link( array( 'vorlagen', 'druckvorlagen' ), 'Druckvorlage' ) ),
+	array( 'tile-diy.png', 'DIY &amp; Kreativ', hejlejo_shop_link( array( 'plotter-und-laserdateien', 'kerzen-diy-dateien', 'plotterdateien' ), 'Datei' ) ),
+	array( 'tile-seasonal.png', 'Saisonale Lieblinge', hejlejo_shop_link( array( 'anlass', 'herbst' ), 'Herbst' ) ),
 );
 ?>
 <!-- wp:group {"align":"full","className":"hejlejo-section hejlejo-categories","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|50"},"blockGap":"var:preset|spacing|50"}},"layout":{"type":"constrained"}} -->
@@ -29,7 +29,7 @@ $hejlejo_tiles = array(
 		<!-- wp:group {"className":"is-style-card hejlejo-tile","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|30","bottom":"var:preset|spacing|40","left":"var:preset|spacing|30"},"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"center"}} -->
 		<div class="wp-block-group is-style-card hejlejo-tile" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--30)">
 			<!-- wp:image {"sizeSlug":"full","align":"center","className":"hejlejo-tile__image"} -->
-			<figure class="wp-block-image aligncenter size-full hejlejo-tile__image"><img src="<?php echo hejlejo_image( 'illustrations/' . $hejlejo_tile[0] . '.svg' ); ?>" alt=""/></figure>
+			<figure class="wp-block-image aligncenter size-full hejlejo-tile__image"><img src="<?php echo hejlejo_image( 'content/' . $hejlejo_tile[0] ); ?>" alt=""/></figure>
 			<!-- /wp:image -->
 			<!-- wp:heading {"textAlign":"center","level":3,"className":"hejlejo-tile__title","fontSize":"x-large"} -->
 			<h3 class="wp-block-heading has-text-align-center hejlejo-tile__title has-x-large-font-size"><a href="<?php echo $hejlejo_tile[2]; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- bereits escaped. ?>"><?php echo $hejlejo_tile[1]; // phpcs:ignore ?></a></h3>

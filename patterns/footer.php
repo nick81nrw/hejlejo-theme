@@ -39,7 +39,7 @@
 			<!-- wp:navigation {"overlayMenu":"never","ariaLabel":"Shop","className":"hejlejo-footer__nav","layout":{"type":"flex","orientation":"vertical"},"style":{"spacing":{"blockGap":"0.5rem"}}} -->
 				<!-- wp:navigation-link {"label":"Alle Produkte","url":"<?php echo hejlejo_shop_url(); ?>","kind":"custom"} /-->
 				<!-- wp:navigation-link {"label":"Neuheiten","url":"<?php echo esc_url( add_query_arg( 'orderby', 'date', hejlejo_shop_url() ) ); ?>","kind":"custom"} /-->
-				<!-- wp:navigation-link {"label":"Kerzen gestalten","url":"<?php echo hejlejo_shop_link( array( 'kerzentattoos', 'wasserschiebefolie', 'kerzen' ), 'Kerze' ); ?>","kind":"custom"} /-->
+				<!-- wp:navigation-link {"label":"Kerzen gestalten","url":"<?php echo hejlejo_shop_link( array( 'wasserschiebefolie', 'kerzentattoo', 'kerzen' ), 'Kerze' ); ?>","kind":"custom"} /-->
 				<!-- wp:navigation-link {"label":"Für dein Lädchen","url":"<?php echo hejlejo_page_url( 'fuer-dein-laedchen' ); ?>","kind":"custom"} /-->
 			<!-- /wp:navigation -->
 		</div>
@@ -55,7 +55,7 @@
 				<!-- wp:navigation-link {"label":"Versand &amp; Lieferung","url":"<?php echo hejlejo_legal_url( 'shipping_costs', 'versandarten' ); ?>","kind":"custom"} /-->
 				<!-- wp:navigation-link {"label":"Zahlungsarten","url":"<?php echo hejlejo_legal_url( 'payment_methods', 'zahlungsarten' ); ?>","kind":"custom"} /-->
 				<!-- wp:navigation-link {"label":"Schranklädchen","url":"<?php echo hejlejo_page_url( 'schranklaedchen' ); ?>","kind":"custom"} /-->
-				<!-- wp:navigation-link {"label":"Über uns","url":"<?php echo hejlejo_page_url( 'ueber-uns' ); ?>","kind":"custom"} /-->
+				<!-- wp:navigation-link {"label":"Über Hej.Lejo","url":"<?php echo hejlejo_page_url( 'ueber-uns' ); ?>","kind":"custom"} /-->
 			<!-- /wp:navigation -->
 		</div>
 		<!-- /wp:column -->
@@ -67,7 +67,7 @@
 			<!-- /wp:heading -->
 			<!-- wp:navigation {"overlayMenu":"never","ariaLabel":"Rechtliches","className":"hejlejo-footer__nav","layout":{"type":"flex","orientation":"vertical"},"style":{"spacing":{"blockGap":"0.5rem"}}} -->
 				<!-- wp:navigation-link {"label":"Impressum","url":"<?php echo hejlejo_legal_url( 'imprint', 'impressum' ); ?>","kind":"custom"} /-->
-				<!-- wp:navigation-link {"label":"Datenschutz","url":"<?php echo hejlejo_legal_url( 'data_security', 'datenschutz' ); ?>","kind":"custom"} /-->
+				<!-- wp:navigation-link {"label":"Datenschutzerklärung","url":"<?php echo hejlejo_legal_url( 'data_security', 'datenschutz' ); ?>","kind":"custom"} /-->
 				<!-- wp:navigation-link {"label":"AGB","url":"<?php echo hejlejo_legal_url( 'terms', 'agb' ); ?>","kind":"custom"} /-->
 				<!-- wp:navigation-link {"label":"Widerrufsbelehrung","url":"<?php echo hejlejo_legal_url( 'revocation', 'widerrufsbelehrung' ); ?>","kind":"custom"} /-->
 			<!-- /wp:navigation -->

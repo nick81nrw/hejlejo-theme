@@ -11,8 +11,8 @@
  */
 
 $hejlejo_cards = array(
-	array( 'clock', 'Öffnungszeiten', 'Täglich von 8 bis 20 Uhr geöffnet.<br>Neue Ware meist am Wochenende.' ),
-	array( 'pin', 'Standort', 'Musterstraße 1<br>12345 Musterstadt' ),
+	array( 'clock', 'Öffnungszeiten', 'Täglich von 10 bis 19 Uhr geöffnet.' ),
+	array( 'pin', 'Standort', 'Ginsterweg 20<br>58675 Hemer' ),
 	array( 'coins', 'Bezahlung', 'Bar in die Kasse oder bequem per PayPal – die Infos hängen direkt am Schrank.' ),
 );
 ?>

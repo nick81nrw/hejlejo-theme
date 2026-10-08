@@ -18,11 +18,11 @@
 	<!-- /wp:heading -->
 	<!-- wp:gallery {"columns":3,"linkTo":"none","sizeSlug":"large","align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|20","left":"var:preset|spacing|20"}}}} -->
 	<figure class="wp-block-gallery alignwide has-nested-images columns-3 is-cropped">
-		<?php foreach ( array( 'social-1', 'social-2', 'social-4', 'social-6', 'business', 'social-5' ) as $hejlejo_img ) : ?>
+		<?php for ( $hejlejo_i = 1; $hejlejo_i <= 6; $hejlejo_i++ ) : ?>
 		<!-- wp:image {"sizeSlug":"large"} -->
-		<figure class="wp-block-image size-large"><img src="<?php echo hejlejo_image( 'placeholders/' . $hejlejo_img . '.svg' ); ?>" alt=""/></figure>
+		<figure class="wp-block-image size-large"><img src="<?php echo hejlejo_image( 'content/gallery-' . $hejlejo_i . '.jpg' ); ?>" alt=""/></figure>
 		<!-- /wp:image -->
-		<?php endforeach; ?>
+		<?php endfor; ?>
 	</figure>
 	<!-- /wp:gallery -->
 </div>
