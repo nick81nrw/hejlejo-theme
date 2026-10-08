@@ -42,14 +42,18 @@ Der Ordnername muss `hejlejo` sein (Text-Domain und Pattern-Slugs).
 
 ## Ersteinrichtung nach der Aktivierung
 
-Alles Folgende sind manuelle Schritte in der WordPress-Oberfläche – das Theme legt selbst keine Inhalte an.
+Das Theme legt selbst keine Inhalte an. Es bringt aber die Gestaltung von staging.hejlejo.de als Standard mit
+(Startseite, Logo, Bilder und Texte der Landingpages in `assets/images/content/` und den Patterns), sodass die
+Seite direkt nach der Aktivierung weitgehend wie Staging aussieht.
 
-1. **Startseite:** Eine Seite „Startseite“ anlegen (oder die bestehende öffnen und den alten Elementor-Inhalt entfernen),
-   im Inhaltsbereich das Pattern **„Hej Lejo / Seite: Startseite“** einfügen. Unter *Einstellungen → Lesen* als
-   statische Startseite festlegen. Das Template `front-page` zeigt den Seiteninhalt ohne Titel in voller Breite.
+1. **Startseite:** Solange die Startseite keinen Block-Inhalt hat (keine festgelegt, leer oder mit Elementor gebaut,
+   z. B. „Dashboard“), zeigt das Theme automatisch das Pattern **„Hej Lejo / Seite: Startseite“**. Zum Bearbeiten
+   eine Seite „Startseite“ anlegen, das Pattern einfügen und unter *Einstellungen → Lesen* als statische Startseite
+   festlegen – dann hat ihr Inhalt Vorrang. Das Template `front-page` zeigt den Seiteninhalt ohne Titel in voller Breite.
 2. **Schranklädchen / Über uns / Für dein Lädchen:** Seiten mit den Slugs `schranklaedchen`, `ueber-uns` und
-   `fuer-dein-laedchen` anlegen, das passende Pattern „Hej Lejo / Seite: …“ einfügen und als Template
-   **„Landingpage (volle Breite, ohne Titel)“** wählen. Header und Footer verlinken diese Slugs automatisch.
+   `fuer-dein-laedchen` anlegen, das passende Pattern „Hej Lejo / Seite: …“ einfügen (enthält die Texte und Bilder von
+   Staging) und als Template **„Landingpage (volle Breite, ohne Titel)“** wählen. Header und Footer verlinken diese
+   Slugs automatisch.
 3. **Blog:** Eine leere Seite „Blog“ anlegen und unter *Einstellungen → Lesen* als Beitragsseite wählen.
 4. **Rechtstexte:** Impressum, Datenschutz, AGB, Widerruf, Versand- und Zahlungsarten werden über die
    Germanized-/WooCommerce-Seitenzuordnung verlinkt. Für reine Textseiten gibt es das Template
@@ -66,8 +70,8 @@ Alles Folgende sind manuelle Schritte in der WordPress-Oberfläche – das Theme
 6. **Hinweisleiste (oberste Leiste):** Ein Menü namens **„Hinweisleiste“** unter *Design → Menüs* anlegen
    (muss keinem Ort zugewiesen werden). Jeder Eintrag wird ein Hinweis: Navigationsbeschriftung = Text,
    URL = Link (`#` = ohne Link). Ein leeres Menü blendet die Leiste aus. Ohne dieses Menü wird der Inhalt des
-   Template-Teils *Design → Editor → Muster → Template-Teile → Hinweisleiste* angezeigt. Mobil ist nur der erste
-   Hinweis sichtbar.
+   Template-Teils *Design → Editor → Muster → Template-Teile → Hinweisleiste* angezeigt – standardmäßig ist er leer,
+   die Leiste also ausgeblendet. Mobil ist nur der erste Hinweis sichtbar.
 7. **Footer-Links:** Die drei Linkspalten im Footer lassen sich über Menüs steuern: **„Footer Shop“**,
    **„Footer Service“** und **„Footer Rechtliches“** (klassisch unter *Design → Menüs* oder als Block-Menü im
    Website-Editor, keinem Ort zuweisen nötig). Fehlt ein Menü, zeigt die Spalte die Standardlinks des Themes.
@@ -76,12 +80,15 @@ Alles Folgende sind manuelle Schritte in der WordPress-Oberfläche – das Theme
    Der **Steuerhinweis** unten im Footer kommt aus Germanized (*WooCommerce → Einstellungen → Germanized*, z. B. der
    Kleinunternehmer-Hinweis nach § 19 UStG) plus Link „Versandkosten“; Germanizeds eigene Zusatzzeile unter dem
    Footer entfällt dadurch.
-8. **Logo:** Unter *Design → Editor → Muster/Template-Teile → Header* einen Logo-Block befüllen. Solange kein Logo
-   gesetzt ist, erscheint der Schriftzug „HEJ LEJO ♡“.
-9. **Platzhalterbilder austauschen:** Alle Bilder in den Patterns sind leichte SVG-Illustrationen aus
-   `assets/images/placeholders/`. Im Editor einfach das Bild anklicken → *Ersetzen*.
-10. **Texte prüfen:** Adresse und Öffnungszeiten im Schranklädchen-Pattern, Lizenz- und Versandhinweise im
-   Akkordeon „Gut zu wissen“ auf den Produktseiten (*Editor → Templates → Einzelprodukt*) sind Beispieltexte.
+8. **Logo:** Solange kein Website-Logo gesetzt ist, zeigt der Header das Hej-Lejo-Logo aus
+   `assets/images/content/logo.png`. Ein eigenes Logo unter *Design → Editor → Template-Teile → Header* hat Vorrang.
+   **Achtung beim Umstieg von Ashe:** Das dort gesetzte Logo `Logo-transparent.png` ist weiß und im hellen Header
+   unsichtbar – nach der Aktivierung das Logo im Header entfernen (dann greift das Theme-Logo) oder ersetzen.
+9. **Bilder austauschen:** Startseite, Schranklädchen, Über uns und Für dein Lädchen nutzen die Fotos von Staging aus
+   `assets/images/content/`, die übrigen Patterns leichte SVG-Illustrationen aus `assets/images/placeholders/`.
+   Im Editor einfach das Bild anklicken → *Ersetzen*.
+10. **Texte prüfen:** Lizenz- und Versandhinweise im Akkordeon „Gut zu wissen“ auf den Produktseiten
+   (*Editor → Templates → Einzelprodukt*) sind allgemeine Texte.
 
 ## Theme-Konzept
 
@@ -115,6 +122,7 @@ hejlejo/
 │   ├── editor.php          Editor-Einschränkungen
 │   ├── blocks.php          Registrierung der Theme-Blöcke
 │   ├── integrations.php    Instagram-Feed (Smash Balloon), Hinweisleiste aus Menü, Germanized-Footerhinweis
+│   ├── defaults.php        Standard-Startseite und Standard-Logo, solange nichts Eigenes eingerichtet ist
 │   └── woocommerce.php     FiboSearch, Tabs, Block-Hooks, Mini-Cart
 ├── blocks/
 │   ├── product-highlights/ Block „Produkt-Vorteile“
@@ -128,7 +136,7 @@ hejlejo/
     ├── js/editor.js        entfernt unpassende Core-Stilvarianten im Editor
     ├── js/navigation.js    Mega-Menü (Hover/Touch) und mobiles Akkordeon
     ├── fonts/              WOFF2 + Lizenzen
-    └── images/             Icons + Platzhalter-Illustrationen
+    └── images/             Icons, Platzhalter-Illustrationen, content/ (Logo und Fotos von Staging)
 ```
 
 ### Templates
@@ -153,11 +161,11 @@ sowie für WooCommerce `archive-product`, `taxonomy-product_cat`, `taxonomy-prod
 | Hej Lejo / Drei-Schritte-Anleitung | „So einfach wird aus einer Kerze …“ |
 | Hej Lejo / Text & Bild | Bild + Dachzeile, Headline, Text, Button |
 | Hej Lejo / Business CTA | „Du hast selbst ein kleines Lädchen?“ |
-| Hej Lejo / Freebie & Newsletter | „Eine kleine Freude für dich ♡“ |
+| Hej Lejo / Freebie & Newsletter | „Freebie – Hol dir eine kostenlose Vorlage.“ |
 | Hej Lejo / Business + Freebie | beide Karten nebeneinander |
 | Hej Lejo / Instagram-Raster | „Hej Lejo in echt ♡“ – die letzten 4 Instagram-Beiträge (mit Plugin *Smash Balloon Instagram Feed*), sonst 4 frei wählbare Bilder |
 | Hej Lejo / Service-Leiste | Sicher einkaufen, Sofort-Download, … (auch im Footer) |
-| Hej Lejo / Schranklädchen Hero, … Infos | „Hier hat alles angefangen.“, Öffnungszeiten, Standort, Bezahlung |
+| Hej Lejo / Schranklädchen Hero, … Infos | Foto mit „Schranklädchen“, Öffnungszeiten, Standort, Bezahlung |
 | Hej Lejo / Bildergalerie, Social-Hinweis | Galerie, Instagram-Link |
 | Hej Lejo / Über-uns Hero, Unsere Geschichte | Portrait, Weg vom Schranklädchen zum Online-Shop |
 | Hej Lejo / FAQ, Neueste Beiträge, Produkt: Gut zu wissen | Akkordeon, Blog-Teaser, Produkt-Infos |
