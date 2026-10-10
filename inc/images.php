@@ -18,6 +18,7 @@ defined( 'ABSPATH' ) || exit;
 const HEJLEJO_WEBP_QUALITY = 90;
 const HEJLEJO_WEBP_STATUS  = '_hejlejo_webp';
 const HEJLEJO_WEBP_BACKUP  = '_hejlejo_webp_backup';
+const HEJLEJO_WEBP_CHECKED = '_hejlejo_webp_checked';
 const HEJLEJO_WEBP_BULK    = 'hejlejo_webp_bulk';
 
 /**
@@ -135,7 +136,10 @@ function hejlejo_webp_convert( $id ) {
 		$crop = $registered[ $name ]['crop'];
 		$key  = (int) $size['width'] . 'x' . (int) $size['height'] . ( $crop ? 'c' : '' );
 
-		if ( isset( $made[ $key ] ) ) {
+		if ( array_key_exists( $key, $made ) ) {
+			if ( null === $made[ $key ] ) {
+				continue; // Für diese Abmessung bleibt das Original-Format.
+			}
 			if ( ! isset( $backup[ $name ] ) ) {
 				$backup[ $name ] = $size;
 			}
@@ -162,12 +166,20 @@ function hejlejo_webp_convert( $id ) {
 		}
 		$saved['filesize'] = (int) filesize( $dir . $saved['file'] );
 
+		$before          = isset( $size['filesize'] ) ? (int) $size['filesize'] : ( file_exists( $dir . $size['file'] ) ? (int) filesize( $dir . $size['file'] ) : 0 );
+		$report[ $name ] = array( $before, $saved['filesize'] );
+
+		// Nur behalten, wenn WebP spürbar kleiner ist (bei bereits komprimierten JPEG-Fotos oft nicht der Fall).
+		if ( ! hejlejo_webp_worth_it( $before, $saved['filesize'] ) ) {
+			wp_delete_file( $dir . $saved['file'] );
+			$report[ $name ][] = 'behalten';
+			$made[ $key ]      = null;
+			continue;
+		}
+
 		if ( ! isset( $backup[ $name ] ) ) {
 			$backup[ $name ] = $size;
 		}
-
-		$before          = isset( $size['filesize'] ) ? (int) $size['filesize'] : ( file_exists( $dir . $size['file'] ) ? (int) filesize( $dir . $size['file'] ) : 0 );
-		$report[ $name ] = array( $before, $saved['filesize'] );
 
 		$meta['sizes'][ $name ] = array(
 			'file'      => $saved['file'],
@@ -185,8 +197,104 @@ function hejlejo_webp_convert( $id ) {
 	update_post_meta( $id, HEJLEJO_WEBP_BACKUP, $backup );
 	wp_update_attachment_metadata( $id, $meta );
 	update_post_meta( $id, HEJLEJO_WEBP_STATUS, 'done' );
+	update_post_meta( $id, HEJLEJO_WEBP_CHECKED, 1 );
 
 	return $report;
+}
+
+/**
+ * Lohnt sich die WebP-Variante? Mindestens 5 % kleiner als die bisherige Datei.
+ *
+ * @param int $before Bytes bisher.
+ * @param int $after  Bytes WebP.
+ * @return bool
+ */
+function hejlejo_webp_worth_it( $before, $after ) {
+	return $before <= 0 || $after < $before * 0.95;
+}
+
+/**
+ * Bereits (mit 1.8.0) umgewandelte Bilder nachprüfen: WebP-Varianten, die nicht kleiner sind,
+ * wieder durch die ursprüngliche Datei ersetzen und die WebP-Datei löschen.
+ *
+ * @param int $id Anhang-ID.
+ * @return int Anzahl zurückgestellter Größen.
+ */
+function hejlejo_webp_recheck( $id ) {
+	$id     = absint( $id );
+	$backup = get_post_meta( $id, HEJLEJO_WEBP_BACKUP, true );
+	$meta   = wp_get_attachment_metadata( $id );
+	$file   = get_attached_file( $id );
+	$count  = 0;
+
+	if ( is_array( $backup ) && is_array( $meta ) && $file ) {
+		$dir = trailingslashit( dirname( $file ) );
+
+		foreach ( $backup as $name => $size ) {
+			$current = isset( $meta['sizes'][ $name ] ) ? $meta['sizes'][ $name ] : null;
+			if ( ! $current || ! isset( $current['mime-type'] ) || 'image/webp' !== $current['mime-type'] ) {
+				continue;
+			}
+
+			$before = isset( $size['filesize'] ) ? (int) $size['filesize'] : ( file_exists( $dir . $size['file'] ) ? (int) filesize( $dir . $size['file'] ) : 0 );
+			$after  = isset( $current['filesize'] ) ? (int) $current['filesize'] : 0;
+
+			if ( ! hejlejo_webp_worth_it( $before, $after ) && file_exists( $dir . $size['file'] ) ) {
+				$meta['sizes'][ $name ] = $size;
+				unset( $backup[ $name ] );
+				++$count;
+
+				// WebP-Datei löschen, sofern keine andere Größe sie noch nutzt.
+				$still_used = false;
+				foreach ( $meta['sizes'] as $other ) {
+					if ( isset( $other['file'] ) && $other['file'] === $current['file'] ) {
+						$still_used = true;
+						break;
+					}
+				}
+				if ( ! $still_used ) {
+					wp_delete_file( $dir . $current['file'] );
+				}
+			}
+		}
+
+		if ( $count ) {
+			wp_update_attachment_metadata( $id, $meta );
+			update_post_meta( $id, HEJLEJO_WEBP_BACKUP, $backup );
+		}
+	}
+
+	update_post_meta( $id, HEJLEJO_WEBP_CHECKED, 1 );
+
+	return $count;
+}
+
+/**
+ * Umgewandelte, aber noch nicht nachgeprüfte Bilder.
+ *
+ * @param int $limit Anzahl.
+ * @return int[]
+ */
+function hejlejo_webp_unchecked_ids( $limit = 20 ) {
+	return get_posts(
+		array(
+			'post_type'      => 'attachment',
+			'post_status'    => 'inherit',
+			'posts_per_page' => $limit,
+			'fields'         => 'ids',
+			'no_found_rows'  => true,
+			'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+				array(
+					'key'   => HEJLEJO_WEBP_STATUS,
+					'value' => 'done',
+				),
+				array(
+					'key'     => HEJLEJO_WEBP_CHECKED,
+					'compare' => 'NOT EXISTS',
+				),
+			),
+		)
+	);
 }
 
 /**
@@ -215,6 +323,7 @@ function hejlejo_webp_restore( $id ) {
 
 	delete_post_meta( $id, HEJLEJO_WEBP_BACKUP );
 	delete_post_meta( $id, HEJLEJO_WEBP_STATUS );
+	delete_post_meta( $id, HEJLEJO_WEBP_CHECKED );
 
 	return true;
 }
@@ -250,6 +359,7 @@ function hejlejo_webp_schedule_new( $metadata, $id ) {
 	if ( in_array( get_post_mime_type( $id ), array( 'image/png', 'image/jpeg' ), true ) ) {
 		delete_post_meta( $id, HEJLEJO_WEBP_STATUS );
 		delete_post_meta( $id, HEJLEJO_WEBP_BACKUP );
+		delete_post_meta( $id, HEJLEJO_WEBP_CHECKED );
 		if ( ! wp_next_scheduled( 'hejlejo_webp_single', array( (int) $id ) ) ) {
 			wp_schedule_single_event( time() + 60, 'hejlejo_webp_single', array( (int) $id ) );
 		}
@@ -267,15 +377,24 @@ function hejlejo_webp_batch() {
 		return;
 	}
 
-	$start = time();
-	foreach ( hejlejo_webp_pending_ids( 5 ) as $id ) {
+	$start   = time();
+	$pending = hejlejo_webp_pending_ids( 5 );
+
+	foreach ( $pending as $id ) {
 		hejlejo_webp_convert( $id );
 		if ( time() - $start > 20 ) {
 			break;
 		}
 	}
 
-	if ( hejlejo_webp_pending_ids( 1 ) ) {
+	// Danach: früher umgewandelte Bilder nachprüfen (schnell, nur Dateigrößen vergleichen).
+	if ( ! $pending ) {
+		foreach ( hejlejo_webp_unchecked_ids( 20 ) as $id ) {
+			hejlejo_webp_recheck( $id );
+		}
+	}
+
+	if ( hejlejo_webp_pending_ids( 1 ) || hejlejo_webp_unchecked_ids( 1 ) ) {
 		wp_schedule_single_event( time() + 15, 'hejlejo_webp_batch' );
 	} else {
 		update_option( HEJLEJO_WEBP_BULK, 'done', false );
@@ -317,6 +436,7 @@ function hejlejo_webp_status() {
 		'skipped'   => $skip,
 		'errors'    => $error,
 		'remaining' => max( 0, $total - $done - $skip - $error ),
+		'unchecked' => count( hejlejo_webp_unchecked_ids( 1000 ) ),
 		'bulk'      => (string) get_option( HEJLEJO_WEBP_BULK, '' ),
 		'webp'      => wp_image_editor_supports( array( 'mime_type' => 'image/webp' ) ),
 	);
@@ -435,7 +555,7 @@ function hejlejo_webp_admin_page() {
 	?>
 	<div class="wrap">
 		<h1><?php esc_html_e( 'WebP-Varianten', 'hejlejo' ); ?></h1>
-		<p><?php esc_html_e( 'Erzeugt zu jedem PNG/JPEG-Bild verkleinerte Varianten als WebP (Qualität 90). Originale und bisherige Varianten bleiben erhalten; „Zurücksetzen“ stellt den alten Zustand wieder her.', 'hejlejo' ); ?></p>
+		<p><?php esc_html_e( 'Erzeugt zu jedem PNG/JPEG-Bild verkleinerte Varianten als WebP (Qualität 90) – nur wenn sie mindestens 5 % kleiner sind. Originale und bisherige Varianten bleiben erhalten; „Zurücksetzen“ stellt den alten Zustand wieder her.', 'hejlejo' ); ?></p>
 		<?php if ( $msg ) : ?>
 			<div class="notice notice-success"><p><?php echo esc_html( 'Aktion ausgeführt: ' . $msg ); ?></p></div>
 		<?php endif; ?>
@@ -448,6 +568,7 @@ function hejlejo_webp_admin_page() {
 			<tr><td><?php esc_html_e( 'Übersprungen (keine Varianten)', 'hejlejo' ); ?></td><td><?php echo esc_html( $s['skipped'] ); ?></td></tr>
 			<tr><td><?php esc_html_e( 'Fehler', 'hejlejo' ); ?></td><td><?php echo esc_html( $s['errors'] ); ?></td></tr>
 			<tr><td><?php esc_html_e( 'Offen', 'hejlejo' ); ?></td><td><?php echo esc_html( $s['remaining'] ); ?></td></tr>
+			<tr><td><?php esc_html_e( 'Noch nachzuprüfen (WebP nicht kleiner → Original)', 'hejlejo' ); ?></td><td><?php echo esc_html( $s['unchecked'] ); ?></td></tr>
 			<tr><td><?php esc_html_e( 'Hintergrund-Lauf', 'hejlejo' ); ?></td><td><?php echo esc_html( $s['bulk'] ? $s['bulk'] : '–' ); ?></td></tr>
 		</table>
 

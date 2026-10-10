@@ -67,6 +67,9 @@ Seite direkt nach der Aktivierung weitgehend wie Staging aussieht.
      (z. B. „Anlässe“, „Infos“) bleiben einfache Dropdowns. Mobil wird daraus ein Akkordeon (Link = Seite öffnen,
      runder Pfeil = auf-/zuklappen).
    - Gepflegt wird alles weiterhin ausschließlich im Menü „Main“ – das Theme legt keine eigenen Menüpunkte an.
+   - **Menüpositionen** (*Design → Menüs → Positionen verwalten*): Hauptmenü (Header), Footer: Shop / Service /
+     Rechtliches, Hinweisleiste. Ein dort zugewiesenes Menü hat Vorrang vor dem Namen. Die Positionen sorgen auch
+     dafür, dass *Design → Menüs* bei diesem Block-Theme ohne Zusatz-Plugin (z. B. Max Mega Menu) verfügbar ist.
 6. **Hinweisleiste (oberste Leiste):** Ein Menü namens **„Hinweisleiste“** unter *Design → Menüs* anlegen
    (muss keinem Ort zugewiesen werden). Jeder Eintrag wird ein Hinweis: Navigationsbeschriftung = Text,
    URL = Link (`#` = ohne Link). Ein leeres Menü blendet die Leiste aus. Ohne dieses Menü wird der Inhalt des
@@ -191,7 +194,7 @@ Alle Links können im Editor frei geändert werden. Es werden keine Kategorien o
 - **Produktbilder:** Galerie mit Wischen/Pfeilen und Großansicht per Klick – bewusst ohne Lupe beim Überfahren.
   Die Großansicht lädt die 2048er-Variante statt des Originals.
 - **WebP-Varianten** (`inc/images.php`): Zu jedem PNG/JPEG-Bild werden die Zwischengrößen zusätzlich als WebP
-  (Qualität 90) erzeugt und im `srcset` ausgeliefert. Originale, Vollgröße und die bisherigen Varianten bleiben
+  (Qualität 90) erzeugt und im `srcset` ausgeliefert – nur wenn sie mindestens 5 % kleiner sind (bei bereits komprimierten JPEG-Fotos oft nicht). Originale, Vollgröße und die bisherigen Varianten bleiben
   erhalten (pro Bild gesichert, „Zurücksetzen“ möglich). Neue Uploads werden ~1 Minute nach dem Hochladen per
   WP-Cron umgewandelt; bestehende Bilder unter *Medien → WebP-Varianten* (Test einzelner IDs oder alle im
   Hintergrund). REST für Admins: `GET/POST /wp-json/hejlejo/v1/webp`.

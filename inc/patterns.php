@@ -275,15 +275,27 @@ function hejlejo_product_collection_markup( $args = array() ) {
  * WordPress-Menü nach Namen finden.
  *
  * Reihenfolge:
- * 1. Block-Menü (Navigation) mit diesem Titel – z. B. nach "Klassisches Menü importieren" im Website-Editor.
- * 2. Klassisches Menü mit diesem Namen (Design → Menüs).
- * 3. Optional: das Menü an der ersten belegten Menüposition.
+ * 1. Klassisches Menü, das der Menüposition $location zugewiesen ist (Design → Menüs → Positionen verwalten).
+ * 2. Block-Menü (Navigation) mit diesem Titel – z. B. nach "Klassisches Menü importieren" im Website-Editor.
+ * 3. Klassisches Menü mit diesem Namen (Design → Menüs).
+ * 4. Optional: das Menü an der ersten belegten Menüposition.
  *
  * @param string $name                Menüname.
  * @param bool   $fallback_location   Erstes zugewiesenes Menü nehmen, wenn keins mit dem Namen existiert.
+ * @param string $location            Menüposition des Themes, z. B. "main".
  * @return array|null ['ref' => int] oder ['inner' => string Block-Markup], null wenn keins gefunden.
  */
-function hejlejo_find_menu( $name, $fallback_location = false ) {
+function hejlejo_find_menu( $name, $fallback_location = false, $location = '' ) {
+	$locations = (array) get_nav_menu_locations();
+
+	if ( $location && ! empty( $locations[ $location ] ) && class_exists( 'WP_Classic_To_Block_Menu_Converter' ) ) {
+		$assigned = wp_get_nav_menu_object( $locations[ $location ] );
+		$inner    = $assigned ? WP_Classic_To_Block_Menu_Converter::convert( $assigned ) : '';
+		if ( is_string( $inner ) && '' !== trim( $inner ) ) {
+			return array( 'inner' => $inner );
+		}
+	}
+
 	$navigations = get_posts(
 		array(
 			'post_type'      => 'wp_navigation',
@@ -335,7 +347,7 @@ function hejlejo_primary_menu() {
 	 *
 	 * @param string $name Menüname.
 	 */
-	return hejlejo_find_menu( apply_filters( 'hejlejo_primary_menu_name', 'Main' ), true );
+	return hejlejo_find_menu( apply_filters( 'hejlejo_primary_menu_name', 'Main' ), true, 'main' );
 }
 
 /**
@@ -370,7 +382,7 @@ function hejlejo_footer_menus( $parsed_block ) {
 	 * @param string $label Beschriftung der Spalte (Shop, Service, Rechtliches).
 	 */
 	$name = apply_filters( 'hejlejo_footer_menu_name', 'Footer ' . $attrs['ariaLabel'], $attrs['ariaLabel'] );
-	$menu = hejlejo_find_menu( $name );
+	$menu = hejlejo_find_menu( $name, false, 'footer-' . sanitize_title( $attrs['ariaLabel'] ) );
 
 	if ( ! $menu ) {
 		return $parsed_block;
