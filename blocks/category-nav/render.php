@@ -26,7 +26,11 @@ $hejlejo_parent  = null;
 $hejlejo_title   = __( 'Kategorien', 'hejlejo' );
 $hejlejo_back    = null;
 
-$hejlejo_get_terms = function ( $parent ) use ( $hejlejo_default ) {
+// "Unkategorisiert" und "Freebie" (nur über Startseite und Instagram erreichbar) nicht auflisten.
+$hejlejo_freebie = get_term_by( 'slug', 'freebie', 'product_cat' );
+$hejlejo_exclude = array_filter( array( $hejlejo_default, $hejlejo_freebie ? (int) $hejlejo_freebie->term_id : 0 ) );
+
+$hejlejo_get_terms = function ( $parent ) use ( $hejlejo_exclude ) {
 	$terms = get_terms(
 		array(
 			'taxonomy'   => 'product_cat',
@@ -34,7 +38,7 @@ $hejlejo_get_terms = function ( $parent ) use ( $hejlejo_default ) {
 			'hide_empty' => true,
 			'orderby'    => 'menu_order',
 			'order'      => 'ASC',
-			'exclude'    => $hejlejo_default ? array( $hejlejo_default ) : array(),
+			'exclude'    => $hejlejo_exclude,
 		)
 	);
 	return is_wp_error( $terms ) ? array() : $terms;

@@ -24,4 +24,5 @@ require_once HEJLEJO_DIR . '/inc/defaults.php';
 
 if ( class_exists( 'WooCommerce' ) ) {
 	require_once HEJLEJO_DIR . '/inc/woocommerce.php';
+	require_once HEJLEJO_DIR . '/inc/freebie.php';
 }

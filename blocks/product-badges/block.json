@@ -5,10 +5,10 @@
 	"title": "Produkt-Badges",
 	"category": "woocommerce",
 	"icon": "tag",
-	"description": "Kleine Badges wie „Neu“, „Bestseller“, „Sale“ oder „Sofort-Download“ – aus Schlagwörtern und Produktdaten.",
+	"description": "Kleine Badges wie „Neu“, „Bestseller“, „Angebot“ oder „Sofort-Download“ – aus Schlagwörtern und Produktdaten.",
 	"keywords": [ "badge", "label", "neu", "bestseller", "hej lejo" ],
 	"textdomain": "hejlejo",
-	"usesContext": [ "postId", "postType" ],
+	"usesContext": [ "postId", "postType", "queryId" ],
 	"attributes": {
 		"showSale": { "type": "boolean", "default": true },
 		"showDownload": { "type": "boolean", "default": true },

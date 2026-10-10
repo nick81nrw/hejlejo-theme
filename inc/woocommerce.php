@@ -118,3 +118,13 @@ function hejlejo_hide_default_product_cat( $terms, $post_id, $taxonomy ) {
 	);
 }
 add_filter( 'get_the_terms', 'hejlejo_hide_default_product_cat', 10, 3 );
+
+/**
+ * Angebots-Schild an der Produktbildergalerie: "Angebot" statt "Angebot!" – gleiche Schreibweise wie die Theme-Badges.
+ *
+ * @return string
+ */
+function hejlejo_sale_flash() {
+	return '<span class="onsale">' . esc_html__( 'Angebot', 'hejlejo' ) . '</span>';
+}
+add_filter( 'woocommerce_sale_flash', 'hejlejo_sale_flash' );

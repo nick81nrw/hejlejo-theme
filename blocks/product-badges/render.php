@@ -4,7 +4,7 @@
  *
  * Es wird keine eigene Badge-Verwaltung benötigt:
  * - Schlagwörter (product_tag) mit den Slugs aus dem Filter "hejlejo_badge_tag_slugs" werden zu Badges,
- * - "Sale" und "Sofort-Download" ergeben sich aus den Produktdaten.
+ * - "Angebot" und "Sofort-Download" ergeben sich aus den Produktdaten.
  *
  * @package HejLejo
  *
@@ -22,8 +22,15 @@ if ( ! $hejlejo_product ) {
 
 $hejlejo_badges = array();
 
-if ( ! empty( $attributes['showSale'] ) && $hejlejo_product->is_on_sale() ) {
-	$hejlejo_badges['sale'] = __( 'Sale', 'hejlejo' );
+/*
+ * Auf der Produktseite selbst zeigt die Bildergalerie bereits das Schild "Angebot" –
+ * dort also kein zweites. In Produktkarten (Query-Loop) erscheint es wie gewohnt.
+ */
+$hejlejo_in_loop      = isset( $block->context['queryId'] );
+$hejlejo_main_product = ! $hejlejo_in_loop && is_singular( 'product' ) && get_queried_object_id() === $hejlejo_product->get_id();
+
+if ( ! empty( $attributes['showSale'] ) && ! $hejlejo_main_product && $hejlejo_product->is_on_sale() ) {
+	$hejlejo_badges['sale'] = __( 'Angebot', 'hejlejo' );
 }
 
 $hejlejo_new_days = isset( $attributes['newDays'] ) ? absint( $attributes['newDays'] ) : 0;

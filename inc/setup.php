@@ -41,7 +41,7 @@ function hejlejo_setup() {
 			)
 		);
 		// Galerie-Funktionen für den Block "Produktbildergalerie" (WooCommerce-Core).
-		add_theme_support( 'wc-product-gallery-zoom' );
+		// Bewusst ohne Lupe (wc-product-gallery-zoom): vergrößert wird nur per Klick (Lightbox).
 		add_theme_support( 'wc-product-gallery-lightbox' );
 		add_theme_support( 'wc-product-gallery-slider' );
 	}
