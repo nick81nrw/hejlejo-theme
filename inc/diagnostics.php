@@ -15,7 +15,7 @@ $hejlejo_diag_uri = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_u
 
 if ( false !== strpos( $hejlejo_diag_uri, 'hejlejo/v1/diag-zoom' ) || false !== strpos( $hejlejo_diag_uri, '/mcp' ) ) {
 	$GLOBALS['hejlejo_diag_zoom'] = array(
-		'at_theme_load' => current_theme_supports( 'wc-product-gallery-zoom' ),
+		'at_theme_load' => isset( $GLOBALS['_wp_theme_features']['wc-product-gallery-zoom'] ),
 		'added_during'  => null,
 		'callbacks'     => array(),
 	);
@@ -28,9 +28,21 @@ if ( false !== strpos( $hejlejo_diag_uri, 'hejlejo/v1/diag-zoom' ) || false !== 
 		'all',
 		function () {
 			static $last = null;
+			static $done = false;
+
+			// Nur direkt auf die Liste zugreifen – keine Funktionen, die selbst Hooks auslösen (sonst Endlosschleife).
+			if ( $done ) {
+				return;
+			}
 			$diag = &$GLOBALS['hejlejo_diag_zoom'];
 
-			if ( null === $diag['added_during'] && current_theme_supports( 'wc-product-gallery-zoom' ) && ! $diag['at_theme_load'] ) {
+			if ( $diag['at_theme_load'] ) {
+				$done = true;
+				return;
+			}
+
+			if ( isset( $GLOBALS['_wp_theme_features']['wc-product-gallery-zoom'] ) ) {
+				$done = true;
 				$diag['added_during'] = $last;
 
 				if ( $last && isset( $GLOBALS['wp_filter'][ $last ] ) ) {
@@ -84,7 +96,7 @@ add_action(
 				'callback'            => function () {
 					$diag = isset( $GLOBALS['hejlejo_diag_zoom'] ) ? $GLOBALS['hejlejo_diag_zoom'] : array();
 
-					$diag['now']      = current_theme_supports( 'wc-product-gallery-zoom' );
+					$diag['now']      = isset( $GLOBALS['_wp_theme_features']['wc-product-gallery-zoom'] );
 					$diag['features'] = array_keys( $GLOBALS['_wp_theme_features'] );
 
 					return $diag;
