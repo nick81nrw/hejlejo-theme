@@ -189,6 +189,12 @@ Alle Links können im Editor frei geändert werden. Es werden keine Kategorien o
   Auf der Produktseite steht „Angebot“ nur als Schild an der Bildergalerie, nicht noch einmal über dem Titel.
   Optional „Neu“ für Produkte der letzten X Tage. Weitere Slugs per Filter `hejlejo_badge_tag_slugs`.
 - **Produktbilder:** Galerie mit Wischen/Pfeilen und Großansicht per Klick – bewusst ohne Lupe beim Überfahren.
+  Die Großansicht lädt die 2048er-Variante statt des Originals.
+- **WebP-Varianten** (`inc/images.php`): Zu jedem PNG/JPEG-Bild werden die Zwischengrößen zusätzlich als WebP
+  (Qualität 90) erzeugt und im `srcset` ausgeliefert. Originale, Vollgröße und die bisherigen Varianten bleiben
+  erhalten (pro Bild gesichert, „Zurücksetzen“ möglich). Neue Uploads werden ~1 Minute nach dem Hochladen per
+  WP-Cron umgewandelt; bestehende Bilder unter *Medien → WebP-Varianten* (Test einzelner IDs oder alle im
+  Hintergrund). REST für Admins: `GET/POST /wp-json/hejlejo/v1/webp`.
 - **Produkt-Vorteile** (Block auf der Produktseite): „Sofort-Download“ bei herunterladbaren Produkten bzw.
   „Digitales Produkt“/„Versand“ sowie sichtbare Produkteigenschaften, deren Name *Format, Datei, Lizenz, Nutzung,
   Material* oder *Handmade* enthält (Filter `hejlejo_product_highlight_attribute_keywords` und `hejlejo_product_highlights`).
