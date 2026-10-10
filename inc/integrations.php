@@ -65,7 +65,10 @@ function hejlejo_announcement_from_menu( $block_content, $block ) {
 	 *
 	 * @param string $name Menüname.
 	 */
-	$menu = wp_get_nav_menu_object( apply_filters( 'hejlejo_announcement_menu_name', 'Hinweisleiste' ) );
+	$locations = (array) get_nav_menu_locations();
+	$menu      = ! empty( $locations['announcement'] )
+		? wp_get_nav_menu_object( $locations['announcement'] )
+		: wp_get_nav_menu_object( apply_filters( 'hejlejo_announcement_menu_name', 'Hinweisleiste' ) );
 
 	if ( ! $menu ) {
 		return $block_content;

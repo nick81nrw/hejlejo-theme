@@ -118,3 +118,32 @@ function hejlejo_hide_default_product_cat( $terms, $post_id, $taxonomy ) {
 	);
 }
 add_filter( 'get_the_terms', 'hejlejo_hide_default_product_cat', 10, 3 );
+
+/**
+ * Produktbilder ohne Lupe beim Überfahren – vergrößert wird nur per Klick (Lightbox).
+ *
+ * Das Weglassen der Theme-Unterstützung allein reicht nicht – WooCommerce schaltet den Zoom bei Block-Themes selbst ein:
+ * - WC_Template_Loader::init (init, Priorität 10) meldet für Block-Themes "wc-product-gallery-zoom" an
+ *   → wird danach wieder entfernt; ohne sie lädt der Galerie-Block das Skript jquery.zoom nicht.
+ * - Der Block "Produktbildergalerie" setzt beim Rendern
+ *   add_filter( 'woocommerce_single_product_zoom_enabled', '__return_true' ) → unser Filter läuft danach.
+ */
+add_filter( 'woocommerce_single_product_zoom_enabled', '__return_false', PHP_INT_MAX );
+
+/**
+ * Zoom-Unterstützung entfernen, nachdem WooCommerce sie bei "init" angemeldet hat.
+ */
+function hejlejo_remove_gallery_zoom() {
+	remove_theme_support( 'wc-product-gallery-zoom' );
+}
+add_action( 'init', 'hejlejo_remove_gallery_zoom', 20 );
+
+/**
+ * Angebots-Schild an der Produktbildergalerie: "Angebot" statt "Angebot!" – gleiche Schreibweise wie die Theme-Badges.
+ *
+ * @return string
+ */
+function hejlejo_sale_flash() {
+	return '<span class="onsale">' . esc_html__( 'Angebot', 'hejlejo' ) . '</span>';
+}
+add_filter( 'woocommerce_sale_flash', 'hejlejo_sale_flash' );

@@ -21,7 +21,9 @@ require_once HEJLEJO_DIR . '/inc/editor.php';
 require_once HEJLEJO_DIR . '/inc/blocks.php';
 require_once HEJLEJO_DIR . '/inc/integrations.php';
 require_once HEJLEJO_DIR . '/inc/defaults.php';
+require_once HEJLEJO_DIR . '/inc/images.php';
 
 if ( class_exists( 'WooCommerce' ) ) {
 	require_once HEJLEJO_DIR . '/inc/woocommerce.php';
+	require_once HEJLEJO_DIR . '/inc/freebie.php';
 }

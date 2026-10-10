@@ -67,6 +67,9 @@ Seite direkt nach der Aktivierung weitgehend wie Staging aussieht.
      (z. B. „Anlässe“, „Infos“) bleiben einfache Dropdowns. Mobil wird daraus ein Akkordeon (Link = Seite öffnen,
      runder Pfeil = auf-/zuklappen).
    - Gepflegt wird alles weiterhin ausschließlich im Menü „Main“ – das Theme legt keine eigenen Menüpunkte an.
+   - **Menüpositionen** (*Design → Menüs → Positionen verwalten*): Hauptmenü (Header), Footer: Shop / Service /
+     Rechtliches, Hinweisleiste. Ein dort zugewiesenes Menü hat Vorrang vor dem Namen. Die Positionen sorgen auch
+     dafür, dass *Design → Menüs* bei diesem Block-Theme ohne Zusatz-Plugin (z. B. Max Mega Menu) verfügbar ist.
 6. **Hinweisleiste (oberste Leiste):** Ein Menü namens **„Hinweisleiste“** unter *Design → Menüs* anlegen
    (muss keinem Ort zugewiesen werden). Jeder Eintrag wird ein Hinweis: Navigationsbeschriftung = Text,
    URL = Link (`#` = ohne Link). Ein leeres Menü blendet die Leiste aus. Ohne dieses Menü wird der Inhalt des
@@ -161,7 +164,7 @@ sowie für WooCommerce `archive-product`, `taxonomy-product_cat`, `taxonomy-prod
 | Hej Lejo / Drei-Schritte-Anleitung | „So einfach wird aus einer Kerze …“ |
 | Hej Lejo / Text & Bild | Bild + Dachzeile, Headline, Text, Button |
 | Hej Lejo / Business CTA | „Du hast selbst ein kleines Lädchen?“ |
-| Hej Lejo / Freebie & Newsletter | „Freebie – Hol dir eine kostenlose Vorlage.“ |
+| Hej Lejo / Freebie | aktuelles Freebie mit Button – ohne laufendes Freebie ein Hinweis auf Instagram (Block „Freebie-Hinweis“) |
 | Hej Lejo / Business + Freebie | beide Karten nebeneinander |
 | Hej Lejo / Instagram-Raster | „Hej Lejo in echt ♡“ – die letzten 4 Instagram-Beiträge (mit Plugin *Smash Balloon Instagram Feed*), sonst 4 frei wählbare Bilder |
 | Hej Lejo / Service-Leiste | Sicher einkaufen, Sofort-Download, … (auch im Footer) |
@@ -185,8 +188,16 @@ Alle Links können im Editor frei geändert werden. Es werden keine Kategorien o
   mitlaufende Seitenleiste, mobil als Chips über den Produkten.
   Anpassbar im Website-Editor in den Shop-Templates (z. B. *Templates → Produktkatalog*).
 - **Badges** (Block „Produkt-Badges“): Schlagwörter mit den Slugs `neu`, `bestseller`, `handmade`, `sofortdownload`
-  werden zum Badge, dazu automatisch „Sale“ und „Sofort-Download“ (herunterladbare Produkte). Optional „Neu“ für
-  Produkte der letzten X Tage. Weitere Slugs per Filter `hejlejo_badge_tag_slugs`.
+  werden zum Badge, dazu automatisch „Angebot“ (in Pink aus dem Logo) und „Sofort-Download“ (herunterladbare Produkte).
+  Auf der Produktseite steht „Angebot“ nur als Schild an der Bildergalerie, nicht noch einmal über dem Titel.
+  Optional „Neu“ für Produkte der letzten X Tage. Weitere Slugs per Filter `hejlejo_badge_tag_slugs`.
+- **Produktbilder:** Galerie mit Wischen/Pfeilen und Großansicht per Klick – bewusst ohne Lupe beim Überfahren.
+  Die Großansicht lädt die 2048er-Variante statt des Originals.
+- **WebP-Varianten** (`inc/images.php`): Zu jedem PNG/JPEG-Bild werden die Zwischengrößen zusätzlich als WebP
+  (Qualität 90) erzeugt und im `srcset` ausgeliefert – nur wenn sie mindestens 5 % kleiner sind (bei bereits komprimierten JPEG-Fotos oft nicht). Originale, Vollgröße und die bisherigen Varianten bleiben
+  erhalten (pro Bild gesichert, „Zurücksetzen“ möglich). Neue Uploads werden ~1 Minute nach dem Hochladen per
+  WP-Cron umgewandelt; bestehende Bilder unter *Medien → WebP-Varianten* (Test einzelner IDs oder alle im
+  Hintergrund). REST für Admins: `GET/POST /wp-json/hejlejo/v1/webp`.
 - **Produkt-Vorteile** (Block auf der Produktseite): „Sofort-Download“ bei herunterladbaren Produkten bzw.
   „Digitales Produkt“/„Versand“ sowie sichtbare Produkteigenschaften, deren Name *Format, Datei, Lizenz, Nutzung,
   Material* oder *Handmade* enthält (Filter `hejlejo_product_highlight_attribute_keywords` und `hejlejo_product_highlights`).
@@ -208,9 +219,20 @@ Alle Links können im Editor frei geändert werden. Es werden keine Kategorien o
 - **Wunschliste:** nur vorbereitet. WooCommerce bringt ab Version 11 einen (noch experimentellen) Wunschlisten-Block
   mit; alternativ kann der Block/Shortcode eines Wunschlisten-Plugins in den Header-Bereich
   `hejlejo-header__actions` gesetzt werden.
-- **Newsletter:** Das Freebie-Pattern enthält einen Button (Link auf `/newsletter/`). Sobald ein Newsletter-Plugin
-  gewählt ist, den Button durch dessen Block oder einen Shortcode-Block ersetzen – die Gruppe `hejlejo-newsletter`
-  ist dafür vorgesehen.
+- **Freebies** (kostenlose Vorlagen mit Laufzeit, beworben über Instagram):
+  1. Produkt für 0 € anlegen und der Produktkategorie **„Freebie“** (Slug `freebie`) zuordnen.
+  2. Unter *Produktdaten → Allgemein* **„Freebie verfügbar bis“** (optional, leer = unbegrenzt) und den
+     **„Instagram-Beitrag“** (Link) eintragen. Start der Aktion = Veröffentlichungsdatum (auch geplant möglich).
+  3. Beim Speichern wird das Produkt im Katalog versteckt: nicht im Shop, in Kategorien, Suche oder ähnlichen Produkten;
+     die Kategorie „Freebie“ erscheint nicht in der Kategorie-Navigation.
+  - Der Block **„Freebie-Hinweis“** (im Pattern „Freebie“ und auf der Startseite) verlinkt das neueste laufende Freebie;
+    ohne Freebie zeigt er „Gerade ist kein Freebie aktiv …“ mit Link zum Instagram-Profil. Texte in der Block-Seitenleiste,
+    Platzhalter `{name}` und `{datum}`. Profil-Link per Filter `hejlejo_instagram_profile_url`.
+  - Auf der Produktseite erscheint unter dem Warenkorb-Button ein Hinweis mit Laufzeit und Link zum Instagram-Beitrag.
+    Nach Ablauf ist das Produkt nicht mehr kaufbar; der Hinweis lautet „Aktion vorbei“ und verweist auf Instagram.
+  - Zum Ablaufzeitpunkt leert das Theme den LiteSpeed-Cache von Produkt und Startseite (WP-Cron).
+  - Private Freebies sehen nur eingeloggte Administratorinnen und Administratoren – gut zum Testen.
+  - FiboSearch hat einen eigenen Suchindex: versteckte Produkte dort ggf. in den Einstellungen ausschließen.
 
 ## Plugins
 

@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "hejlejo/freebie-status",
+	"title": "Freebie-Hinweis",
+	"category": "woocommerce",
+	"icon": "gift",
+	"description": "Zeigt das aktuelle Freebie mit Button – oder, wenn gerade keins läuft, einen Hinweis auf Instagram.",
+	"keywords": [ "freebie", "gratis", "instagram", "hej lejo" ],
+	"textdomain": "hejlejo",
+	"attributes": {
+		"activeTitle": { "type": "string", "default": "Pssst... Freebie-Alarm!" },
+		"activeText": { "type": "string", "default": "„{name}“ – kostenlos, nur für kurze Zeit." },
+		"activeButton": { "type": "string", "default": "Freebie sichern" },
+		"emptyTitle": { "type": "string", "default": "Freebies gibt’s auf Instagram" },
+		"emptyText": { "type": "string", "default": "Gerade ist kein Freebie aktiv. Folge uns auf Instagram, damit du die nächste Aktion nicht verpasst ♡" },
+		"emptyButton": { "type": "string", "default": "@hej.lejo folgen" }
+	},
+	"supports": {
+		"html": false,
+		"spacing": { "margin": true }
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php"
+}

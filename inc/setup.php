@@ -19,6 +19,21 @@ function hejlejo_setup() {
 	// Core- und Remote-Patterns ausblenden: Im Editor sollen nur die Hej-Lejo-Patterns erscheinen.
 	remove_theme_support( 'core-block-patterns' );
 
+	/*
+	 * Menüpositionen für die klassischen Menüs (Design → Menüs). Ohne sie blendet WordPress die Menü-Seite
+	 * bei Block-Themes aus. Header und Footer nutzen das zugewiesene Menü, sonst das Menü mit passendem Namen
+	 * ("Main", "Footer Shop", "Footer Service", "Footer Rechtliches", "Hinweisleiste").
+	 */
+	register_nav_menus(
+		array(
+			'main'               => __( 'Hauptmenü (Header)', 'hejlejo' ),
+			'footer-shop'        => __( 'Footer: Shop', 'hejlejo' ),
+			'footer-service'     => __( 'Footer: Service', 'hejlejo' ),
+			'footer-rechtliches' => __( 'Footer: Rechtliches', 'hejlejo' ),
+			'announcement'       => __( 'Hinweisleiste', 'hejlejo' ),
+		)
+	);
+
 	add_editor_style(
 		array(
 			'assets/css/theme.css',
@@ -41,7 +56,7 @@ function hejlejo_setup() {
 			)
 		);
 		// Galerie-Funktionen für den Block "Produktbildergalerie" (WooCommerce-Core).
-		add_theme_support( 'wc-product-gallery-zoom' );
+		// Bewusst ohne Lupe (wc-product-gallery-zoom): vergrößert wird nur per Klick (Lightbox).
 		add_theme_support( 'wc-product-gallery-lightbox' );
 		add_theme_support( 'wc-product-gallery-slider' );
 	}

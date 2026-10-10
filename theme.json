@@ -72,6 +72,11 @@
 					"color": "#F5E4DF"
 				},
 				{
+					"slug": "pink",
+					"name": "Pink (Logo)",
+					"color": "#EF2F75"
+				},
+				{
 					"slug": "sage",
 					"name": "Salbei",
 					"color": "#A8B5A0"

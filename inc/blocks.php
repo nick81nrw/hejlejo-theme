@@ -2,8 +2,8 @@
 /**
  * Theme-eigene Blöcke.
  *
- * Nur zwei kleine, serverseitig gerenderte Blöcke für die Produktdarstellung.
- * Sie lesen ausschließlich vorhandene WooCommerce-Daten und legen keine neuen Felder an.
+ * Kleine, serverseitig gerenderte Blöcke für Produktdarstellung und Freebie-Hinweis.
+ * Sie lesen vorhandene WooCommerce-Daten (der Freebie-Hinweis zusätzlich die Freebie-Felder aus inc/freebie.php).
  *
  * @package HejLejo
  */
@@ -21,6 +21,7 @@ function hejlejo_register_blocks() {
 	register_block_type( HEJLEJO_DIR . '/blocks/product-highlights' );
 	register_block_type( HEJLEJO_DIR . '/blocks/product-badges' );
 	register_block_type( HEJLEJO_DIR . '/blocks/category-nav' );
+	register_block_type( HEJLEJO_DIR . '/blocks/freebie-status' );
 }
 add_action( 'init', 'hejlejo_register_blocks' );
 

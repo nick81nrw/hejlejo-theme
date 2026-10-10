@@ -3,9 +3,9 @@
  * Title: Hej Lejo / Business + Freebie (nebeneinander)
  * Slug: hejlejo/cta-duo
  * Categories: hejlejo-sections
- * Keywords: business, freebie, newsletter, cta
+ * Keywords: business, freebie, instagram, cta
  * Viewport Width: 1400
- * Description: Business-Hinweis (2/3) und Freebie-Anmeldung (1/3) nebeneinander, auf Tablet und Handy untereinander.
+ * Description: Business-Hinweis (2/3) und Freebie-Karte (1/3) nebeneinander, auf Tablet und Handy untereinander.
  *
  * @package HejLejo
  */

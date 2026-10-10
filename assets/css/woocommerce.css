@@ -137,9 +137,92 @@
 	color: #7a4a2a;
 }
 
+/* Angebot: Pink aus dem Logo – Theme-Badge, Galerie-Schild der Produktseite und WooCommerce-Blöcke */
 .hejlejo-badge--sale {
-	background: var(--wp--preset--color--accent);
+	background: var(--wp--preset--color--pink);
 	color: var(--wp--preset--color--surface);
+}
+
+.hejlejo-product__gallery .onsale,
+.woocommerce .hejlejo-product__gallery span.onsale {
+	position: absolute;
+	top: 0.9rem;
+	left: 0.9rem;
+	right: auto;
+	z-index: 9;
+	display: inline-flex;
+	align-items: center;
+	min-width: 0;
+	min-height: 0;
+	margin: 0;
+	padding: 0.45rem 0.75rem;
+	border: 0;
+	border-radius: 999px;
+	background: var(--wp--preset--color--pink);
+	color: var(--wp--preset--color--surface);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	line-height: 1;
+	text-transform: uppercase;
+}
+
+.wc-block-components-product-sale-badge {
+	border-color: var(--wp--preset--color--pink);
+	background: var(--wp--preset--color--pink);
+	color: var(--wp--preset--color--surface);
+}
+
+/* -------------------------------------------------------------------------
+ * Freebie (Block "Freebie-Hinweis" und Hinweis auf der Produktseite)
+ * ---------------------------------------------------------------------- */
+
+.hejlejo-freebie {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--wp--preset--spacing--20);
+	width: 100%;
+}
+
+.hejlejo-freebie > * {
+	margin: 0;
+}
+
+.hejlejo-freebie__text,
+.hejlejo-freebie__until {
+	color: var(--wp--preset--color--contrast);
+}
+
+.hejlejo-freebie__buttons {
+	margin-top: var(--wp--preset--spacing--10);
+}
+
+.hejlejo-freebie-notice {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem 1rem;
+	margin-top: var(--wp--preset--spacing--20);
+	padding: 0.9rem 1.1rem;
+	border-radius: var(--hejlejo-radius-s);
+	background: var(--wp--preset--color--rose-light);
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.hejlejo-freebie-notice p {
+	flex: 1 1 16rem;
+	margin: 0;
+}
+
+.hejlejo-freebie-notice__link {
+	font-weight: 600;
+	color: var(--wp--preset--color--contrast);
+	white-space: nowrap;
+}
+
+.hejlejo-freebie-notice.is-expired {
+	background: var(--wp--preset--color--cream);
 }
 
 .hejlejo-badge--handmade {

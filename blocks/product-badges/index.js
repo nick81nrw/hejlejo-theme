@@ -25,7 +25,7 @@
 						PanelBody,
 						{ title: __( 'Badges', 'hejlejo' ) },
 						el( ToggleControl, {
-							label: __( '„Sale“ bei reduzierten Produkten', 'hejlejo' ),
+							label: __( '„Angebot“ bei reduzierten Produkten (auf der Produktseite zeigt es die Bildergalerie)', 'hejlejo' ),
 							checked: a.showSale,
 							onChange: function ( v ) { set( { showSale: v } ); },
 						} ),
