@@ -45,6 +45,12 @@ if ( false !== strpos( $hejlejo_diag_uri, 'hejlejo/v1/diag-zoom' ) || false !== 
 				$done = true;
 				$diag['added_during'] = $last;
 
+				// Aufruf-Stapel im Moment des Umschaltens (löst keine Hooks aus).
+				foreach ( debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 30 ) as $frame ) { // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
+					$diag['backtrace'][] = ( isset( $frame['class'] ) ? $frame['class'] . '::' : '' ) . $frame['function']
+						. ( isset( $frame['file'] ) ? ' @ ' . str_replace( ABSPATH, '', $frame['file'] ) . ':' . $frame['line'] : '' );
+				}
+
 				if ( $last && isset( $GLOBALS['wp_filter'][ $last ] ) ) {
 					foreach ( $GLOBALS['wp_filter'][ $last ]->callbacks as $priority => $callbacks ) {
 						foreach ( $callbacks as $callback ) {
