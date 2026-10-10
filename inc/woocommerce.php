@@ -120,6 +120,14 @@ function hejlejo_hide_default_product_cat( $terms, $post_id, $taxonomy ) {
 add_filter( 'get_the_terms', 'hejlejo_hide_default_product_cat', 10, 3 );
 
 /**
+ * Produktbilder ohne Lupe beim Überfahren – vergrößert wird nur per Klick (Lightbox).
+ *
+ * WooCommerce schaltet den Zoom bei Block-Themes selbst ein; deshalb reicht es nicht,
+ * die Theme-Unterstützung "wc-product-gallery-zoom" wegzulassen.
+ */
+add_filter( 'woocommerce_single_product_zoom_enabled', '__return_false' );
+
+/**
  * Angebots-Schild an der Produktbildergalerie: "Angebot" statt "Angebot!" – gleiche Schreibweise wie die Theme-Badges.
  *
  * @return string
