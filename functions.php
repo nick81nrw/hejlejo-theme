@@ -21,7 +21,6 @@ require_once HEJLEJO_DIR . '/inc/editor.php';
 require_once HEJLEJO_DIR . '/inc/blocks.php';
 require_once HEJLEJO_DIR . '/inc/integrations.php';
 require_once HEJLEJO_DIR . '/inc/defaults.php';
-require_once HEJLEJO_DIR . '/inc/diagnostics.php'; // Vorübergehend: Fehlersuche Galerie-Zoom.
 
 if ( class_exists( 'WooCommerce' ) ) {
 	require_once HEJLEJO_DIR . '/inc/woocommerce.php';
