@@ -1300,27 +1300,75 @@
 	text-decoration: none;
 }
 
-/* Handy & Tablet: Kategorien als Chips über den Produkten */
+/*
+ * Handy & Tablet: Kategorien als eine wischbare Chip-Zeile über den Produkten.
+ * Überschrift und Zurück-Link teilen sich eine Zeile, die Chips laufen bis an den
+ * Bildschirmrand und blenden rechts aus – so ist erkennbar, dass es weitergeht.
+ * Die aktive Kategorie wird per view.js in den sichtbaren Bereich gescrollt.
+ */
 @media (max-width: 781px) {
+	.hejlejo-catnav {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		align-items: center;
+		column-gap: var(--wp--preset--spacing--20);
+		row-gap: 0.25rem;
+	}
+
+	.hejlejo-catnav__title {
+		grid-row: 1;
+		grid-column: 1;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.hejlejo-catnav__back {
+		grid-row: 1;
+		grid-column: 2;
+		font-size: var(--wp--preset--font-size--x-small);
+	}
+
 	.hejlejo-catnav__list {
+		--hejlejo-catnav-gutter: var(--wp--style--root--padding-left, 1rem);
+		grid-row: 2;
+		grid-column: 1 / -1;
+		position: relative;
 		flex-direction: row;
-		flex-wrap: wrap;
+		flex-wrap: nowrap;
+		gap: 0.5rem;
+		margin-inline: calc(-1 * var(--hejlejo-catnav-gutter));
+		padding: 2px var(--hejlejo-catnav-gutter);
+		overflow-x: auto;
+		overscroll-behavior-x: contain;
+		scroll-snap-type: x proximity;
+		scroll-padding-inline: var(--hejlejo-catnav-gutter);
+		scrollbar-width: none;
+		-webkit-mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+		mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
 	}
 
-	.hejlejo-catnav__link {
-		min-height: 44px;
-		padding: 0.3rem 0.85rem 0.3rem 0.3rem;
-		border-radius: 999px;
+	.hejlejo-catnav__list::-webkit-scrollbar {
+		display: none;
 	}
 
+	.hejlejo-catnav__list > li {
+		flex-shrink: 0;
+		scroll-snap-align: start;
+	}
+
+	.hejlejo-catnav__link,
 	.hejlejo-catnav__link:not(:has(.hejlejo-catnav__image)) {
-		padding-left: 0.85rem;
+		min-height: 40px;
+		padding: 0.3rem 0.95rem;
+		border-radius: 999px;
+		white-space: nowrap;
 	}
 
-	.hejlejo-catnav__image {
-		width: 34px;
-		height: 34px;
-		border-radius: 50%;
+	/* Bilder und Anzahl nur auf großen Bildschirmen – die Zeile bleibt kompakt und einheitlich */
+	.hejlejo-catnav__image,
+	.hejlejo-catnav__count {
+		display: none;
 	}
 
 	.hejlejo-catnav__link:hover {
