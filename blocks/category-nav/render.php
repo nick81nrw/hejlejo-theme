@@ -83,6 +83,7 @@ $hejlejo_show_counts = ! empty( $attributes['showCounts'] );
 ?>
 <nav <?php echo get_block_wrapper_attributes( array( 'class' => 'hejlejo-catnav' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> aria-label="<?php esc_attr_e( 'Kategorien', 'hejlejo' ); ?>">
 	<p class="hejlejo-catnav__title"><?php echo esc_html( $hejlejo_title ); ?></p>
+	<div class="hejlejo-catnav__scroller">
 	<ul class="hejlejo-catnav__list">
 		<?php foreach ( $hejlejo_terms as $hejlejo_term ) : ?>
 			<?php
@@ -108,6 +109,7 @@ $hejlejo_show_counts = ! empty( $attributes['showCounts'] );
 			</li>
 		<?php endforeach; ?>
 	</ul>
+	</div>
 	<?php if ( $hejlejo_back && ! is_wp_error( $hejlejo_back['url'] ) ) : ?>
 		<a class="hejlejo-catnav__back" href="<?php echo esc_url( $hejlejo_back['url'] ); ?>"><?php echo esc_html( $hejlejo_back['text'] ); ?></a>
 	<?php endif; ?>

@@ -1190,6 +1190,38 @@
 	.hejlejo-shop-layout__filters {
 		flex-basis: auto !important;
 	}
+
+	/*
+	 * Handy & Tablet: Die Kategorie-Zeile bleibt beim Scrollen unter dem Header hängen.
+	 * view.js setzt --hejlejo-catnav-sticky-top so, dass Überschrift und Zurück-Link unter
+	 * den Header rutschen und nur die Chips stehen bleiben. Der Hintergrund reicht per
+	 * Schatten bis an den Bildschirmrand.
+	 */
+	.hejlejo-shop-layout__filters:has(.hejlejo-catnav) {
+		position: sticky;
+		top: var(--hejlejo-catnav-sticky-top, 56px);
+		z-index: 20;
+		padding-block: 0.25rem 0.5rem;
+		background: var(--wp--preset--color--base);
+		box-shadow: 0 0 0 100vmax var(--wp--preset--color--base);
+		clip-path: inset(0 -100vmax);
+	}
+
+	.hejlejo-shop-layout__filters:has(.hejlejo-catnav)::after {
+		content: "";
+		position: absolute;
+		left: -100vmax;
+		right: -100vmax;
+		bottom: 0;
+		height: 1px;
+		background: var(--hejlejo-line-soft);
+		opacity: 0;
+		transition: opacity 0.2s ease;
+	}
+
+	.hejlejo-shop-layout__filters.is-stuck::after {
+		opacity: 1;
+	}
 }
 
 /* -------------------------------------------------------------------------
@@ -1300,31 +1332,152 @@
 	text-decoration: none;
 }
 
-/* Handy & Tablet: Kategorien als Chips über den Produkten */
+/*
+ * Handy & Tablet: Kategorien als eine wischbare Chip-Zeile über den Produkten.
+ * - Überschrift und Zurück-Link teilen sich eine Zeile.
+ * - Die gewählte Kategorie steht immer vorne, ist also ohne Wischen sichtbar.
+ * - Die Chips laufen bis an den Bildschirmrand. Wo es weitergeht, liegt ein Verlauf
+ *   mit Pfeil (view.js); ohne JavaScript blendet die Zeile rechts aus.
+ */
 @media (max-width: 781px) {
+	.hejlejo-catnav {
+		--hejlejo-catnav-gutter: var(--wp--style--root--padding-left, 1rem);
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		align-items: center;
+		column-gap: var(--wp--preset--spacing--20);
+		row-gap: 0.25rem;
+	}
+
+	.hejlejo-catnav__title {
+		grid-row: 1;
+		grid-column: 1;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.hejlejo-catnav__back {
+		grid-row: 1;
+		grid-column: 2;
+		font-size: var(--wp--preset--font-size--x-small);
+	}
+
+	.hejlejo-catnav__scroller {
+		grid-row: 2;
+		grid-column: 1 / -1;
+		position: relative;
+		margin-inline: calc(-1 * var(--hejlejo-catnav-gutter));
+	}
+
 	.hejlejo-catnav__list {
 		flex-direction: row;
-		flex-wrap: wrap;
+		flex-wrap: nowrap;
+		gap: 0.5rem;
+		padding: 2px var(--hejlejo-catnav-gutter);
+		overflow-x: auto;
+		overscroll-behavior-x: contain;
+		scroll-snap-type: x proximity;
+		scroll-padding-inline: var(--hejlejo-catnav-gutter);
+		scrollbar-width: none;
+		-webkit-mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+		mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
 	}
 
-	.hejlejo-catnav__link {
-		min-height: 44px;
-		padding: 0.3rem 0.85rem 0.3rem 0.3rem;
-		border-radius: 999px;
+	.hejlejo-catnav__scroller.is-enhanced .hejlejo-catnav__list {
+		-webkit-mask-image: none;
+		mask-image: none;
 	}
 
+	.hejlejo-catnav__list::-webkit-scrollbar {
+		display: none;
+	}
+
+	.hejlejo-catnav__list > li {
+		flex-shrink: 0;
+		scroll-snap-align: start;
+	}
+
+	.hejlejo-catnav__list > li:has(> .is-active) {
+		order: -1;
+	}
+
+	.hejlejo-catnav__link,
 	.hejlejo-catnav__link:not(:has(.hejlejo-catnav__image)) {
-		padding-left: 0.85rem;
+		min-height: 40px;
+		padding: 0.3rem 0.95rem;
+		border-radius: 999px;
+		white-space: nowrap;
 	}
 
-	.hejlejo-catnav__image {
-		width: 34px;
-		height: 34px;
-		border-radius: 50%;
+	/* Bilder und Anzahl nur auf großen Bildschirmen – die Zeile bleibt kompakt und einheitlich */
+	.hejlejo-catnav__image,
+	.hejlejo-catnav__count {
+		display: none;
 	}
 
 	.hejlejo-catnav__link:hover {
 		transform: none;
+	}
+
+	/* Pfeile mit Verlauf: zeigen, dass es weitergeht, und blättern beim Tippen */
+	.hejlejo-catnav__arrow {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		width: 4.5rem;
+		margin: 0;
+		padding: 0 calc(var(--hejlejo-catnav-gutter) - 0.25rem);
+		border: 0;
+		background: none;
+		cursor: pointer;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.2s ease, visibility 0.2s;
+	}
+
+	.hejlejo-catnav__arrow--next {
+		right: 0;
+		justify-content: flex-end;
+		background: linear-gradient(to right, transparent, var(--wp--preset--color--base) 60%);
+	}
+
+	.hejlejo-catnav__arrow--prev {
+		left: 0;
+		justify-content: flex-start;
+		background: linear-gradient(to left, transparent, var(--wp--preset--color--base) 60%);
+	}
+
+	.hejlejo-catnav__scroller.has-more-end .hejlejo-catnav__arrow--next,
+	.hejlejo-catnav__scroller.has-more-start .hejlejo-catnav__arrow--prev {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	.hejlejo-catnav__arrow-icon {
+		display: grid;
+		place-items: center;
+		width: 34px;
+		height: 34px;
+		border-radius: 50%;
+		background: var(--wp--preset--color--surface);
+		box-shadow: 0 0 0 1px var(--hejlejo-line-soft), 0 2px 8px rgba(0, 0, 0, 0.08);
+		color: var(--wp--preset--color--contrast);
+	}
+
+	.hejlejo-catnav__arrow-icon svg {
+		width: 18px;
+		height: 18px;
+	}
+}
+
+/* Pfeile gibt es nur in der wischbaren Zeile */
+@media (min-width: 782px) {
+	.hejlejo-catnav__arrow {
+		display: none;
 	}
 }
 
