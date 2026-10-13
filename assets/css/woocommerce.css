@@ -1190,6 +1190,38 @@
 	.hejlejo-shop-layout__filters {
 		flex-basis: auto !important;
 	}
+
+	/*
+	 * Handy & Tablet: Die Kategorie-Zeile bleibt beim Scrollen unter dem Header hängen.
+	 * view.js setzt --hejlejo-catnav-sticky-top so, dass Überschrift und Zurück-Link unter
+	 * den Header rutschen und nur die Chips stehen bleiben. Der Hintergrund reicht per
+	 * Schatten bis an den Bildschirmrand.
+	 */
+	.hejlejo-shop-layout__filters:has(.hejlejo-catnav) {
+		position: sticky;
+		top: var(--hejlejo-catnav-sticky-top, 56px);
+		z-index: 20;
+		padding-block: 0.25rem 0.5rem;
+		background: var(--wp--preset--color--base);
+		box-shadow: 0 0 0 100vmax var(--wp--preset--color--base);
+		clip-path: inset(0 -100vmax);
+	}
+
+	.hejlejo-shop-layout__filters:has(.hejlejo-catnav)::after {
+		content: "";
+		position: absolute;
+		left: -100vmax;
+		right: -100vmax;
+		bottom: 0;
+		height: 1px;
+		background: var(--hejlejo-line-soft);
+		opacity: 0;
+		transition: opacity 0.2s ease;
+	}
+
+	.hejlejo-shop-layout__filters.is-stuck::after {
+		opacity: 1;
+	}
 }
 
 /* -------------------------------------------------------------------------

@@ -6,6 +6,7 @@
  *   Ein Tipp blättert um gut eine Bildschirmbreite weiter.
  * - Einmal pro Sitzung ruckelt die Zeile kurz an, als Hinweis zum Wischen
  *   (nicht bei "Bewegung reduzieren").
+ * - Die Zeile bleibt beim Scrollen unter dem Header hängen.
  */
 ( function () {
 	var CHEVRON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -35,6 +36,53 @@
 		button.title = label;
 		button.innerHTML = '<span class="hejlejo-catnav__arrow-icon"' + ( 'prev' === direction ? ' style="transform:scaleX(-1)"' : '' ) + '>' + CHEVRON + '</span>';
 		return button;
+	}
+
+	/*
+	 * Mitlaufende Zeile (nur Handy & Tablet, siehe woocommerce.css): hängt direkt unter dem
+	 * Header. Die Überschriftenzeile darüber rutscht unter den Header, sichtbar bleiben die Chips.
+	 */
+	function stick( scroller ) {
+		var column = scroller.closest( '.hejlejo-shop-layout__filters' );
+		var header = document.querySelector( '.site-header' );
+		if ( ! column ) {
+			return;
+		}
+
+		var top = 0;
+		var mobile = window.matchMedia( '(max-width: 781px)' );
+
+		function measure() {
+			if ( ! mobile.matches || 'sticky' !== window.getComputedStyle( column ).position ) {
+				column.style.removeProperty( '--hejlejo-catnav-sticky-top' );
+				column.classList.remove( 'is-stuck' );
+				return;
+			}
+			var headerBottom = 0;
+			if ( header && 'sticky' === window.getComputedStyle( header ).position ) {
+				headerBottom = ( parseFloat( window.getComputedStyle( header ).top ) || 0 ) + header.offsetHeight;
+			}
+			var hidden = scroller.getBoundingClientRect().top - column.getBoundingClientRect().top;
+			top = Math.round( headerBottom - hidden + 6 ); // etwas Luft unter dem Header
+			column.style.setProperty( '--hejlejo-catnav-sticky-top', top + 'px' );
+			onScroll();
+		}
+
+		function onScroll() {
+			column.classList.toggle( 'is-stuck', mobile.matches && window.scrollY > 0 && column.getBoundingClientRect().top <= top + 0.5 );
+		}
+
+		window.addEventListener( 'scroll', onScroll, { passive: true } );
+		if ( window.ResizeObserver ) {
+			var observer = new ResizeObserver( measure );
+			observer.observe( column );
+			if ( header ) {
+				observer.observe( header );
+			}
+		} else {
+			window.addEventListener( 'resize', measure );
+		}
+		measure();
 	}
 
 	document.querySelectorAll( '.hejlejo-catnav__scroller' ).forEach( function ( scroller ) {
@@ -73,6 +121,8 @@
 			window.addEventListener( 'resize', update );
 		}
 		update();
+
+		stick( scroller );
 
 		if ( ! reduceMotion && ! hintShown() && scroller.classList.contains( 'has-more-end' ) ) {
 			rememberHint();
