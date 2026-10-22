@@ -254,6 +254,11 @@
 	margin-block-start: var(--wp--preset--spacing--50) !important;
 }
 
+/* Hinter dem Kategorie-Bereich (bringt eigenen Innenabstand mit): gleicher Abstand wie zum Abschnitt darunter */
+.hejlejo-categories + .hejlejo-freebie-spotlight {
+	margin-block-start: var(--wp--preset--spacing--30) !important;
+}
+
 .hejlejo-freebie-spotlight__inner {
 	display: grid;
 	grid-template-columns: minmax(0, 38%) minmax(0, 1fr);

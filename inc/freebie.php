@@ -358,7 +358,8 @@ add_action( 'hejlejo_freebie_expired', 'hejlejo_freebie_purge_cache' );
 
 /*
  * -------------------------------------------------------------------------
- * Startseite: Läuft ein Freebie, steht es als große Aktionsfläche direkt unter dem Startbild.
+ * Startseite: Läuft ein Freebie, steht es als große Aktionsfläche direkt unter dem Bereich "Beliebte Kategorien"
+ * (ohne Kategorie-Bereich direkt unter dem Startbild).
  * Die Freebie-Karte weiter unten entfällt dann. Funktioniert auch mit einer gespeicherten Startseite,
  * weil nur die Ausgabe ergänzt wird – am Seiteninhalt ändert sich nichts.
  * ---------------------------------------------------------------------- */
@@ -420,23 +421,30 @@ function hejlejo_freebie_on_front_output() {
 }
 
 /**
- * Aktionsfläche hinter dem Startbild einsetzen.
+ * Aktionsfläche hinter dem Kategorie-Bereich einsetzen – oder hinter dem Startbild, wenn die Startseite
+ * keinen Kategorie-Bereich hat.
  *
  * @param string $block_content HTML.
  * @param array  $block         Geparster Block.
  * @return string
  */
 function hejlejo_freebie_home_spotlight( $block_content, $block ) {
-	if ( hejlejo_freebie_spotlight_shown() || ! hejlejo_block_has_class( $block, 'hejlejo-hero-simple', 'is-style-hero' ) ) {
+	if ( hejlejo_freebie_spotlight_shown() || ! hejlejo_block_has_class( $block, 'hejlejo-categories', 'hejlejo-hero-simple', 'is-style-hero' ) ) {
 		return $block_content;
 	}
 	if ( ! hejlejo_freebie_on_front_output() || ! hejlejo_get_active_freebie() ) {
 		return $block_content;
 	}
 
+	$content = (string) get_post_field( 'post_content', get_queried_object_id() );
+	$is_hero = ! hejlejo_block_has_class( $block, 'hejlejo-categories' );
+	if ( $is_hero && false !== strpos( $content, 'hejlejo-categories' ) ) {
+		return $block_content; // Kommt noch: dann hinter die Kategorien.
+	}
+
 	hejlejo_freebie_spotlight_shown( true );
 
-	$attrs = hejlejo_freebie_find_attrs( parse_blocks( (string) get_post_field( 'post_content', get_queried_object_id() ) ) );
+	$attrs = hejlejo_freebie_find_attrs( parse_blocks( $content ) );
 
 	return $block_content . render_block(
 		array(
