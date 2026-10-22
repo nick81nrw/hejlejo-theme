@@ -250,7 +250,8 @@
 .hejlejo-freebie-spotlight {
 	padding-block: var(--wp--preset--spacing--40);
 	background: var(--wp--preset--color--rose-light);
-	margin-block-start: 0 !important;
+	/* Abstand zum Startbild, dessen Bild sonst direkt auf der Fläche aufsitzt */
+	margin-block-start: var(--wp--preset--spacing--50) !important;
 }
 
 .hejlejo-freebie-spotlight__inner {
