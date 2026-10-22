@@ -99,7 +99,13 @@ function hejlejo_freebie_date( $timestamp ) {
  * @return WC_Product|null
  */
 function hejlejo_get_active_freebie() {
+	static $cache = array();
+
 	$statuses = current_user_can( 'read_private_products' ) ? array( 'publish', 'private' ) : array( 'publish' );
+	$key      = implode( ',', $statuses );
+	if ( array_key_exists( $key, $cache ) ) {
+		return $cache[ $key ];
+	}
 
 	$ids = get_posts(
 		array(
@@ -120,14 +126,45 @@ function hejlejo_get_active_freebie() {
 		)
 	);
 
+	$cache[ $key ] = null;
 	foreach ( $ids as $id ) {
 		$product = wc_get_product( $id );
 		if ( $product && ! hejlejo_freebie_expired( $product ) && $product->is_in_stock() ) {
-			return $product;
+			$cache[ $key ] = $product;
+			break;
 		}
 	}
 
-	return null;
+	return $cache[ $key ];
+}
+
+/**
+ * Restlaufzeit als kurzer Hinweis: "Nur noch heute", "Nur noch bis morgen", "Noch 9 Tage".
+ *
+ * Gezählt werden Kalendertage in der Zeitzone der Website. view.js rechnet im Browser nach,
+ * falls die Seite aus einem Cache kommt.
+ *
+ * @param int $timestamp Ende der Laufzeit (0 = unbegrenzt).
+ * @return string
+ */
+function hejlejo_freebie_countdown( $timestamp ) {
+	if ( ! $timestamp ) {
+		return '';
+	}
+
+	$timezone = wp_timezone();
+	$today    = new DateTimeImmutable( 'today', $timezone );
+	$end      = ( new DateTimeImmutable( '@' . $timestamp ) )->setTimezone( $timezone )->setTime( 0, 0 );
+	$days     = (int) $today->diff( $end )->format( '%r%a' );
+
+	if ( $days <= 0 ) {
+		return __( 'Nur noch heute', 'hejlejo' );
+	}
+	if ( 1 === $days ) {
+		return __( 'Nur noch bis morgen', 'hejlejo' );
+	}
+	/* translators: %d: Anzahl Tage */
+	return sprintf( _n( 'Noch %d Tag', 'Noch %d Tage', $days, 'hejlejo' ), $days );
 }
 
 /**
@@ -318,3 +355,146 @@ function hejlejo_freebie_purge_cache( $post_id ) {
 	do_action( 'litespeed_purge_url', home_url( '/' ) );
 }
 add_action( 'hejlejo_freebie_expired', 'hejlejo_freebie_purge_cache' );
+
+/*
+ * -------------------------------------------------------------------------
+ * Startseite: Läuft ein Freebie, steht es als große Aktionsfläche direkt unter dem Bereich "Beliebte Kategorien"
+ * (ohne Kategorie-Bereich direkt unter dem Startbild).
+ * Die Freebie-Karte weiter unten entfällt dann. Funktioniert auch mit einer gespeicherten Startseite,
+ * weil nur die Ausgabe ergänzt wird – am Seiteninhalt ändert sich nichts.
+ * ---------------------------------------------------------------------- */
+
+/**
+ * Wurde die Aktionsfläche auf dieser Seite schon ausgegeben?
+ *
+ * @param bool|null $set true = als ausgegeben merken.
+ * @return bool
+ */
+function hejlejo_freebie_spotlight_shown( $set = null ) {
+	static $shown = false;
+	if ( null !== $set ) {
+		$shown = (bool) $set;
+	}
+	return $shown;
+}
+
+/**
+ * Hat der Block eine bestimmte CSS-Klasse (genaue Übereinstimmung)?
+ *
+ * @param array  $block Geparster Block.
+ * @param string ...$classes Gesuchte Klassen.
+ * @return bool
+ */
+function hejlejo_block_has_class( $block, ...$classes ) {
+	$names = preg_split( '/\s+/', (string) ( $block['attrs']['className'] ?? '' ), -1, PREG_SPLIT_NO_EMPTY );
+	return (bool) array_intersect( $classes, $names );
+}
+
+/**
+ * Texte des Blocks "Freebie-Hinweis" aus dem Startseiten-Inhalt übernehmen (falls dort angepasst).
+ *
+ * @param array $blocks Geparste Blöcke.
+ * @return array
+ */
+function hejlejo_freebie_find_attrs( $blocks ) {
+	foreach ( $blocks as $block ) {
+		if ( 'hejlejo/freebie-status' === $block['blockName'] ) {
+			return (array) $block['attrs'];
+		}
+		if ( ! empty( $block['innerBlocks'] ) ) {
+			$found = hejlejo_freebie_find_attrs( $block['innerBlocks'] );
+			if ( $found ) {
+				return $found;
+			}
+		}
+	}
+	return array();
+}
+
+/**
+ * Nur bei der normalen Seitenausgabe eingreifen, nicht im Editor oder in der REST-API.
+ *
+ * @return bool
+ */
+function hejlejo_freebie_on_front_output() {
+	return ! is_admin() && ! wp_is_serving_rest_request() && is_front_page();
+}
+
+/**
+ * Aktionsfläche hinter dem Kategorie-Bereich einsetzen – oder hinter dem Startbild, wenn die Startseite
+ * keinen Kategorie-Bereich hat.
+ *
+ * @param string $block_content HTML.
+ * @param array  $block         Geparster Block.
+ * @return string
+ */
+function hejlejo_freebie_home_spotlight( $block_content, $block ) {
+	if ( hejlejo_freebie_spotlight_shown() || ! hejlejo_block_has_class( $block, 'hejlejo-categories', 'hejlejo-hero-simple', 'is-style-hero' ) ) {
+		return $block_content;
+	}
+	if ( ! hejlejo_freebie_on_front_output() || ! hejlejo_get_active_freebie() ) {
+		return $block_content;
+	}
+
+	$content = (string) get_post_field( 'post_content', get_queried_object_id() );
+	$is_hero = ! hejlejo_block_has_class( $block, 'hejlejo-categories' );
+	if ( $is_hero && false !== strpos( $content, 'hejlejo-categories' ) ) {
+		return $block_content; // Kommt noch: dann hinter die Kategorien.
+	}
+
+	hejlejo_freebie_spotlight_shown( true );
+
+	$attrs = hejlejo_freebie_find_attrs( parse_blocks( $content ) );
+
+	return $block_content . render_block(
+		array(
+			'blockName'    => 'hejlejo/freebie-status',
+			'attrs'        => array_merge( $attrs, array( 'variant' => 'spotlight' ) ),
+			'innerBlocks'  => array(),
+			'innerHTML'    => '',
+			'innerContent' => array(),
+		)
+	);
+}
+add_filter( 'render_block_core/group', 'hejlejo_freebie_home_spotlight', 10, 2 );
+add_filter( 'render_block_core/cover', 'hejlejo_freebie_home_spotlight', 10, 2 );
+
+/**
+ * Freebie-Karte (Pattern "Hej Lejo / Freebie"): entfällt, wenn die Aktionsfläche schon oben steht.
+ * Sonst zeigt sie das Produktbild statt der Illustration.
+ *
+ * @param string $block_content HTML.
+ * @param array  $block         Geparster Block.
+ * @return string
+ */
+function hejlejo_freebie_home_card( $block_content, $block ) {
+	if ( ! hejlejo_block_has_class( $block, 'hejlejo-cta--freebie' ) || is_admin() || wp_is_serving_rest_request() ) {
+		return $block_content;
+	}
+	if ( hejlejo_freebie_spotlight_shown() ) {
+		return '';
+	}
+
+	$freebie  = hejlejo_get_active_freebie();
+	$image_id = $freebie ? (int) $freebie->get_image_id() : 0;
+	if ( ! $image_id ) {
+		return $block_content;
+	}
+
+	$html = new WP_HTML_Tag_Processor( $block_content );
+	while ( $html->next_tag( 'figure' ) ) {
+		if ( ! $html->has_class( 'hejlejo-cta__image' ) ) {
+			continue;
+		}
+		if ( $html->next_tag( 'img' ) ) {
+			$html->set_attribute( 'src', (string) wp_get_attachment_image_url( $image_id, 'woocommerce_single' ) );
+			$html->set_attribute( 'srcset', (string) wp_get_attachment_image_srcset( $image_id, 'woocommerce_single' ) );
+			$html->set_attribute( 'sizes', '(max-width: 599px) 100vw, 480px' );
+			$html->set_attribute( 'alt', '' );
+		}
+		break;
+	}
+
+	return $html->get_updated_html();
+}
+add_filter( 'render_block_core/group', 'hejlejo_freebie_home_card', 10, 2 );
