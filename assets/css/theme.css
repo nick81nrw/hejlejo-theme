@@ -35,9 +35,10 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
+/* Mit Ersatzfarben: ohne theme.json-Variablen wäre die Markierung sonst unsichtbar */
 ::selection {
-	background: var(--wp--preset--color--rose-light);
-	color: var(--wp--preset--color--contrast);
+	background: var(--wp--preset--color--rose-light, #f5e4df);
+	color: var(--wp--preset--color--contrast, #3a3330);
 }
 
 img,

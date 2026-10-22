@@ -63,6 +63,28 @@ function hejlejo_setup() {
 }
 add_action( 'after_setup_theme', 'hejlejo_setup' );
 
+/**
+ * Theme-Styles nicht in den klassischen Editor (TinyMCE) laden, z. B. bei der Produktbeschreibung.
+ *
+ * add_editor_style() gilt für Block-Editor und TinyMCE. Im TinyMCE fehlen aber die
+ * Farb-Variablen aus theme.json – die Textmarkierung (::selection) wurde dadurch durchsichtig.
+ * Die Seiten-Styles sind dort ohnehin nicht nötig.
+ *
+ * @param string $stylesheets Kommagetrennte Stylesheet-URLs.
+ * @return string
+ */
+function hejlejo_classic_editor_styles( $stylesheets ) {
+	$theme_css = preg_replace( '#^https?:#', '', HEJLEJO_URI . '/assets/css/' );
+	$kept      = array_filter(
+		array_map( 'trim', explode( ',', (string) $stylesheets ) ),
+		function ( $url ) use ( $theme_css ) {
+			return '' !== $url && 0 !== strpos( preg_replace( '#^https?:#', '', $url ), $theme_css );
+		}
+	);
+	return implode( ',', $kept );
+}
+add_filter( 'mce_css', 'hejlejo_classic_editor_styles' );
+
 add_filter( 'should_load_remote_block_patterns', '__return_false' );
 
 /**
