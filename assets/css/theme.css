@@ -1053,9 +1053,20 @@ ul.is-style-heart li::before {
 	}
 }
 
+/* Steht das Freebie oben auf der Startseite, bleibt die Business-Karte allein: volle Breite, schmaleres Bild */
+.hejlejo-cta-duo > :only-child {
+	grid-column: 1 / -1;
+}
+
+@media (min-width: 600px) {
+	.hejlejo-cta-duo > .wp-block-group.hejlejo-cta:only-child {
+		grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr);
+	}
+}
+
 /* Business + Freebie nebeneinander: Schranklädchen 2/3, Freebie 1/3 (ab Desktop) */
 @media (min-width: 1024px) {
-	.wp-block-group.hejlejo-cta-duo {
+	.wp-block-group.hejlejo-cta-duo:not(:has(> :only-child)) {
 		grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) !important;
 	}
 

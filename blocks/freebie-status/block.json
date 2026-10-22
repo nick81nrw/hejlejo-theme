@@ -14,12 +14,14 @@
 		"activeButton": { "type": "string", "default": "Freebie sichern" },
 		"emptyTitle": { "type": "string", "default": "Freebies gibt’s auf Instagram" },
 		"emptyText": { "type": "string", "default": "Gerade ist kein Freebie aktiv. Folge uns auf Instagram, damit du die nächste Aktion nicht verpasst ♡" },
-		"emptyButton": { "type": "string", "default": "@hej.lejo folgen" }
+		"emptyButton": { "type": "string", "default": "@hej.lejo folgen" },
+		"variant": { "type": "string", "enum": [ "card", "spotlight" ], "default": "card" }
 	},
 	"supports": {
 		"html": false,
 		"spacing": { "margin": true }
 	},
 	"editorScript": "file:./index.js",
+	"viewScript": "file:./view.js",
 	"render": "file:./render.php"
 }
