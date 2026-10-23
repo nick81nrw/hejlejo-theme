@@ -1177,6 +1177,128 @@
 	padding: 0.85rem 1rem;
 }
 
+/*
+ * Download-Tabelle (Bestellbestätigung und Mein Konto → Downloads).
+ * WooCommerce bringt dafür keine Handy-Ansicht mit: vier Spalten passen nicht auf den Bildschirm,
+ * die Seite wird breiter und der Download-Link rutscht aus dem Bild. Auf Handy und Tablet wird jede Zeile
+ * daher zur Karte, der Link ist überall ein Button.
+ */
+.wc-block-order-confirmation-downloads .woocommerce-MyAccount-downloads-file,
+.woocommerce-table--order-downloads .woocommerce-MyAccount-downloads-file {
+	display: inline-block;
+	padding: 0.6rem 1.1rem;
+	border-radius: 6px;
+	background: var(--wp--preset--color--green);
+	color: var(--wp--preset--color--surface);
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 600;
+	line-height: 1.3;
+	text-decoration: none;
+}
+
+.wc-block-order-confirmation-downloads td.download-expires,
+.woocommerce-table--order-downloads td.download-expires {
+	white-space: nowrap;
+}
+
+.wc-block-order-confirmation-downloads .woocommerce-MyAccount-downloads-file:hover,
+.wc-block-order-confirmation-downloads .woocommerce-MyAccount-downloads-file:focus-visible,
+.woocommerce-table--order-downloads .woocommerce-MyAccount-downloads-file:hover,
+.woocommerce-table--order-downloads .woocommerce-MyAccount-downloads-file:focus-visible {
+	background: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--surface);
+}
+
+.wc-block-order-confirmation-downloads .woocommerce-MyAccount-downloads-file::before,
+.woocommerce-table--order-downloads .woocommerce-MyAccount-downloads-file::before {
+	content: "↓";
+	margin-right: 0.45rem;
+}
+
+@media (max-width: 781px) {
+	.wc-block-order-confirmation-downloads table,
+	.wc-block-order-confirmation-downloads tbody,
+	.wc-block-order-confirmation-downloads tr,
+	.wc-block-order-confirmation-downloads td,
+	.woocommerce-table--order-downloads,
+	.woocommerce-table--order-downloads tbody,
+	.woocommerce-table--order-downloads tr,
+	.woocommerce-table--order-downloads td {
+		display: block;
+		box-sizing: border-box;
+		width: 100%;
+	}
+
+	.wc-block-order-confirmation-downloads thead,
+	.woocommerce-table--order-downloads thead {
+		display: none;
+	}
+
+	.wc-block-order-confirmation-downloads table,
+	.woocommerce table.woocommerce-table--order-downloads {
+		border: 0;
+		background: none;
+	}
+
+	.wc-block-order-confirmation-downloads tbody tr,
+	.woocommerce-table--order-downloads tbody tr {
+		margin-bottom: var(--wp--preset--spacing--20);
+		padding: 1rem;
+		border: 1px solid var(--hejlejo-line-soft);
+		border-radius: var(--hejlejo-radius);
+		background: var(--wp--preset--color--surface);
+	}
+
+	.wc-block-order-confirmation-downloads table td,
+	.woocommerce table.woocommerce-table--order-downloads td {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.35rem 0;
+		border: 0;
+		text-align: right !important;
+	}
+
+	.wc-block-order-confirmation-downloads td::before,
+	.woocommerce-table--order-downloads td::before {
+		content: attr(data-title);
+		float: none;
+		color: var(--wp--preset--color--muted);
+		text-align: left;
+	}
+
+	/* Produktname als Überschrift der Karte, ohne Beschriftung */
+	.wc-block-order-confirmation-downloads table td.download-product,
+	.woocommerce table.woocommerce-table--order-downloads td.download-product {
+		display: block;
+		padding-top: 0;
+		font-weight: 600;
+		text-align: left !important;
+	}
+
+	.wc-block-order-confirmation-downloads td.download-product::before,
+	.woocommerce-table--order-downloads td.download-product::before,
+	.wc-block-order-confirmation-downloads td.download-file::before,
+	.woocommerce-table--order-downloads td.download-file::before {
+		content: none;
+	}
+
+	.wc-block-order-confirmation-downloads table td.download-file,
+	.woocommerce table.woocommerce-table--order-downloads td.download-file {
+		display: block;
+		padding: 0.75rem 0 0;
+	}
+
+	.wc-block-order-confirmation-downloads .woocommerce-MyAccount-downloads-file,
+	.woocommerce-table--order-downloads .woocommerce-MyAccount-downloads-file {
+		display: block;
+		padding-block: 0.8rem;
+		text-align: center;
+		white-space: normal;
+		overflow-wrap: anywhere;
+	}
+}
+
 .woocommerce form .form-row label {
 	font-size: var(--wp--preset--font-size--small);
 	font-weight: 500;
