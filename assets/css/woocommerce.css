@@ -1522,11 +1522,16 @@
 		clip-path: inset(0 -100vmax);
 	}
 
+	/*
+	 * Trennlinie, sobald die Zeile oben hängt. Sie reicht genau um den Seitenrand des Themes nach außen,
+	 * also bis an den Bildschirmrand – nicht weiter, sonst wird die Seite breiter und lässt sich seitlich
+	 * verschieben (anders als der Schatten oben zählt dieses Element zur Seitenbreite).
+	 */
 	.hejlejo-shop-layout__filters:has(.hejlejo-catnav)::after {
 		content: "";
 		position: absolute;
-		left: -100vmax;
-		right: -100vmax;
+		left: calc(-1 * var(--wp--style--root--padding-left, 1rem));
+		right: calc(-1 * var(--wp--style--root--padding-right, 1rem));
 		bottom: 0;
 		height: 1px;
 		background: var(--hejlejo-line-soft);
