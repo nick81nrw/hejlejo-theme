@@ -1185,7 +1185,9 @@
  */
 .wc-block-order-confirmation-downloads .woocommerce-MyAccount-downloads-file,
 .woocommerce-table--order-downloads .woocommerce-MyAccount-downloads-file {
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	padding: 0.6rem 1.1rem;
 	border-radius: 6px;
 	background: var(--wp--preset--color--green);
@@ -1249,8 +1251,9 @@
 		background: var(--wp--preset--color--surface);
 	}
 
+	/* Mein Konto: WooCommerce' Handy-Tabelle (shop_table_responsive) hat eigene, spezifischere Regeln */
 	.wc-block-order-confirmation-downloads table td,
-	.woocommerce table.woocommerce-table--order-downloads td {
+	.woocommerce table.woocommerce-table--order-downloads tr td {
 		display: flex;
 		justify-content: space-between;
 		gap: 1rem;
@@ -1259,17 +1262,22 @@
 		text-align: right !important;
 	}
 
+	.woocommerce table.woocommerce-table--order-downloads tr:nth-child(n) td {
+		background: none;
+	}
+
 	.wc-block-order-confirmation-downloads td::before,
-	.woocommerce-table--order-downloads td::before {
+	.woocommerce table.woocommerce-table--order-downloads tr td::before {
 		content: attr(data-title);
 		float: none;
+		font-weight: inherit;
 		color: var(--wp--preset--color--muted);
 		text-align: left;
 	}
 
 	/* Produktname als Überschrift der Karte, ohne Beschriftung */
 	.wc-block-order-confirmation-downloads table td.download-product,
-	.woocommerce table.woocommerce-table--order-downloads td.download-product {
+	.woocommerce table.woocommerce-table--order-downloads tr td.download-product {
 		display: block;
 		padding-top: 0;
 		font-weight: 600;
@@ -1277,21 +1285,22 @@
 	}
 
 	.wc-block-order-confirmation-downloads td.download-product::before,
-	.woocommerce-table--order-downloads td.download-product::before,
+	.woocommerce table.woocommerce-table--order-downloads tr td.download-product::before,
 	.wc-block-order-confirmation-downloads td.download-file::before,
-	.woocommerce-table--order-downloads td.download-file::before {
+	.woocommerce table.woocommerce-table--order-downloads tr td.download-file::before {
 		content: none;
 	}
 
 	.wc-block-order-confirmation-downloads table td.download-file,
-	.woocommerce table.woocommerce-table--order-downloads td.download-file {
+	.woocommerce table.woocommerce-table--order-downloads tr td.download-file {
 		display: block;
 		padding: 0.75rem 0 0;
 	}
 
-	.wc-block-order-confirmation-downloads .woocommerce-MyAccount-downloads-file,
-	.woocommerce-table--order-downloads .woocommerce-MyAccount-downloads-file {
+	.wc-block-order-confirmation-downloads a.woocommerce-MyAccount-downloads-file.button,
+	.woocommerce-table--order-downloads a.woocommerce-MyAccount-downloads-file.button {
 		display: block;
+		min-height: 0;
 		padding-block: 0.8rem;
 		text-align: center;
 		white-space: normal;
@@ -1351,8 +1360,15 @@
  * Mein Konto (klassisch)
  * ---------------------------------------------------------------------- */
 
+/* WooCommerce begrenzt den Kontobereich auf 1000px, die Seitenüberschrift ist aber "weit" – beide bündig */
+.woocommerce-account main .woocommerce {
+	max-width: var(--wp--style--global--wide-size);
+}
+
 .woocommerce-account .woocommerce {
 	display: grid;
+	/* Feste Spalte: sonst richtet sie sich nach dem breitesten Inhalt (Menüzeile) und die Seite wird zu breit */
+	grid-template-columns: minmax(0, 1fr);
 	gap: var(--wp--preset--spacing--40);
 }
 
@@ -1383,6 +1399,21 @@
 	box-shadow: var(--hejlejo-shadow);
 }
 
+/* WooCommerce gibt den Menüpunkten bis zu 1em Abstand oben/unten (Desktop) und unterstreicht den aktiven */
+.woocommerce-account .woocommerce-MyAccount-navigation ul {
+	margin: 0;
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation li,
+.woocommerce-account .woocommerce-MyAccount-navigation li:first-child {
+	padding: 0;
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation li a,
+.woocommerce-account .woocommerce-MyAccount-navigation li.is-active a {
+	text-decoration: none;
+}
+
 .woocommerce-MyAccount-navigation a {
 	display: block;
 	padding: 0.65rem 0.9rem;
@@ -1396,16 +1427,16 @@
 	background: var(--wp--preset--color--cream);
 }
 
+/* Handy & Tablet: Menüpunkte umbrechen – alle sichtbar, auch der aktive und "Abmelden" */
 @media (max-width: 781px) {
 	.woocommerce-MyAccount-navigation ul {
 		display: flex;
-		overflow-x: auto;
+		flex-wrap: wrap;
 		gap: 0.25rem;
-		scrollbar-width: none;
 	}
 
-	.woocommerce-MyAccount-navigation li {
-		flex-shrink: 0;
+	.woocommerce-MyAccount-navigation a {
+		padding: 0.5rem 0.8rem;
 	}
 }
 
@@ -1438,6 +1469,79 @@
 	padding: var(--wp--preset--spacing--40);
 	border-radius: var(--hejlejo-radius);
 	box-shadow: var(--hejlejo-shadow);
+}
+
+/* Adressen: zwei Karten nebeneinander (WooCommerce gibt den Spalten sonst 48% der Rasterzelle) */
+.woocommerce-account .woocommerce-Addresses .woocommerce-Address {
+	width: auto !important;
+	float: none !important;
+	padding: var(--wp--preset--spacing--30);
+	border-radius: var(--hejlejo-radius);
+	background: var(--wp--preset--color--surface);
+	box-shadow: var(--hejlejo-shadow);
+}
+
+@media (min-width: 782px) {
+	.woocommerce-account .woocommerce-Addresses {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+.woocommerce-account .woocommerce-Address-title {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 0.25rem 1rem;
+	margin-bottom: 0.75rem;
+}
+
+/* WooCommerce-Clearfix wäre im Flex-Layout ein eigenes Element und schöbe die Überschrift nach rechts */
+.woocommerce-account .woocommerce-Address-title::before,
+.woocommerce-account .woocommerce-Address-title::after {
+	display: none !important;
+}
+
+.woocommerce-account .woocommerce-Address-title h2 {
+	margin: 0;
+	font-size: var(--wp--preset--font-size--large);
+}
+
+.woocommerce-account .addresses .woocommerce-Address-title .edit {
+	float: none;
+	margin: 0;
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.woocommerce-account .woocommerce-Address address {
+	margin: 0;
+}
+
+/* Bestellungen: WooCommerce macht die Buttons zu Blöcken – Text saß dann oben statt mittig */
+.woocommerce-account .woocommerce-orders-table .woocommerce-orders-table__cell-order-actions a.button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 0.5rem;
+}
+
+.woocommerce-account .woocommerce-orders-table .woocommerce-orders-table__cell-order-actions a.button:last-child {
+	margin-bottom: 0;
+}
+
+/* Handy (WooCommerce-Tabellenansicht bis 768px): Die Bestellnummer ist eine Kopfzelle, die WooCommerce
+   auf dem Handy ausblendet – ohne sie weiß man nicht, welche Bestellung man vor sich hat. */
+@media (max-width: 768px) {
+	.woocommerce-account table.shop_table_responsive.woocommerce-orders-table tbody th {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		font-weight: 600;
+	}
+
+	.woocommerce-account table.shop_table_responsive.woocommerce-orders-table tbody th::before {
+		content: attr(data-title);
+	}
 }
 
 .woocommerce form.login,
